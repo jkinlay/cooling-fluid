@@ -1,0 +1,88 @@
+{
+  "source_repository": "jkinlay/agentic-workflow-framework",
+  "commit": "e7d80a691e2ae0a0b55e54f4e5e91e95e5ca7fe5",
+  "requested_version": "1.9.1",
+  "retrieved_date": "2026-09-28",
+  "manifest_sha256": "d10a180af0109ffda59f70d925dd934c8fb78d9a8016d7ca39086d715f1194bd",
+  "inspection_scope": "Relevant source and contract documentation; not full release acceptance, installation or live qualification.",
+  "files": [
+    {
+      "path": ".agentic/PROJECT_CONFIG.yaml",
+      "sha256": "5ff85cd5016be1ceffe4c61cccc0f3cb34d9d512e838a398d3669ff7b75aad4d",
+      "bytes": 10818,
+      "url": "https://github.com/jkinlay/agentic-workflow-framework/blob/e7d80a691e2ae0a0b55e54f4e5e91e95e5ca7fe5/.agentic/PROJECT_CONFIG.yaml"
+    },
+    {
+      "path": ".agentic/SPECIFICATION.md",
+      "sha256": "5a831cc5c5e319d45c5cfc955c2e77595ca231586bf53b6a7e22a76e74b4c183",
+      "bytes": 7210,
+      "url": "https://github.com/jkinlay/agentic-workflow-framework/blob/e7d80a691e2ae0a0b55e54f4e5e91e95e5ca7fe5/.agentic/SPECIFICATION.md"
+    },
+    {
+      "path": ".agentic/docs/20-NEW-PROJECT-SETUP.md",
+      "sha256": "e095a5bca38c67dbdb91b7a36192b7674148a7659ad5e996a2396dd6b1e05bc1",
+      "bytes": 10249,
+      "url": "https://github.com/jkinlay/agentic-workflow-framework/blob/e7d80a691e2ae0a0b55e54f4e5e91e95e5ca7fe5/.agentic/docs/20-NEW-PROJECT-SETUP.md"
+    },
+    {
+      "path": ".agentic/docs/23-TICKET-LIFECYCLE.md",
+      "sha256": "8ba02c396fd96d79f6d5fd39803a1e3e0082e760686b528f59569942802afa84",
+      "bytes": 6367,
+      "url": "https://github.com/jkinlay/agentic-workflow-framework/blob/e7d80a691e2ae0a0b55e54f4e5e91e95e5ca7fe5/.agentic/docs/23-TICKET-LIFECYCLE.md"
+    },
+    {
+      "path": ".agentic/docs/24-STREAM-STARTUP.md",
+      "sha256": "ef44fc1edd1f5a9d07c16e8d478bcb4e892f29355a483b1b71ce8e89360c12af",
+      "bytes": 4788,
+      "url": "https://github.com/jkinlay/agentic-workflow-framework/blob/e7d80a691e2ae0a0b55e54f4e5e91e95e5ca7fe5/.agentic/docs/24-STREAM-STARTUP.md"
+    },
+    {
+      "path": ".agentic/docs/27-MODEL-ROUTING.md",
+      "sha256": "ee1ec02a06449a22e64374a7c163c94722bbc4b799d79098d2b53b73d4ecff00",
+      "bytes": 9416,
+      "url": "https://github.com/jkinlay/agentic-workflow-framework/blob/e7d80a691e2ae0a0b55e54f4e5e91e95e5ca7fe5/.agentic/docs/27-MODEL-ROUTING.md"
+    },
+    {
+      "path": ".agentic/docs/29-OPERATING-CONFIGURATION.md",
+      "sha256": "e5119e25aa022894c7cc3bb6d38026dc32447638471e470cc92f6ff50c2512f8",
+      "bytes": 6132,
+      "url": "https://github.com/jkinlay/agentic-workflow-framework/blob/e7d80a691e2ae0a0b55e54f4e5e91e95e5ca7fe5/.agentic/docs/29-OPERATING-CONFIGURATION.md"
+    },
+    {
+      "path": ".agentic/docs/30-REVIEW-TIERS-AND-CLOSEOUT.md",
+      "sha256": "51187a4bc0ea90badaaef9e23d8c42bf4a7cdf46c60ac1ecb52ba3cb906b14cd",
+      "bytes": 6419,
+      "url": "https://github.com/jkinlay/agentic-workflow-framework/blob/e7d80a691e2ae0a0b55e54f4e5e91e95e5ca7fe5/.agentic/docs/30-REVIEW-TIERS-AND-CLOSEOUT.md"
+    },
+    {
+      "path": ".agentic/schemas/ticket-contract.schema.json",
+      "sha256": "7a80ce6e039960679f4e96d7729efcc083cbd1f7ecc83f0b40a5b3790c606564",
+      "bytes": 11212,
+      "url": "https://github.com/jkinlay/agentic-workflow-framework/blob/e7d80a691e2ae0a0b55e54f4e5e91e95e5ca7fe5/.agentic/schemas/ticket-contract.schema.json"
+    },
+    {
+      "path": ".agentic/templates/ticket-contract.yaml",
+      "sha256": "963cf6a0012b7007cde73a7d8473d66079fd4791530f4e62a4d7863c685bf776",
+      "bytes": 1924,
+      "url": "https://github.com/jkinlay/agentic-workflow-framework/blob/e7d80a691e2ae0a0b55e54f4e5e91e95e5ca7fe5/.agentic/templates/ticket-contract.yaml"
+    },
+    {
+      "path": ".agentic/workflow-version.yaml",
+      "sha256": "781234dfdfe24a48c7e43186a5fa2ac6d3466b35c9155a2f706eccceca9e8e3b",
+      "bytes": 298,
+      "url": "https://github.com/jkinlay/agentic-workflow-framework/blob/e7d80a691e2ae0a0b55e54f4e5e91e95e5ca7fe5/.agentic/workflow-version.yaml"
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "da8fcad442c66a54c21a3014fb8e37fac3b9effb085a22e3f085e0a8e8e5e047",
+      "bytes": 6013,
+      "url": "https://github.com/jkinlay/agentic-workflow-framework/blob/e7d80a691e2ae0a0b55e54f4e5e91e95e5ca7fe5/AGENTS.md"
+    },
+    {
+      "path": "MANIFEST.json",
+      "sha256": "d10a180af0109ffda59f70d925dd934c8fb78d9a8016d7ca39086d715f1194bd",
+      "bytes": 33433,
+      "url": "https://github.com/jkinlay/agentic-workflow-framework/blob/e7d80a691e2ae0a0b55e54f4e5e91e95e5ca7fe5/MANIFEST.json"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+# Red-team cycle 1 — scientific feasibility and scope
+
+Input: `revisions/Specification_v0.1.md`. Method: adversarial self-review of the written draft, followed by a substantive rewrite. This is not an independently executed AWF critic review. The user identified the canonical GitHub source and requested version 1.9.1 during drafting; the review incorporates that new evidence.
+
+| Finding | Severity | Attack against the draft | Required correction | Disposition in v0.2 |
+|---|---|---|---|---|
+| R1-01 | BLOCKER | Sections 19/21 treat canonical AWF as unavailable and refer to an obsolete overlay, despite the newly supplied source. | Pin actual 1.9.1 files, verify the source manifest and replace inferred workflow rules. | Fixed in sections 19, 21, 23. Remaining target-project adoption is a real later dependency. |
+| R1-02 | MAJOR | The target profile contains missing electrical/fire/lifecycle limits; a worker could mistake a completed profile file for a usable qualification specification. | Separate research-profile completeness from campaign and qualification readiness; hard missing thresholds block only the corresponding claim/action. | Fixed in sections 03 and 16. |
+| R1-03 | MAJOR | G0 requires the environment while the environment epic follows the G0-owning epic, creating ambiguous readiness. | Define a planning baseline followed by runtime readiness; software fixture work must have a noncircular entry route. | Fixed in section 16. |
+| R1-04 | MAJOR | Predictive usefulness and policy improvement have no operational pass criteria; nearly any chart could be accepted as progress. | Define pre-result metric contracts, primary endpoints, uncertainty/precision gates and negative/inconclusive outcomes. | Fixed in sections 10, 11, 16. |
+| R1-05 | MAJOR | Chemical-family withholding is underdefined for largely acyclic candidate chemistry; repeated temperatures and re-published values can leak. | Specify grouped lineage, acyclic-family handling, train-only transforms and sealed revelation rules. | Fixed in section 11. |
+| R1-06 | MAJOR | A laboratory pilot could be represented as proof of AI superiority despite weak power or selectively missing labels. | Separate discovery pilots from a prospective comparative trial; predeclare sample size/precision and failure accounting. | Fixed in sections 11 and 15. |
+| R1-07 | MAJOR | The MVP claims pure-first scope but requires substantial mixture implementation, creating scope creep. | Require mixture-aware schemas initially; gate mixture prediction/optimization behind an explicit lane activation. | Fixed in sections 02, 09 and PHYS-003. |
+| R1-08 | MAJOR | An attractive point prediction inside a narrow boiling window could receive excessive confidence when model error exceeds the design margin. | Tie accuracy and interval informativeness to the actual decision window; never let prediction satisfy a lab-only endpoint. | Fixed in sections 10 and 13. |
+| R1-09 | MINOR | No initial scale limits distinguish a useful vertical slice from a large simulation platform. | Add bounded workload assumptions and incremental delivery milestones, explicitly separate from spending authorization. | Fixed in sections 02 and 16. |
+
+Review conclusion: revise before Jira decomposition. None of these findings establishes physical infeasibility; they expose ways the project could spend resources without answering its declared questions.

@@ -1,0 +1,76 @@
+{
+  "format": "fluid-spec-package-1",
+  "final_spec_version": "1.0",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 1566,
+      "sha256": "db806cc1912236828d326e42f873c341832dc8bef467e000da367bce90520341"
+    },
+    {
+      "path": "Cooling_Fluid_Discovery_Project_Specification_v1.0.md",
+      "bytes": 102101,
+      "sha256": "3aa470414118a3d1e84531ed5c3a64ac5fc37d396c47cee7ef017606a9a8b560"
+    },
+    {
+      "path": "FDE_Requirements_and_Backlog.json",
+      "bytes": 336318,
+      "sha256": "92498378647d741dd47e211046afa6f76fbca85feecaa952cd006a236812adbf"
+    },
+    {
+      "path": "FDE_Jira_Epic_and_Work_Package_Map.md",
+      "bytes": 6730,
+      "sha256": "3ac2b6cec77e7b37278a974a53d771ed311f09e9ef35dd5fb0ab9059d821a5ab"
+    },
+    {
+      "path": "Cooling_Fluid_Discovery_Red_Team_Log.md",
+      "bytes": 11316,
+      "sha256": "af18ccbe69599b1b5335b91a5f4859d4d4894336e9b3619c0b7f7f3ecbb69f44"
+    },
+    {
+      "path": "AWF_1.9.1_Source_Inspection.json",
+      "bytes": 4537,
+      "sha256": "5c2d3babf55d71703c3d9cc7b74ac69fbb066e59f7dffe7e11f767a4a3d45c48"
+    },
+    {
+      "path": "Specification_Package_Validation.json",
+      "bytes": 3501,
+      "sha256": "c3b133e08d1ce0994aeb5002908ad2e55a4ed77163f19c3da1c9a7a5f4c8543f"
+    },
+    {
+      "path": "revisions/Specification_v0.1.md",
+      "bytes": 51783,
+      "sha256": "9b95789f8d2c013d1edfb3928743abb257da512d50d0c7947dc9d38c60897d5d"
+    },
+    {
+      "path": "revisions/Specification_v0.2.md",
+      "bytes": 68156,
+      "sha256": "b9104f32600a7b45365f0f4397eba383f6991b3eb0cb2c78b2a83180a971910d"
+    },
+    {
+      "path": "revisions/Specification_v0.3.md",
+      "bytes": 87122,
+      "sha256": "a9a59d8707b385f61cf0529ae16617197f22229eaeed57ee4c5d1fc2fe7c7137"
+    },
+    {
+      "path": "revisions/Specification_v1.0.md",
+      "bytes": 102101,
+      "sha256": "3aa470414118a3d1e84531ed5c3a64ac5fc37d396c47cee7ef017606a9a8b560"
+    },
+    {
+      "path": "reviews/Red_Team_01.md",
+      "bytes": 3408,
+      "sha256": "6a008f789f8f929d571cb5ee974815d6dfcf254df54dd9cdab8550d84c10b6c3"
+    },
+    {
+      "path": "reviews/Red_Team_02.md",
+      "bytes": 3683,
+      "sha256": "588105790dc8bf1b2d8adea0d64cac5fe0e6e629e326c641067735a87dce066f"
+    },
+    {
+      "path": "reviews/Red_Team_03.md",
+      "bytes": 3914,
+      "sha256": "04faf72294f46164b3980357c9069ae61d00bf72e910298fba181a3ab3e909ae"
+    }
+  ]
+}

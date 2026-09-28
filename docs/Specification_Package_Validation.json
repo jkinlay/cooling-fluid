@@ -1,0 +1,176 @@
+{
+  "artifact_type": "SPECIFICATION_PACKAGE_QA",
+  "passed": true,
+  "scope": "Document/backlog/source-pin integrity only; no product runtime, scientific or live AWF testing.",
+  "counts": {
+    "epics": 15,
+    "requirements": 63,
+    "work_packages": 63,
+    "review_cycles": 3,
+    "final_spec_words": 13305,
+    "increments": {
+      "M0": 9,
+      "M1": 37,
+      "M2": 7,
+      "M3": 7,
+      "EXT": 3
+    }
+  },
+  "checks": [
+    {
+      "check": "unique_requirement_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "unique_work_package_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "unique_epic_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "every_requirement_has_work_package",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "all_dependencies_resolve",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "all_requirement_epics_resolve",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "dependency_graph_acyclic",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "m0_m1_not_blocked_by_later_increments",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "all_requirements_present_in_spec",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "all_epics_present_in_spec",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "no_unexpanded_document_markers",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "exactly_three_review_logs",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "four_complete_revision_snapshots",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "final_matches_retained_snapshot",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "awf_source_manifest_pin_matches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "awf_schema_revision_is_3",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "awf_contract_fields_documented",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "planning_records_not_claimed_runtime_ready",
+      "passed": true,
+      "detail": ""
+    }
+  ],
+  "topological_work_package_order": [
+    "FDE-E00-W01",
+    "FDE-E00-W03",
+    "FDE-E01-W02",
+    "FDE-E00-W02",
+    "FDE-E01-W01",
+    "FDE-E01-W03",
+    "FDE-E01-W04",
+    "FDE-E01-W05",
+    "FDE-E02-W01",
+    "FDE-E02-W02",
+    "FDE-E02-W03",
+    "FDE-E02-W04",
+    "FDE-E02-W05",
+    "FDE-E02-W06",
+    "FDE-E03-W01",
+    "FDE-E03-W02",
+    "FDE-E01-W06",
+    "FDE-E03-W03",
+    "FDE-E03-W04",
+    "FDE-E04-W01",
+    "FDE-E04-W02",
+    "FDE-E04-W03",
+    "FDE-E04-W04",
+    "FDE-E02-W07",
+    "FDE-E05-W01",
+    "FDE-E05-W02",
+    "FDE-E05-W03",
+    "FDE-E05-W04",
+    "FDE-E05-W05",
+    "FDE-E06-W01",
+    "FDE-E06-W02",
+    "FDE-E06-W03",
+    "FDE-E06-W04",
+    "FDE-E06-W05",
+    "FDE-E07-W01",
+    "FDE-E07-W02",
+    "FDE-E07-W03",
+    "FDE-E07-W04",
+    "FDE-E08-W01",
+    "FDE-E08-W02",
+    "FDE-E08-W03",
+    "FDE-E08-W04",
+    "FDE-E09-W01",
+    "FDE-E09-W03",
+    "FDE-E09-W04",
+    "FDE-E09-W05",
+    "FDE-E09-W02",
+    "FDE-E10-W01",
+    "FDE-E10-W02",
+    "FDE-E10-W03",
+    "FDE-E10-W04",
+    "FDE-E11-W01",
+    "FDE-E11-W02",
+    "FDE-E11-W03",
+    "FDE-E12-W01",
+    "FDE-E12-W02",
+    "FDE-E12-W03",
+    "FDE-E13-W01",
+    "FDE-E13-W02",
+    "FDE-E14-W01",
+    "FDE-E14-W02",
+    "FDE-E14-W03",
+    "FDE-E14-W04"
+  ]
+}
