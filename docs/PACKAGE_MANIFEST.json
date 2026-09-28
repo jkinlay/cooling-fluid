@@ -1,41 +1,97 @@
 {
   "format": "fluid-spec-package-1",
-  "final_spec_version": "1.0",
+  "final_spec_version": "1.1",
+  "scope": "All package files except this manifest and the containing v1.1 ZIP; v1.0 archive retained as history.",
   "files": [
-    {
-      "path": "README.md",
-      "bytes": 1566,
-      "sha256": "db806cc1912236828d326e42f873c341832dc8bef467e000da367bce90520341"
-    },
-    {
-      "path": "Cooling_Fluid_Discovery_Project_Specification_v1.0.md",
-      "bytes": 102101,
-      "sha256": "3aa470414118a3d1e84531ed5c3a64ac5fc37d396c47cee7ef017606a9a8b560"
-    },
-    {
-      "path": "FDE_Requirements_and_Backlog.json",
-      "bytes": 336318,
-      "sha256": "92498378647d741dd47e211046afa6f76fbca85feecaa952cd006a236812adbf"
-    },
-    {
-      "path": "FDE_Jira_Epic_and_Work_Package_Map.md",
-      "bytes": 6730,
-      "sha256": "3ac2b6cec77e7b37278a974a53d771ed311f09e9ef35dd5fb0ab9059d821a5ab"
-    },
-    {
-      "path": "Cooling_Fluid_Discovery_Red_Team_Log.md",
-      "bytes": 11316,
-      "sha256": "af18ccbe69599b1b5335b91a5f4859d4d4894336e9b3619c0b7f7f3ecbb69f44"
-    },
     {
       "path": "AWF_1.9.1_Source_Inspection.json",
       "bytes": 4537,
       "sha256": "5c2d3babf55d71703c3d9cc7b74ac69fbb066e59f7dffe7e11f767a4a3d45c48"
     },
     {
+      "path": "CHANGELOG.md",
+      "bytes": 1238,
+      "sha256": "568444a2ff5d1d0b9787ff6a8fbccbd1ddd2eccfcdcbb88246759158dfb865c9"
+    },
+    {
+      "path": "Cooling_Fluid_Discovery_Project_Specification_v1.0.md",
+      "bytes": 439,
+      "sha256": "ee0f7f323f183a124200cb1cf185b472f2b8ae3edcbfd3a2e4305dc0f316165c"
+    },
+    {
+      "path": "Cooling_Fluid_Discovery_Project_Specification_v1.1.md",
+      "bytes": 110312,
+      "sha256": "ebae279f4ea14c2e276550322452892c8e1c970d24dc747ae885d5bb8c179b78"
+    },
+    {
+      "path": "Cooling_Fluid_Discovery_Red_Team_Log.md",
+      "bytes": 11711,
+      "sha256": "008e2ed95e437f4ded4dbd59bbb01465fa4c918bdd508514e37054a7eabe0058"
+    },
+    {
+      "path": "Cooling_Fluid_Discovery_Specification_Package_v1.0.zip",
+      "bytes": 182164,
+      "sha256": "06f32ea1088ae90345bc6db544908285865fc90c188cd587685bf1ec2135a3ea"
+    },
+    {
+      "path": "FDE_Jira_Epic_and_Work_Package_Map.md",
+      "bytes": 5399,
+      "sha256": "fcec12867add1a65a7c435fa23aaa1c2461d81a490a4d60ac51a8562653a458c"
+    },
+    {
+      "path": "FDE_Requirements_and_Backlog.json",
+      "bytes": 449587,
+      "sha256": "e22463889597ffd59f32353cfedb553987741d33e0f4996e4bfb5ad48a21e5bd"
+    },
+    {
+      "path": "Feasibility_Decision_Template.json",
+      "bytes": 1009,
+      "sha256": "14dc37b38916a916af22e60395e16e7577294c4659245ce373add2e3f5c000cb"
+    },
+    {
+      "path": "M0_Feasibility_Study.md",
+      "bytes": 14379,
+      "sha256": "41ba3751aca5e2bc6b1bafa6296f5780ad7700d741a3b8b2128e8cdb908903b9"
+    },
+    {
+      "path": "M0_Study_Control_Template.json",
+      "bytes": 1526,
+      "sha256": "4c12c91a4f1a392b5b94b3a0f6c0514f8888ad41978230dcbd94d6841d0a9d15"
+    },
+    {
+      "path": "README.md",
+      "bytes": 2551,
+      "sha256": "bfb47db365cbd0eab292aad42ee180e2a58de544d187a495fa4111612f223f0d"
+    },
+    {
       "path": "Specification_Package_Validation.json",
-      "bytes": 3501,
-      "sha256": "c3b133e08d1ce0994aeb5002908ad2e55a4ed77163f19c3da1c9a7a5f4c8543f"
+      "bytes": 6506,
+      "sha256": "fd33f9fd9a4fcb7a68aa673c6f62dcc84145f9b60ec917894506c7679ebb0238"
+    },
+    {
+      "path": "reviews/Red_Team_01.md",
+      "bytes": 3408,
+      "sha256": "6a008f789f8f929d571cb5ee974815d6dfcf254df54dd9cdab8550d84c10b6c3"
+    },
+    {
+      "path": "reviews/Red_Team_02.md",
+      "bytes": 3683,
+      "sha256": "588105790dc8bf1b2d8adea0d64cac5fe0e6e629e326c641067735a87dce066f"
+    },
+    {
+      "path": "reviews/Red_Team_03.md",
+      "bytes": 3914,
+      "sha256": "04faf72294f46164b3980357c9069ae61d00bf72e910298fba181a3ab3e909ae"
+    },
+    {
+      "path": "reviews/Red_Team_04_Disposition.md",
+      "bytes": 8101,
+      "sha256": "bd23f95b118e848eae92eddba54a4e36ee99b21466db7a2a66a9a2c357b5b8db"
+    },
+    {
+      "path": "reviews/Red_Team_04_External.md",
+      "bytes": 17301,
+      "sha256": "a47a95a3f6818087a70efa5643361f0ef3f432b5af248e4192c076ec25c5cf73"
     },
     {
       "path": "revisions/Specification_v0.1.md",
@@ -58,19 +114,9 @@
       "sha256": "3aa470414118a3d1e84531ed5c3a64ac5fc37d396c47cee7ef017606a9a8b560"
     },
     {
-      "path": "reviews/Red_Team_01.md",
-      "bytes": 3408,
-      "sha256": "6a008f789f8f929d571cb5ee974815d6dfcf254df54dd9cdab8550d84c10b6c3"
-    },
-    {
-      "path": "reviews/Red_Team_02.md",
-      "bytes": 3683,
-      "sha256": "588105790dc8bf1b2d8adea0d64cac5fe0e6e629e326c641067735a87dce066f"
-    },
-    {
-      "path": "reviews/Red_Team_03.md",
-      "bytes": 3914,
-      "sha256": "04faf72294f46164b3980357c9069ae61d00bf72e910298fba181a3ab3e909ae"
+      "path": "tools/validate_specification_package.py",
+      "bytes": 11287,
+      "sha256": "609d46f5814289e36bed4770d4a0e7a1576501a403628380d542cf315b0ec9ca"
     }
   ]
 }

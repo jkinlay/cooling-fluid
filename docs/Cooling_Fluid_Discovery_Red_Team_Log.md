@@ -1,3 +1,7 @@
+# Review history — current status v1.1
+
+The three historical drafting self-reviews below are retained unchanged. Their v1.0 build-sequence conclusion is superseded by [external cycle 4 disposition](reviews/Red_Team_04_Disposition.md). The supplied review is in [Red_Team_04_External.md](reviews/Red_Team_04_External.md). Document corrections do not constitute completed feasibility evidence.
+
 # Cooling Fluid Discovery — Three-Cycle Red-Team Record
 
 Final specification: v1.0, 28 September 2026.

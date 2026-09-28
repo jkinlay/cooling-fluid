@@ -1,176 +1,230 @@
 {
-  "artifact_type": "SPECIFICATION_PACKAGE_QA",
-  "passed": true,
-  "scope": "Document/backlog/source-pin integrity only; no product runtime, scientific or live AWF testing.",
+  "document_version": "1.1",
+  "validation_scope": "Planning-document structure, traceability and preserved history; not chemistry, runtime, laboratory, buyer or AWF execution.",
+  "all_checks_pass": true,
+  "check_count": 39,
   "counts": {
-    "epics": 15,
-    "requirements": 63,
-    "work_packages": 63,
-    "review_cycles": 3,
-    "final_spec_words": 13305,
+    "epics": 16,
+    "requirements": 73,
+    "work_packages": 73,
+    "m0_procedures": 9,
+    "m0_acceptance_cases": 27,
     "increments": {
-      "M0": 9,
-      "M1": 37,
-      "M2": 7,
+      "M1": 36,
+      "EXT": 3,
+      "M2_MODEL": 9,
+      "M2_POLICY": 2,
+      "M2_COMPUTE": 4,
+      "M2_ACTIONS": 3,
       "M3": 7,
-      "EXT": 3
+      "M0": 9
     }
   },
   "checks": [
     {
-      "check": "unique_requirement_ids",
+      "check": "version_and_counts",
       "passed": true,
-      "detail": ""
+      "detail": {
+        "requirements": 73,
+        "packages": 73,
+        "epics": 16
+      }
     },
     {
-      "check": "unique_work_package_ids",
+      "check": "unique_identifiers",
       "passed": true,
-      "detail": ""
+      "detail": "IDs are unique within each catalogue"
     },
     {
-      "check": "unique_epic_ids",
+      "check": "one_package_per_requirement",
       "passed": true,
-      "detail": ""
+      "detail": "Complete one-to-one planning coverage"
     },
     {
-      "check": "every_requirement_has_work_package",
+      "check": "epic_membership",
       "passed": true,
-      "detail": ""
+      "detail": "Epics exactly cover their packages"
     },
     {
-      "check": "all_dependencies_resolve",
+      "check": "dependency_references",
       "passed": true,
-      "detail": ""
+      "detail": "All predecessors resolve"
     },
     {
-      "check": "all_requirement_epics_resolve",
+      "check": "acyclic_graph",
       "passed": true,
-      "detail": ""
+      "detail": "All 73 packages visited without a dependency cycle"
     },
     {
-      "check": "dependency_graph_acyclic",
+      "check": "m0_nine_tasks_without_software",
       "passed": true,
-      "detail": ""
+      "detail": "M0 dependencies are exclusively desk procedures"
     },
     {
-      "check": "m0_m1_not_blocked_by_later_increments",
+      "check": "later_work_requires_g0",
       "passed": true,
-      "detail": ""
+      "detail": "Every conditional package has the desk decision as an ancestor"
     },
     {
-      "check": "all_requirements_present_in_spec",
+      "check": "m1_independent_of_optional_stages",
       "passed": true,
-      "detail": ""
+      "detail": "No M1 package depends on M2, M3 or EXT"
     },
     {
-      "check": "all_epics_present_in_spec",
+      "check": "runtime_choice_precedes_core",
       "passed": true,
-      "detail": ""
+      "detail": "Core headless implementation requires the bounded runtime decision"
     },
     {
-      "check": "no_unexpanded_document_markers",
+      "check": "models_and_policy_are_optional",
       "passed": true,
-      "detail": ""
+      "detail": "Model/benchmark/policy comparison requirements are outside M1"
     },
     {
-      "check": "exactly_three_review_logs",
+      "check": "external_actions_require_ledger",
       "passed": true,
-      "detail": ""
+      "detail": "Compute dispatch and physical campaign design retain accounting prerequisites"
     },
     {
-      "check": "four_complete_revision_snapshots",
+      "check": "ledger_independent_of_policy_research",
       "passed": true,
-      "detail": ""
+      "detail": "Action accounting can operate without ML training or policy-superiority research"
     },
     {
-      "check": "final_matches_retained_snapshot",
+      "check": "m0_concrete_cases",
       "passed": true,
-      "detail": ""
+      "detail": "Nine distinct positive/negative/boundary triads"
     },
     {
-      "check": "awf_source_manifest_pin_matches",
+      "check": "manual_validation_honesty",
       "passed": true,
-      "detail": ""
+      "detail": "No invented runtime commands for desk procedures"
     },
     {
-      "check": "awf_schema_revision_is_3",
+      "check": "risk_tier_differentiation",
       "passed": true,
-      "detail": ""
+      "detail": {
+        "2": 6,
+        "1": 3
+      }
     },
     {
-      "check": "awf_contract_fields_documented",
+      "check": "planning_not_runtime",
       "passed": true,
-      "detail": ""
+      "detail": "No READY contracts or completed scientific gates asserted"
     },
     {
-      "check": "planning_records_not_claimed_runtime_ready",
+      "check": "later_acceptance_explicitly_deferred",
       "passed": true,
-      "detail": ""
+      "detail": "Implementation acceptance still requires actual scope and commands"
+    },
+    {
+      "check": "input_dependency_consistency",
+      "passed": true,
+      "detail": "Input records match graph edges"
+    },
+    {
+      "check": "specification_hash",
+      "passed": true,
+      "detail": "Backlog binds exact operative specification bytes"
+    },
+    {
+      "check": "requirement_text_consistency",
+      "passed": true,
+      "detail": "All normative requirement rows match the JSON catalogue"
+    },
+    {
+      "check": "map_coverage",
+      "passed": true,
+      "detail": "Every package appears in the readable map"
+    },
+    {
+      "check": "awf_pin_unchanged",
+      "passed": true,
+      "detail": "Requested compatibility baseline retained; no adoption claimed"
+    },
+    {
+      "check": "actual_repository_binding",
+      "passed": true,
+      "detail": "Observed GitHub identity bound; unknown Jira/policy fields remain unresolved"
+    },
+    {
+      "check": "unaccepted_control_and_decision",
+      "passed": true,
+      "detail": "Templates do not assert approval, study completion or paid commitments"
+    },
+    {
+      "check": "supplied_review_byte_integrity",
+      "passed": true,
+      "detail": "Supplied review retained at its recorded input hash"
+    },
+    {
+      "check": "external_findings_covered",
+      "passed": true,
+      "detail": "All 19 external findings have explicit dispositions"
+    },
+    {
+      "check": "original_identifiers_preserved",
+      "passed": true,
+      "detail": "All original 63 requirement/package identities retained"
+    },
+    {
+      "check": "historical_bytes:AWF_1.9.1_Source_Inspection.json",
+      "passed": true,
+      "detail": "Unchanged historical evidence"
+    },
+    {
+      "check": "historical_bytes:revisions/Specification_v0.1.md",
+      "passed": true,
+      "detail": "Unchanged historical evidence"
+    },
+    {
+      "check": "historical_bytes:revisions/Specification_v0.2.md",
+      "passed": true,
+      "detail": "Unchanged historical evidence"
+    },
+    {
+      "check": "historical_bytes:revisions/Specification_v0.3.md",
+      "passed": true,
+      "detail": "Unchanged historical evidence"
+    },
+    {
+      "check": "historical_bytes:revisions/Specification_v1.0.md",
+      "passed": true,
+      "detail": "Unchanged historical evidence"
+    },
+    {
+      "check": "historical_bytes:reviews/Red_Team_01.md",
+      "passed": true,
+      "detail": "Unchanged historical evidence"
+    },
+    {
+      "check": "historical_bytes:reviews/Red_Team_02.md",
+      "passed": true,
+      "detail": "Unchanged historical evidence"
+    },
+    {
+      "check": "historical_bytes:reviews/Red_Team_03.md",
+      "passed": true,
+      "detail": "Unchanged historical evidence"
+    },
+    {
+      "check": "superseded_entrypoint",
+      "passed": true,
+      "detail": "Current entrypoints route to v1.1"
+    },
+    {
+      "check": "no_template_markers",
+      "passed": true,
+      "detail": "Generated tables expanded"
+    },
+    {
+      "check": "operative_local_links",
+      "passed": true,
+      "detail": "Current document links resolve; historical snapshots retain their original context"
     }
   ],
-  "topological_work_package_order": [
-    "FDE-E00-W01",
-    "FDE-E00-W03",
-    "FDE-E01-W02",
-    "FDE-E00-W02",
-    "FDE-E01-W01",
-    "FDE-E01-W03",
-    "FDE-E01-W04",
-    "FDE-E01-W05",
-    "FDE-E02-W01",
-    "FDE-E02-W02",
-    "FDE-E02-W03",
-    "FDE-E02-W04",
-    "FDE-E02-W05",
-    "FDE-E02-W06",
-    "FDE-E03-W01",
-    "FDE-E03-W02",
-    "FDE-E01-W06",
-    "FDE-E03-W03",
-    "FDE-E03-W04",
-    "FDE-E04-W01",
-    "FDE-E04-W02",
-    "FDE-E04-W03",
-    "FDE-E04-W04",
-    "FDE-E02-W07",
-    "FDE-E05-W01",
-    "FDE-E05-W02",
-    "FDE-E05-W03",
-    "FDE-E05-W04",
-    "FDE-E05-W05",
-    "FDE-E06-W01",
-    "FDE-E06-W02",
-    "FDE-E06-W03",
-    "FDE-E06-W04",
-    "FDE-E06-W05",
-    "FDE-E07-W01",
-    "FDE-E07-W02",
-    "FDE-E07-W03",
-    "FDE-E07-W04",
-    "FDE-E08-W01",
-    "FDE-E08-W02",
-    "FDE-E08-W03",
-    "FDE-E08-W04",
-    "FDE-E09-W01",
-    "FDE-E09-W03",
-    "FDE-E09-W04",
-    "FDE-E09-W05",
-    "FDE-E09-W02",
-    "FDE-E10-W01",
-    "FDE-E10-W02",
-    "FDE-E10-W03",
-    "FDE-E10-W04",
-    "FDE-E11-W01",
-    "FDE-E11-W02",
-    "FDE-E11-W03",
-    "FDE-E12-W01",
-    "FDE-E12-W02",
-    "FDE-E12-W03",
-    "FDE-E13-W01",
-    "FDE-E13-W02",
-    "FDE-E14-W01",
-    "FDE-E14-W02",
-    "FDE-E14-W03",
-    "FDE-E14-W04"
-  ]
+  "scientific_work_executed": false,
+  "independent_professional_reviews_obtained": false,
+  "awf_adoption_performed": false
 }

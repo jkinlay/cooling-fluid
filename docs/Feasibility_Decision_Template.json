@@ -1,0 +1,35 @@
+{
+  "record_type": "UNFILLED_FEASIBILITY_DECISION_TEMPLATE",
+  "version": "1.1",
+  "status": "NOT_DECIDED",
+  "allowed_outcomes": [
+    "STOP_DOMAIN",
+    "INCONCLUSIVE",
+    "CONTINUE_LIMITED_OFFLINE",
+    "CONTINUE"
+  ],
+  "outcome": null,
+  "owner": null,
+  "decision_date": null,
+  "dossier_sha256": null,
+  "profile_id": null,
+  "profile_version": null,
+  "candidate_universe_id": null,
+  "scope_of_inference": null,
+  "value_thesis": null,
+  "hard_constraint_summary": null,
+  "critical_unknowns": [],
+  "review_status": {
+    "chemistry": null,
+    "thermal": null,
+    "owner_attested_only": null
+  },
+  "cost_basis": null,
+  "accepted_capacity": null,
+  "authorized_work_package_ids": [],
+  "physical_work_authorized": false,
+  "publication_authorized_for_candidate_results": false,
+  "next_review_deadline": null,
+  "rationale": null,
+  "rules": "Missing values cannot be interpreted as approval. CONTINUE_LIMITED_OFFLINE names specific packages and does not release all M1 or any physical work."
+}
