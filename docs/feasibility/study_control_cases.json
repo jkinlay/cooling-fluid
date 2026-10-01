@@ -1,6 +1,6 @@
 {
   "record_type": "FDE-FEAS-001 synthetic control-case inputs",
-  "version": "1.1",
+  "version": "1.2",
   "base_control": "docs/feasibility/study_control.json",
   "cases": [
     {
@@ -59,6 +59,30 @@
       "expected_reasons": ["acceptance_scope_mismatch"]
     },
     {
+      "id": "NEGATIVE_UNSUPPORTED_CAP_RAISE",
+      "input_scenario": "Synthetic copy claiming the 120-hour cap without its owner amendment",
+      "as_of_date": "2026-10-01",
+      "remove": ["research_cap_amendments"],
+      "expected": "PROPOSED_NOT_STARTED",
+      "expected_reasons": ["acceptance_scope_mismatch"]
+    },
+    {
+      "id": "NEGATIVE_AMENDMENT_SCOPE_REMOVED",
+      "input_scenario": "Synthetic copy with the cap-only amendment scope removed",
+      "as_of_date": "2026-10-01",
+      "amendment_remove": ["scope"],
+      "expected": "PROPOSED_NOT_STARTED",
+      "expected_reasons": ["acceptance_scope_mismatch"]
+    },
+    {
+      "id": "NEGATIVE_AMENDMENT_CHANNEL_TAMPERED",
+      "input_scenario": "Synthetic copy claiming an unverified amendment channel",
+      "as_of_date": "2026-10-01",
+      "amendment_set": {"channel": "unverified"},
+      "expected": "PROPOSED_NOT_STARTED",
+      "expected_reasons": ["acceptance_scope_mismatch"]
+    },
+    {
       "id": "NEGATIVE_INVALID_ACCEPTANCE_DATE",
       "input_scenario": "Synthetic copy with an invalid acceptance date",
       "as_of_date": "2026-10-01",
@@ -83,10 +107,18 @@
       "expected_reasons": ["invalid_consumed_hours"]
     },
     {
-      "id": "BOUNDARY_HOUR_CAP",
-      "input_scenario": "Synthetic copy at exactly 40 shared research hours with unresolved decisive evidence",
+      "id": "BOUNDARY_PRIOR_CAP_NO_STOP",
+      "input_scenario": "Synthetic copy at the superseded initial 40-hour cap within the amended 120-hour limit",
       "as_of_date": "2026-10-01",
-      "set": {"actual_research_hours": 40, "decisive_evidence_status": "UNRESOLVED"},
+      "set": {"actual_research_hours": 40},
+      "expected": "PUBLIC_DESK_ONLY",
+      "expected_reasons": ["within_accepted_date_and_hour_caps"]
+    },
+    {
+      "id": "BOUNDARY_HOUR_CAP",
+      "input_scenario": "Synthetic copy at exactly 120 shared research hours with unresolved decisive evidence",
+      "as_of_date": "2026-10-01",
+      "set": {"actual_research_hours": 120, "decisive_evidence_status": "UNRESOLVED"},
       "expected": "STOP_PENDING_OWNER_DECISION",
       "expected_reasons": ["research_hour_cap_reached", "decisive_evidence_unresolved"]
     },
@@ -94,7 +126,7 @@
       "id": "BOUNDARY_LAST_ACCEPTED_DAY",
       "input_scenario": "Synthetic copy on 14 October, the last accepted working day, below the shared hour cap",
       "as_of_date": "2026-10-14",
-      "set": {"actual_research_hours": 39},
+      "set": {"actual_research_hours": 119},
       "expected": "PUBLIC_DESK_ONLY",
       "expected_reasons": ["within_accepted_date_and_hour_caps"]
     },

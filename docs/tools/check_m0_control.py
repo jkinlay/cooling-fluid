@@ -17,6 +17,10 @@ REQUIRED_POSITIVE_NUMBERS = (
     "accepted_owner_hours_per_week",
 )
 REQUIRED_OUTCOMES = ("STOP_DOMAIN", "INCONCLUSIVE", "CONTINUE")
+CAP_ONLY_SCOPE = (
+    "Research-hour ceiling only; the accepted 14 October deadline, owner-review limits, "
+    "zero external spend and public desk-study restrictions remain unchanged."
+)
 
 
 def _valid_date(value: object) -> bool:
@@ -52,13 +56,48 @@ def evaluate(record: dict, as_of_date: str) -> tuple[str, list[str]]:
         expected_terms = {
             "start_date": record.get("accepted_start_date"),
             "review_deadline": record.get("accepted_review_deadline"),
-            "research_hours_cap": record.get("accepted_research_hours_cap"),
             "owner_hours_total": record.get("accepted_owner_hours_total"),
             "owner_hours_per_week": record.get("accepted_owner_hours_per_week"),
             "external_spend_cap_gbp": record.get("accepted_external_spend_cap_gbp"),
             "public_desk_only": True,
         }
         if not isinstance(terms, dict) or any(terms.get(k) != v for k, v in expected_terms.items()):
+            reasons.append("acceptance_scope_mismatch")
+        initial_cap = terms.get("research_hours_cap") if isinstance(terms, dict) else None
+        effective_cap = initial_cap
+        amendments = record.get("research_cap_amendments", [])
+        if not isinstance(initial_cap, (int, float)) or isinstance(initial_cap, bool) or initial_cap <= 0:
+            reasons.append("acceptance_scope_mismatch")
+        if not isinstance(amendments, list):
+            reasons.append("acceptance_scope_mismatch")
+        else:
+            for amendment in amendments:
+                if not isinstance(amendment, dict):
+                    reasons.append("acceptance_scope_mismatch")
+                    break
+                previous = amendment.get("previous_shared_research_hours_cap")
+                increased = amendment.get("accepted_shared_research_hours_cap")
+                response = amendment.get("response")
+                valid = (
+                    _valid_date(amendment.get("date"))
+                    and amendment.get("channel") == "Codex conversation"
+                    and amendment.get("owner") == record.get("owner_account")
+                    and amendment.get("scope") == CAP_ONLY_SCOPE
+                    and isinstance(previous, (int, float))
+                    and not isinstance(previous, bool)
+                    and previous == effective_cap
+                    and isinstance(increased, (int, float))
+                    and not isinstance(increased, bool)
+                    and increased > previous
+                    and response == f"I am authorizing an increase in the number of research hours to {increased:g}"
+                    and amendment["date"] >= evidence["date"]
+                    and amendment["date"] <= as_of_date
+                )
+                if not valid:
+                    reasons.append("acceptance_scope_mismatch")
+                    break
+                effective_cap = increased
+        if effective_cap != record.get("accepted_research_hours_cap"):
             reasons.append("acceptance_scope_mismatch")
         if _valid_date(evidence.get("date")) and evidence["date"] != record.get("accepted_start_date"):
             reasons.append("acceptance_start_date_mismatch")
@@ -123,6 +162,11 @@ def main() -> None:
         record.update(case.get("set", {}))
         record.get("acceptance_evidence", {}).update(case.get("evidence_set", {}))
         record.get("acceptance_evidence", {}).get("accepted_terms", {}).update(case.get("evidence_terms_set", {}))
+        amendment_records = record.get("research_cap_amendments")
+        if isinstance(amendment_records, list) and amendment_records and isinstance(amendment_records[0], dict):
+            for key in case.get("amendment_remove", []):
+                amendment_records[0].pop(key, None)
+            amendment_records[0].update(case.get("amendment_set", {}))
         observed, reasons = evaluate(record, case["as_of_date"])
         reasons_match = all(reason in reasons for reason in case.get("expected_reasons", []))
         results.append({

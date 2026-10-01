@@ -1,6 +1,6 @@
 {
   "record_type": "ACCEPTED_M0_STUDY_CONTROL",
-  "version": "1.1",
+  "version": "1.2",
   "status": "ACCEPTED",
   "epic": "CFD-1",
   "owner_account": "jkinlay",
@@ -13,7 +13,7 @@
   "proposed_research_hours_cap": 40,
   "proposed_owner_hours_total": 8,
   "proposed_owner_hours_per_week": 4,
-  "accepted_research_hours_cap": 40,
+  "accepted_research_hours_cap": 120,
   "accepted_owner_hours_total": 8,
   "accepted_owner_hours_per_week": 4,
   "actual_research_hours": 0,
@@ -46,9 +46,20 @@
       "public_desk_only": true
     }
   },
+  "research_cap_amendments": [
+    {
+      "date": "2026-10-01",
+      "channel": "Codex conversation",
+      "owner": "jkinlay",
+      "response": "I am authorizing an increase in the number of research hours to 120",
+      "previous_shared_research_hours_cap": 40,
+      "accepted_shared_research_hours_cap": 120,
+      "scope": "Research-hour ceiling only; the accepted 14 October deadline, owner-review limits, zero external spend and public desk-study restrictions remain unchanged."
+    }
+  ],
   "runtime_spike_hours_cap": null,
   "runtime_spike_spend_cap": null,
-  "note": "Owner acceptance applies to the stated shared limits and public desk research. It does not authorize outreach, paid computation, purchases, experiments, candidate-level publication, or work beyond the cap/deadline. AWF dispatch and Jira lifecycle writes remain subject to their separate gates.",
+  "note": "The owner increased only the shared research-hour cap to 120 on 1 October 2026. Public desk research remains bounded by the accepted deadline and other limits. This does not authorize outreach, paid computation, purchases, experiments, candidate-level publication, or work beyond the cap/deadline. AWF dispatch and Jira lifecycle writes remain subject to their separate gates.",
   "accepted_start_date": "2026-10-01",
   "accepted_external_spend_cap_gbp": 0,
   "schedule_basis": "The 29 Sep–12 Oct template proposal was superseded by owner acceptance on 1 Oct 2026; ten working days counted inclusively gives 14 Oct 2026.",
