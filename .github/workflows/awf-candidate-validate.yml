@@ -1,0 +1,177 @@
+name: AWF candidate checks
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: awf/planning-package
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out tested merge with full history
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+      - name: Set up Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with:
+          python-version: '3.12'
+      - name: Install pinned AWF dependencies
+        run: |
+          python -m pip install --require-hashes --only-binary=:all: -r .agentic/requirements.lock
+      - name: Verify AWF installation and configuration
+        run: |
+          python -B -I .agentic/scripts/workflow.py verify-installation > "$RUNNER_TEMP/awf-installation.json"
+          python -B -I .agentic/scripts/workflow.py validate-config > "$RUNNER_TEMP/awf-config.json"
+      - name: Validate tested merge and capture results
+        env:
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          TESTED_MERGE_SHA: ${{ github.sha }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          python -B docs/tools/validate_specification_package.py > "$RUNNER_TEMP/awf-planning.json"
+          python -I - <<'PY'
+          import json
+          import os
+          import pathlib
+          import subprocess
+
+          def git(*args):
+              return subprocess.check_output(["git", *args], text=True).strip()
+
+          tested = git("rev-parse", "HEAD")
+          parents = git("show", "-s", "--format=%P", "HEAD").split()
+          head = os.environ["PR_HEAD_SHA"]
+          base = os.environ["PR_BASE_SHA"]
+          if tested != os.environ["TESTED_MERGE_SHA"]:
+              raise SystemExit("checkout does not match event merge SHA")
+          if parents != [base, head]:
+              raise SystemExit("tested commit is not this PR's base/head merge")
+
+          temp = pathlib.Path(os.environ["RUNNER_TEMP"])
+          installation = json.loads((temp / "awf-installation.json").read_text())
+          configuration = json.loads((temp / "awf-config.json").read_text())
+          planning = json.loads((temp / "awf-planning.json").read_text())
+          if installation.get("integrity_valid") is not True:
+              raise SystemExit("AWF installation integrity was not verified")
+          if configuration.get("status") != "ACCEPTED":
+              raise SystemExit("AWF configuration was not accepted")
+          if planning.get("all_checks_pass") is not True:
+              raise SystemExit("planning package checks did not pass")
+          report = {
+              "kind": "AWF_CANDIDATE_CI_RUN_OBSERVATION",
+              "check_name": "awf/planning-package",
+              "event": "pull_request",
+              "pr_number": int(os.environ["PR_NUMBER"]),
+              "head_sha": head,
+              "base_sha": base,
+              "tested_merge_sha": tested,
+              "integration_tree_sha": git("rev-parse", "HEAD^{tree}"),
+              "workflow_path": ".github/workflows/awf-candidate-validate.yml",
+              "workflow_git_blob_sha": git("rev-parse", "HEAD:.github/workflows/awf-candidate-validate.yml"),
+              "checkout_depth": "full",
+              "awf_source_manifest_sha256": installation["source_manifest_sha256"],
+              "awf_policy_sha256": configuration["policy_sha256"],
+              "validation_scope": planning["validation_scope"],
+              "scientific_work_executed": planning["scientific_work_executed"],
+              "independent_professional_reviews_obtained": planning["independent_professional_reviews_obtained"],
+              "awf_adoption_performed": planning["awf_adoption_performed"],
+              "planning_check_count": planning["check_count"],
+              "tests_executed": planning["check_count"],
+          }
+          print("AWF_CANDIDATE_CI_JSON=" + json.dumps(report, sort_keys=True))
+          summary = pathlib.Path(os.environ["GITHUB_STEP_SUMMARY"])
+          summary.write_text("### AWF candidate validation\n\n```json\n" + json.dumps(report, indent=2) + "\n```\n")
+          PY
+
+  # Supplemental evidence only: this job is N/A for PRs without M0 control.
+  # Do not add awf/m0-control to the global validation.required_ci_checks list.
+  m0_control:
+    name: awf/m0-control
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out tested merge with full history
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+      - name: Set up Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with:
+          python-version: '3.12'
+      - name: Validate M0 control when present in tested merge
+        env:
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          TESTED_MERGE_SHA: ${{ github.sha }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          python -I - <<'PY'
+          import json
+          import os
+          import pathlib
+          import subprocess
+
+          def git(*args):
+              return subprocess.check_output(["git", *args], text=True).strip()
+
+          parents = git("show", "-s", "--format=%P", "HEAD").split()
+          if git("rev-parse", "HEAD") != os.environ["TESTED_MERGE_SHA"] or parents != [os.environ["PR_BASE_SHA"], os.environ["PR_HEAD_SHA"]]:
+              raise SystemExit("checkout is not this PR's tested merge")
+          control = pathlib.Path("docs/feasibility/study_control.json")
+          if control.exists() and (not pathlib.Path("docs/tools/check_m0_control.py").is_file() or not pathlib.Path("docs/feasibility/study_control_cases.json").is_file()):
+              raise SystemExit("M0 control exists without its checker and cases")
+          observation = {
+              "kind": "AWF_CANDIDATE_CI_RUN_OBSERVATION",
+              "check_name": "awf/m0-control",
+              "event": "pull_request",
+              "pr_number": int(os.environ["PR_NUMBER"]),
+              "head_sha": os.environ["PR_HEAD_SHA"],
+              "base_sha": os.environ["PR_BASE_SHA"],
+              "tested_merge_sha": os.environ["TESTED_MERGE_SHA"],
+              "integration_tree_sha": git("rev-parse", "HEAD^{tree}"),
+              "workflow_path": ".github/workflows/awf-candidate-validate.yml",
+              "workflow_git_blob_sha": git("rev-parse", "HEAD:.github/workflows/awf-candidate-validate.yml"),
+              "checkout_depth": "full",
+              "validation_scope": "M0 study-control document cases only; not chemical, professional or AWF final-gate validation.",
+              "control_present": control.exists(),
+          }
+          (pathlib.Path(os.environ["RUNNER_TEMP"]) / "awf-m0-observation.json").write_text(json.dumps(observation))
+          PY
+          if test -f docs/feasibility/study_control.json; then
+            python -B docs/tools/check_m0_control.py \
+              --control docs/feasibility/study_control.json \
+              --cases docs/feasibility/study_control_cases.json \
+              --output "$RUNNER_TEMP/awf-control.json"
+            python -I - <<'PY'
+          import json
+          import os
+          import pathlib
+
+          result = json.loads((pathlib.Path(os.environ["RUNNER_TEMP"]) / "awf-control.json").read_text())
+          if result.get("all_pass") is not True or not result.get("results") or any(case.get("result") != "PASS" for case in result["results"]):
+              raise SystemExit("M0 control cases did not pass")
+          PY
+          fi
+          python -I - <<'PY'
+          import json
+          import os
+          import pathlib
+
+          temp = pathlib.Path(os.environ["RUNNER_TEMP"])
+          observation = json.loads((temp / "awf-m0-observation.json").read_text())
+          if observation["control_present"]:
+              result = json.loads((temp / "awf-control.json").read_text())
+              observation["status"] = "passed"
+              observation["tests_executed"] = len(result["results"])
+          else:
+              observation["status"] = "not_applicable"
+              observation["tests_executed"] = 0
+          print("AWF_CANDIDATE_CI_JSON=" + json.dumps(observation, sort_keys=True))
+          pathlib.Path(os.environ["GITHUB_STEP_SUMMARY"]).write_text(
+              "### M0 control validation\n\n```json\n" + json.dumps(observation, indent=2) + "\n```\n"
+          )
+          PY
