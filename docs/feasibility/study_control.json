@@ -1,0 +1,60 @@
+{
+  "record_type": "ACCEPTED_M0_STUDY_CONTROL",
+  "version": "1.1",
+  "status": "ACCEPTED",
+  "epic": "CFD-1",
+  "owner_account": "jkinlay",
+  "owner_accepted": true,
+  "proposed_start_date": "2026-10-01",
+  "proposed_review_deadline": "2026-10-14",
+  "actual_start_date": "2026-10-01",
+  "accepted_review_deadline": "2026-10-14",
+  "proposed_working_days": 10,
+  "proposed_research_hours_cap": 40,
+  "proposed_owner_hours_total": 8,
+  "proposed_owner_hours_per_week": 4,
+  "accepted_research_hours_cap": 40,
+  "accepted_owner_hours_total": 8,
+  "accepted_owner_hours_per_week": 4,
+  "actual_research_hours": 0,
+  "authorized_external_spend_gbp": 0,
+  "paid_action_authorized": false,
+  "checkpoint": "Five working days or 20 shared research hours, whichever comes first; final decision at the accepted deadline or cap exhaustion.",
+  "named_chemistry_reviewer": null,
+  "named_thermal_reviewer": null,
+  "laboratory_partner": null,
+  "publication_policy_status": "UNDECIDED_CANDIDATE_LEVEL_PUBLICATION_BLOCKED",
+  "stop_rules": [
+    "All candidates in the bounded universe have measured hard failures => STOP_DOMAIN for that domain/profile",
+    "Missing decisive data => INCONCLUSIVE or separately capped evidence request",
+    "Cap/deadline reached => no automatic continuation",
+    "Sunk engineering cost cannot override a hard constraint"
+  ],
+  "acceptance_evidence": {
+    "date": "2026-10-01",
+    "channel": "Codex conversation",
+    "owner": "jkinlay",
+    "response": "Accept these M0 limits",
+    "scope": "1–14 October 2026; ten working days; 40 shared research hours; eight owner-review hours total, at most four per week; zero external spend; stated checkpoint and stop rules; public desk research only",
+    "accepted_terms": {
+      "start_date": "2026-10-01",
+      "review_deadline": "2026-10-14",
+      "research_hours_cap": 40,
+      "owner_hours_total": 8,
+      "owner_hours_per_week": 4,
+      "external_spend_cap_gbp": 0,
+      "public_desk_only": true
+    }
+  },
+  "runtime_spike_hours_cap": null,
+  "runtime_spike_spend_cap": null,
+  "note": "Owner acceptance applies to the stated shared limits and public desk research. It does not authorize outreach, paid computation, purchases, experiments, candidate-level publication, or work beyond the cap/deadline. AWF dispatch and Jira lifecycle writes remain subject to their separate gates.",
+  "accepted_start_date": "2026-10-01",
+  "accepted_external_spend_cap_gbp": 0,
+  "schedule_basis": "The 29 Sep–12 Oct template proposal was superseded by owner acceptance on 1 Oct 2026; ten working days counted inclusively gives 14 Oct 2026.",
+  "outcome_rules": {
+    "STOP_DOMAIN": "All candidates in the named bounded universe/profile have measured hard failures against accepted constraints; owner decides to stop that domain.",
+    "INCONCLUSIVE": "Decisive evidence missing or conflicting; mark UNKNOWN and request separately capped evidence or conclude INCONCLUSIVE.",
+    "CONTINUE": "Only a specifically scoped public desk question inside the accepted M0 date/hour/spend limits after an owner-recorded decision; no automatic next stage."
+  }
+}

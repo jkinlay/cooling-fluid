@@ -1,0 +1,110 @@
+{
+  "record_type": "FDE-FEAS-001 synthetic control-case inputs",
+  "version": "1.1",
+  "base_control": "docs/feasibility/study_control.json",
+  "cases": [
+    {
+      "id": "POSITIVE",
+      "input_scenario": "Owner-accepted control on the accepted start date with zero consumed research hours",
+      "as_of_date": "2026-10-01",
+      "expected": "PUBLIC_DESK_ONLY",
+      "expected_reasons": ["within_accepted_date_and_hour_caps"]
+    },
+    {
+      "id": "NEGATIVE_MISSING_OWNER",
+      "input_scenario": "Synthetic copy with the owner field removed",
+      "as_of_date": "2026-10-01",
+      "remove": ["owner_account"],
+      "expected": "PROPOSED_NOT_STARTED",
+      "expected_reasons": ["missing_owner"]
+    },
+    {
+      "id": "NEGATIVE_NULL_DEADLINE",
+      "input_scenario": "Synthetic copy with null accepted deadline",
+      "as_of_date": "2026-10-01",
+      "set": {"accepted_review_deadline": null},
+      "expected": "PROPOSED_NOT_STARTED",
+      "expected_reasons": ["missing_or_invalid_accepted_review_deadline"]
+    },
+    {
+      "id": "NEGATIVE_MISSING_SPEND",
+      "input_scenario": "Synthetic copy with accepted external spend cap removed",
+      "as_of_date": "2026-10-01",
+      "remove": ["accepted_external_spend_cap_gbp"],
+      "expected": "PROPOSED_NOT_STARTED",
+      "expected_reasons": ["missing_or_invalid_spend_cap"]
+    },
+    {
+      "id": "NEGATIVE_UNACCEPTED_STATUS",
+      "input_scenario": "Synthetic copy with PROPOSED_NOT_STARTED status",
+      "as_of_date": "2026-10-01",
+      "set": {"status": "PROPOSED_NOT_STARTED"},
+      "expected": "PROPOSED_NOT_STARTED",
+      "expected_reasons": ["status_not_accepted"]
+    },
+    {
+      "id": "NEGATIVE_UNRELATED_ACCEPTANCE",
+      "input_scenario": "Synthetic copy with an unrelated owner response",
+      "as_of_date": "2026-10-01",
+      "evidence_set": {"response": "I approve a different project"},
+      "expected": "PROPOSED_NOT_STARTED",
+      "expected_reasons": ["acceptance_response_mismatch"]
+    },
+    {
+      "id": "NEGATIVE_SCOPE_MISMATCH",
+      "input_scenario": "Synthetic copy with the accepted research-hour term changed to 41",
+      "as_of_date": "2026-10-01",
+      "evidence_terms_set": {"research_hours_cap": 41},
+      "expected": "PROPOSED_NOT_STARTED",
+      "expected_reasons": ["acceptance_scope_mismatch"]
+    },
+    {
+      "id": "NEGATIVE_INVALID_ACCEPTANCE_DATE",
+      "input_scenario": "Synthetic copy with an invalid acceptance date",
+      "as_of_date": "2026-10-01",
+      "evidence_set": {"date": "not-a-date"},
+      "expected": "PROPOSED_NOT_STARTED",
+      "expected_reasons": ["invalid_acceptance_date"]
+    },
+    {
+      "id": "NEGATIVE_ARBITRARY_OUTCOMES",
+      "input_scenario": "Synthetic copy without STOP_DOMAIN, INCONCLUSIVE or CONTINUE definitions",
+      "as_of_date": "2026-10-01",
+      "set": {"outcome_rules": {"OTHER": "arbitrary"}},
+      "expected": "PROPOSED_NOT_STARTED",
+      "expected_reasons": ["missing_outcome_rules"]
+    },
+    {
+      "id": "NEGATIVE_CONSUMED_HOURS",
+      "input_scenario": "Synthetic copy with negative consumed research hours",
+      "as_of_date": "2026-10-01",
+      "set": {"actual_research_hours": -1},
+      "expected": "PROPOSED_NOT_STARTED",
+      "expected_reasons": ["invalid_consumed_hours"]
+    },
+    {
+      "id": "BOUNDARY_HOUR_CAP",
+      "input_scenario": "Synthetic copy at exactly 40 shared research hours with unresolved decisive evidence",
+      "as_of_date": "2026-10-01",
+      "set": {"actual_research_hours": 40, "decisive_evidence_status": "UNRESOLVED"},
+      "expected": "STOP_PENDING_OWNER_DECISION",
+      "expected_reasons": ["research_hour_cap_reached", "decisive_evidence_unresolved"]
+    },
+    {
+      "id": "BOUNDARY_LAST_ACCEPTED_DAY",
+      "input_scenario": "Synthetic copy on 14 October, the last accepted working day, below the shared hour cap",
+      "as_of_date": "2026-10-14",
+      "set": {"actual_research_hours": 39},
+      "expected": "PUBLIC_DESK_ONLY",
+      "expected_reasons": ["within_accepted_date_and_hour_caps"]
+    },
+    {
+      "id": "BOUNDARY_AFTER_DEADLINE",
+      "input_scenario": "Synthetic copy immediately after the accepted final day with unresolved decisive evidence",
+      "as_of_date": "2026-10-15",
+      "set": {"decisive_evidence_status": "UNRESOLVED"},
+      "expected": "STOP_PENDING_OWNER_DECISION",
+      "expected_reasons": ["accepted_deadline_passed", "decisive_evidence_unresolved"]
+    }
+  ]
+}
