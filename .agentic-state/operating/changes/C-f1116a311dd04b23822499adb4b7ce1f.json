@@ -1,0 +1,13 @@
+{
+  "id": "C-f1116a311dd04b23822499adb4b7ce1f",
+  "created_at": "2026-10-01T10:09:39.153641Z",
+  "instruction": null,
+  "before_hash": null,
+  "after_hash": "1a598a0c0ffc7face1a372c1ce53a05c1a38b339abfc29dcef16d54408366b04",
+  "changes": [],
+  "source": "default",
+  "applied_from": "bootstrap",
+  "sequence": 1,
+  "previous_change_id": null,
+  "governance_hash": "cfad5ee3ed33a6d459b217912d068158ffc006fa558e424e452d5ad7f773224f"
+}

@@ -1,0 +1,9 @@
+# Preserve hash-bound AWF and planning files across platforms.
+/.agentic/** text eol=lf
+/.agentic-install/** text eol=lf
+/.agentic-state/** text eol=lf
+/AGENTS.md text eol=lf
+/PROJECT_INSTRUCTIONS.md text eol=lf
+/OPERATING_CONFIG.yaml text eol=lf
+/.github/** text eol=lf
+/docs/** text=auto eol=lf
