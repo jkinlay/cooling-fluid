@@ -7,3 +7,4 @@
 /OPERATING_CONFIG.yaml text eol=lf
 /.github/** text eol=lf
 /docs/** text=auto eol=lf
+/.github/PULL_REQUEST_TEMPLATE.md text eol=lf
