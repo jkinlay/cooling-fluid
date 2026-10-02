@@ -1,0 +1,662 @@
+{
+  "record_type": "CFD-2_APPLICATION_ACCEPTABILITY_REGISTER",
+  "version": "0.2",
+  "status": "FROZEN_FOR_OFFLINE_INVENTORY_ONLY",
+  "as_of": "2026-10-01",
+  "study_control": "docs/feasibility/study_control.json",
+  "source_register": [
+    {
+      "id": "S1",
+      "url": "https://www.opencompute.org/documents/ocp-acs-immersion-requirements-rev-2-1-pdf",
+      "edition": "OCP Immersion Requirements Rev 2.0, first amended Revision 2.10, last updated 18 August 2023",
+      "retrieved_on": "2026-10-01"
+    },
+    {
+      "id": "S2",
+      "url": "https://www.opencompute.org/documents/guidelines-for-using-dielectric-heat-transfer-fluids-in-two-phase-cold-plate-based-liquid-cooled-racks-final-pdf",
+      "edition": "OCP two-phase cold-plate dielectric-fluid guidelines rev 1.1, March 2026",
+      "retrieved_on": "2026-10-01"
+    },
+    {
+      "id": "S3",
+      "url": "https://handbook.ashrae.org/Handbooks/A23/SI/A23_Ch20/a23_ch20_si.aspx",
+      "edition": "ASHRAE Handbook 2023 Applications, Chapter 20",
+      "retrieved_on": "2026-10-01"
+    },
+    {
+      "id": "S4",
+      "url": "docs/Cooling_Fluid_Discovery_Project_Specification_v1.1.md; docs/feasibility/README.md",
+      "edition": "Project v1.1 and historical feasibility baseline",
+      "retrieved_on": "2026-10-01"
+    }
+  ],
+  "profiles": [
+    {
+      "profile_id": "TP_IMMERSION_F0",
+      "profile_name": "Two-phase immersion",
+      "comparison_scope": "ADOPTED",
+      "initial_application_selected": false,
+      "definition": "Dielectric fluid contacts immersed IT; evaporation and condensation are intended heat-transfer mechanisms.",
+      "definition_sources": [
+        "S1",
+        "S4"
+      ],
+      "constraints": [
+        {
+          "id": "TPI-BOIL-EXPLORATORY",
+          "domain": "normal_boiling_point",
+          "status": "PROPOSED",
+          "value": {
+            "min": 45,
+            "max": 55
+          },
+          "units": "°C",
+          "conditions": "normal boiling at 101.325 kPa; inclusive historical search screen only",
+          "inclusive_boundary": {
+            "lower": true,
+            "upper": true
+          },
+          "source_ids": [
+            "S4"
+          ],
+          "decision_owner": "jkinlay (study owner; application-specific decision pending)",
+          "candidate_screening_rule": false,
+          "method": "Historical normal-boiling source method and pressure must be reconciled before use",
+          "threshold_rationale": "Exploratory search window only; no application acceptance rationale adopted",
+          "evidence_class": "PROJECT_HYPOTHESIS",
+          "measurement_uncertainty": "UNKNOWN; not zero",
+          "hard_rule_adopted": false
+        },
+        {
+          "id": "TPI-TEMPERATURE",
+          "domain": "operating_and_fault_temperature",
+          "status": "UNKNOWN",
+          "value": null,
+          "units": "°C",
+          "conditions": "equipment/heat-source/fluid conditions unspecified",
+          "inclusive_boundary": null,
+          "source_ids": [
+            "S1",
+            "S4"
+          ],
+          "decision_owner": "jkinlay (study owner; application-specific decision pending)",
+          "candidate_screening_rule": false,
+          "method": null,
+          "threshold_rationale": "Application design/acceptance rationale unresolved",
+          "evidence_class": "UNOBSERVED_REQUIREMENT",
+          "measurement_uncertainty": "UNKNOWN; not zero",
+          "hard_rule_adopted": false
+        },
+        {
+          "id": "TPI-PRESSURE",
+          "domain": "operating_and_fault_pressure",
+          "status": "UNKNOWN",
+          "value": null,
+          "units": "kPa absolute",
+          "conditions": "sealed/open bath and vapor control unspecified",
+          "inclusive_boundary": null,
+          "source_ids": [
+            "S1",
+            "S4"
+          ],
+          "decision_owner": "jkinlay (study owner; application-specific decision pending)",
+          "candidate_screening_rule": false,
+          "method": null,
+          "threshold_rationale": "Application design/acceptance rationale unresolved",
+          "evidence_class": "UNOBSERVED_REQUIREMENT",
+          "measurement_uncertainty": "UNKNOWN; not zero",
+          "hard_rule_adopted": false
+        },
+        {
+          "id": "TPI-ELECTRICAL",
+          "domain": "electrical_performance",
+          "status": "UNKNOWN",
+          "value": null,
+          "units": null,
+          "conditions": "method, frequency, geometry and sample conditioning unspecified",
+          "inclusive_boundary": null,
+          "source_ids": [
+            "S1",
+            "S4"
+          ],
+          "decision_owner": "jkinlay (study owner; application-specific decision pending)",
+          "candidate_screening_rule": false,
+          "method": null,
+          "threshold_rationale": "Application design/acceptance rationale unresolved",
+          "evidence_class": "UNOBSERVED_REQUIREMENT",
+          "measurement_uncertainty": "UNKNOWN; not zero",
+          "hard_rule_adopted": false
+        },
+        {
+          "id": "TPI-FIRE",
+          "domain": "fire_behavior",
+          "status": "UNKNOWN",
+          "value": null,
+          "units": null,
+          "conditions": "hazard method, fault scenario and governing rules unspecified",
+          "inclusive_boundary": null,
+          "source_ids": [
+            "S1",
+            "S4"
+          ],
+          "decision_owner": "jkinlay (study owner; application-specific decision pending)",
+          "candidate_screening_rule": false,
+          "method": null,
+          "threshold_rationale": "Application design/acceptance rationale unresolved",
+          "evidence_class": "UNOBSERVED_REQUIREMENT",
+          "measurement_uncertainty": "UNKNOWN; not zero",
+          "hard_rule_adopted": false
+        },
+        {
+          "id": "TPI-MATERIALS",
+          "domain": "wetted_material_compatibility",
+          "status": "UNKNOWN",
+          "value": null,
+          "units": null,
+          "conditions": "equipment arrangement and materials list unspecified",
+          "inclusive_boundary": null,
+          "source_ids": [
+            "S1",
+            "S4"
+          ],
+          "decision_owner": "jkinlay (study owner; application-specific decision pending)",
+          "candidate_screening_rule": false,
+          "method": null,
+          "threshold_rationale": "Application design/acceptance rationale unresolved",
+          "evidence_class": "UNOBSERVED_REQUIREMENT",
+          "measurement_uncertainty": "UNKNOWN; not zero",
+          "hard_rule_adopted": false
+        },
+        {
+          "id": "TPI-FLUORINE-FREE",
+          "domain": "structural_fluorine_policy",
+          "status": "PROPOSED",
+          "value": "Molecular identity contains no fluorine atoms in the resolved structure; sample impurity and mixture definitions remain to be set",
+          "units": null,
+          "conditions": "Pure named-compound search scope only; not an SDS, sample assay or PFAS claim",
+          "inclusive_boundary": null,
+          "source_ids": [
+            "S4"
+          ],
+          "decision_owner": "jkinlay (definition and impurity reporting limit pending)",
+          "candidate_screening_rule": false,
+          "method": "Verify resolved molecular structure and formula; analytical method/reporting limit for a physical sample unresolved",
+          "threshold_rationale": "Project v1.1 TP_IMMERSION_F0 hypothesis",
+          "evidence_class": "PROJECT_HYPOTHESIS",
+          "measurement_uncertainty": "Structure assignment and sample impurity status unresolved",
+          "hard_rule_adopted": false
+        }
+      ],
+      "proposed_buyer_use_case": {
+        "status": "PROPOSED",
+        "description": "Hypothesis: operator of a defined two-phase dielectric immersion system; buyer and purchase criteria unvalidated",
+        "evidence_class": "PROJECT_HYPOTHESIS",
+        "decision_owner": "jkinlay",
+        "source_ids": [
+          "S4"
+        ]
+      },
+      "equipment_arrangement": {
+        "status": "UNKNOWN",
+        "description": "Open bath versus enclosed chassis; fluid charge and vapor management undecided",
+        "decision_owner": "jkinlay (equipment owner to be named)",
+        "source_ids": [
+          "S1",
+          "S4"
+        ]
+      },
+      "jurisdiction": {
+        "status": "UNKNOWN",
+        "value": null,
+        "decision_owner": "jkinlay (target location pending)",
+        "source_ids": [
+          "S1",
+          "S4"
+        ]
+      },
+      "applicable_standard": {
+        "status": "UNKNOWN",
+        "edition": null,
+        "clause": null,
+        "jurisdictional_applicability": "UNVERIFIED",
+        "decision_owner": "jkinlay (qualified compliance input pending)",
+        "source_ids": [
+          "S1",
+          "S4"
+        ]
+      },
+      "buyer_oem_requirements": {
+        "status": "UNKNOWN",
+        "value": null,
+        "decision_owner": "jkinlay (buyer and OEM to be identified)",
+        "source_ids": [
+          "S4"
+        ]
+      },
+      "insurer_status": {
+        "status": "UNKNOWN",
+        "value": null,
+        "decision_owner": "jkinlay (insurer/equipment context pending)",
+        "source_ids": [
+          "S4"
+        ]
+      },
+      "profile_state": "RESEARCH_DRAFT"
+    },
+    {
+      "profile_id": "SP_IMMERSION",
+      "profile_name": "Single-phase immersion",
+      "comparison_scope": "ADOPTED",
+      "initial_application_selected": false,
+      "definition": "Dielectric liquid contacts immersed IT and stays liquid through the intended circulation/heat-exchange cycle.",
+      "definition_sources": [
+        "S1",
+        "S4"
+      ],
+      "constraints": [
+        {
+          "id": "SPI-TEMPERATURE",
+          "domain": "operating_and_fault_temperature",
+          "status": "UNKNOWN",
+          "value": null,
+          "units": "°C",
+          "conditions": "inlet, outlet, local hot spot and fault conditions unspecified",
+          "inclusive_boundary": null,
+          "source_ids": [
+            "S1",
+            "S4"
+          ],
+          "decision_owner": "jkinlay (study owner; application-specific decision pending)",
+          "candidate_screening_rule": false,
+          "method": null,
+          "threshold_rationale": "Application design/acceptance rationale unresolved",
+          "evidence_class": "UNOBSERVED_REQUIREMENT",
+          "measurement_uncertainty": "UNKNOWN; not zero",
+          "hard_rule_adopted": false
+        },
+        {
+          "id": "SPI-PRESSURE",
+          "domain": "operating_pressure",
+          "status": "UNKNOWN",
+          "value": null,
+          "units": "kPa absolute",
+          "conditions": "tank/chassis and circulation arrangement unspecified",
+          "inclusive_boundary": null,
+          "source_ids": [
+            "S1",
+            "S4"
+          ],
+          "decision_owner": "jkinlay (study owner; application-specific decision pending)",
+          "candidate_screening_rule": false,
+          "method": null,
+          "threshold_rationale": "Application design/acceptance rationale unresolved",
+          "evidence_class": "UNOBSERVED_REQUIREMENT",
+          "measurement_uncertainty": "UNKNOWN; not zero",
+          "hard_rule_adopted": false
+        },
+        {
+          "id": "SPI-VISCOSITY",
+          "domain": "viscosity_and_pumping",
+          "status": "UNKNOWN",
+          "value": null,
+          "units": "Pa·s",
+          "conditions": "fluid temperature, flow and pump design unspecified",
+          "inclusive_boundary": null,
+          "source_ids": [
+            "S4"
+          ],
+          "decision_owner": "jkinlay (study owner; application-specific decision pending)",
+          "candidate_screening_rule": false,
+          "method": null,
+          "threshold_rationale": "Application design/acceptance rationale unresolved",
+          "evidence_class": "UNOBSERVED_REQUIREMENT",
+          "measurement_uncertainty": "UNKNOWN; not zero",
+          "hard_rule_adopted": false
+        },
+        {
+          "id": "SPI-ELECTRICAL",
+          "domain": "electrical_performance",
+          "status": "UNKNOWN",
+          "value": null,
+          "units": null,
+          "conditions": "method, frequency, geometry and sample conditioning unspecified",
+          "inclusive_boundary": null,
+          "source_ids": [
+            "S1",
+            "S4"
+          ],
+          "decision_owner": "jkinlay (study owner; application-specific decision pending)",
+          "candidate_screening_rule": false,
+          "method": null,
+          "threshold_rationale": "Application design/acceptance rationale unresolved",
+          "evidence_class": "UNOBSERVED_REQUIREMENT",
+          "measurement_uncertainty": "UNKNOWN; not zero",
+          "hard_rule_adopted": false
+        },
+        {
+          "id": "SPI-FIRE",
+          "domain": "fire_behavior",
+          "status": "UNKNOWN",
+          "value": null,
+          "units": null,
+          "conditions": "method, operating/fault margin and governing rules unspecified",
+          "inclusive_boundary": null,
+          "source_ids": [
+            "S1",
+            "S4"
+          ],
+          "decision_owner": "jkinlay (study owner; application-specific decision pending)",
+          "candidate_screening_rule": false,
+          "method": null,
+          "threshold_rationale": "Application design/acceptance rationale unresolved",
+          "evidence_class": "UNOBSERVED_REQUIREMENT",
+          "measurement_uncertainty": "UNKNOWN; not zero",
+          "hard_rule_adopted": false
+        },
+        {
+          "id": "SPI-MATERIALS",
+          "domain": "wetted_material_compatibility",
+          "status": "UNKNOWN",
+          "value": null,
+          "units": null,
+          "conditions": "equipment materials and ageing exposure unspecified",
+          "inclusive_boundary": null,
+          "source_ids": [
+            "S1",
+            "S4"
+          ],
+          "decision_owner": "jkinlay (study owner; application-specific decision pending)",
+          "candidate_screening_rule": false,
+          "method": null,
+          "threshold_rationale": "Application design/acceptance rationale unresolved",
+          "evidence_class": "UNOBSERVED_REQUIREMENT",
+          "measurement_uncertainty": "UNKNOWN; not zero",
+          "hard_rule_adopted": false
+        }
+      ],
+      "proposed_buyer_use_case": {
+        "status": "PROPOSED",
+        "description": "Hypothesis: operator of a single-phase dielectric immersion system seeking an unmet thermal/electrical/materials requirement; buyer unvalidated",
+        "evidence_class": "PROJECT_HYPOTHESIS",
+        "decision_owner": "jkinlay",
+        "source_ids": [
+          "S4"
+        ]
+      },
+      "equipment_arrangement": {
+        "status": "UNKNOWN",
+        "description": "Open bath versus enclosed chassis; circulation and heat-exchanger arrangement undecided",
+        "decision_owner": "jkinlay (equipment owner to be named)",
+        "source_ids": [
+          "S1",
+          "S4"
+        ]
+      },
+      "jurisdiction": {
+        "status": "UNKNOWN",
+        "value": null,
+        "decision_owner": "jkinlay (target location pending)",
+        "source_ids": [
+          "S1",
+          "S4"
+        ]
+      },
+      "applicable_standard": {
+        "status": "UNKNOWN",
+        "edition": null,
+        "clause": null,
+        "jurisdictional_applicability": "UNVERIFIED",
+        "decision_owner": "jkinlay (qualified compliance input pending)",
+        "source_ids": [
+          "S1",
+          "S4"
+        ]
+      },
+      "buyer_oem_requirements": {
+        "status": "UNKNOWN",
+        "value": null,
+        "decision_owner": "jkinlay (buyer and OEM to be identified)",
+        "source_ids": [
+          "S4"
+        ]
+      },
+      "insurer_status": {
+        "status": "UNKNOWN",
+        "value": null,
+        "decision_owner": "jkinlay (insurer/equipment context pending)",
+        "source_ids": [
+          "S4"
+        ]
+      },
+      "profile_state": "RESEARCH_DRAFT"
+    },
+    {
+      "profile_id": "TP_DIRECT_CHIP",
+      "profile_name": "Two-phase direct-to-chip",
+      "comparison_scope": "ADOPTED",
+      "initial_application_selected": false,
+      "definition": "Dielectric fluid normally stays in a closed TCS loop and cold plates; leaks are a separate exposure case.",
+      "definition_sources": [
+        "S2",
+        "S3",
+        "S4"
+      ],
+      "constraints": [
+        {
+          "id": "DTC-TEMPERATURE",
+          "domain": "saturation_and_operating_temperature",
+          "status": "UNKNOWN",
+          "value": null,
+          "units": "°C",
+          "conditions": "pressure, cold-plate and heat-exchanger conditions unspecified; OCP example range not adopted",
+          "inclusive_boundary": null,
+          "source_ids": [
+            "S2",
+            "S4"
+          ],
+          "decision_owner": "jkinlay (study owner; application-specific decision pending)",
+          "candidate_screening_rule": false,
+          "method": null,
+          "threshold_rationale": "Application design/acceptance rationale unresolved",
+          "evidence_class": "UNOBSERVED_REQUIREMENT",
+          "measurement_uncertainty": "UNKNOWN; not zero",
+          "hard_rule_adopted": false
+        },
+        {
+          "id": "DTC-PRESSURE",
+          "domain": "operating_and_fault_pressure",
+          "status": "UNKNOWN",
+          "value": null,
+          "units": "kPa absolute",
+          "conditions": "liquid/vapor pressure, pressure drop and relief arrangement unspecified",
+          "inclusive_boundary": null,
+          "source_ids": [
+            "S2",
+            "S4"
+          ],
+          "decision_owner": "jkinlay (study owner; application-specific decision pending)",
+          "candidate_screening_rule": false,
+          "method": null,
+          "threshold_rationale": "Application design/acceptance rationale unresolved",
+          "evidence_class": "UNOBSERVED_REQUIREMENT",
+          "measurement_uncertainty": "UNKNOWN; not zero",
+          "hard_rule_adopted": false
+        },
+        {
+          "id": "DTC-MATERIALS",
+          "domain": "cold_plate_seal_and_loop_compatibility",
+          "status": "UNKNOWN",
+          "value": null,
+          "units": null,
+          "conditions": "wetted-material list and test conditions unspecified",
+          "inclusive_boundary": null,
+          "source_ids": [
+            "S2",
+            "S4"
+          ],
+          "decision_owner": "jkinlay (study owner; application-specific decision pending)",
+          "candidate_screening_rule": false,
+          "method": null,
+          "threshold_rationale": "Application design/acceptance rationale unresolved",
+          "evidence_class": "UNOBSERVED_REQUIREMENT",
+          "measurement_uncertainty": "UNKNOWN; not zero",
+          "hard_rule_adopted": false
+        },
+        {
+          "id": "DTC-LEAKAGE",
+          "domain": "leak_and_fault_exposure",
+          "status": "UNKNOWN",
+          "value": null,
+          "units": null,
+          "conditions": "location, charge size, detection and response unspecified",
+          "inclusive_boundary": null,
+          "source_ids": [
+            "S2",
+            "S4"
+          ],
+          "decision_owner": "jkinlay (study owner; application-specific decision pending)",
+          "candidate_screening_rule": false,
+          "method": null,
+          "threshold_rationale": "Application design/acceptance rationale unresolved",
+          "evidence_class": "UNOBSERVED_REQUIREMENT",
+          "measurement_uncertainty": "UNKNOWN; not zero",
+          "hard_rule_adopted": false
+        },
+        {
+          "id": "DTC-ELECTRICAL",
+          "domain": "electrical_performance",
+          "status": "UNKNOWN",
+          "value": null,
+          "units": null,
+          "conditions": "normal loop and leak/fault contexts not yet defined",
+          "inclusive_boundary": null,
+          "source_ids": [
+            "S2",
+            "S4"
+          ],
+          "decision_owner": "jkinlay (study owner; application-specific decision pending)",
+          "candidate_screening_rule": false,
+          "method": null,
+          "threshold_rationale": "Application design/acceptance rationale unresolved",
+          "evidence_class": "UNOBSERVED_REQUIREMENT",
+          "measurement_uncertainty": "UNKNOWN; not zero",
+          "hard_rule_adopted": false
+        },
+        {
+          "id": "DTC-FIRE",
+          "domain": "fire_behavior",
+          "status": "UNKNOWN",
+          "value": null,
+          "units": null,
+          "conditions": "method, equipment/facility fault scenario and governing rules unspecified",
+          "inclusive_boundary": null,
+          "source_ids": [
+            "S2",
+            "S4"
+          ],
+          "decision_owner": "jkinlay (study owner; application-specific decision pending)",
+          "candidate_screening_rule": false,
+          "method": null,
+          "threshold_rationale": "Application design/acceptance rationale unresolved",
+          "evidence_class": "UNOBSERVED_REQUIREMENT",
+          "measurement_uncertainty": "UNKNOWN; not zero",
+          "hard_rule_adopted": false
+        }
+      ],
+      "proposed_buyer_use_case": {
+        "status": "PROPOSED",
+        "description": "Hypothesis: integrator/operator of a two-phase cold-plate TCS loop; buyer and OEM procurement criteria unvalidated",
+        "evidence_class": "PROJECT_HYPOTHESIS",
+        "decision_owner": "jkinlay",
+        "source_ids": [
+          "S4"
+        ]
+      },
+      "equipment_arrangement": {
+        "status": "UNKNOWN",
+        "description": "Closed TCS loop with cold plates, seals and heat exchanger; exact topology and leak zone undecided",
+        "decision_owner": "jkinlay (equipment owner to be named)",
+        "source_ids": [
+          "S1",
+          "S2",
+          "S4"
+        ]
+      },
+      "jurisdiction": {
+        "status": "UNKNOWN",
+        "value": null,
+        "decision_owner": "jkinlay (target location pending)",
+        "source_ids": [
+          "S1",
+          "S4"
+        ]
+      },
+      "applicable_standard": {
+        "status": "UNKNOWN",
+        "edition": null,
+        "clause": null,
+        "jurisdictional_applicability": "UNVERIFIED",
+        "decision_owner": "jkinlay (qualified compliance input pending)",
+        "source_ids": [
+          "S1",
+          "S4"
+        ]
+      },
+      "buyer_oem_requirements": {
+        "status": "UNKNOWN",
+        "value": null,
+        "decision_owner": "jkinlay (buyer and OEM to be identified)",
+        "source_ids": [
+          "S4"
+        ]
+      },
+      "insurer_status": {
+        "status": "UNKNOWN",
+        "value": null,
+        "decision_owner": "jkinlay (insurer/equipment context pending)",
+        "source_ids": [
+          "S4"
+        ]
+      },
+      "profile_state": "RESEARCH_DRAFT"
+    }
+  ],
+  "common_open_requirements": [
+    {
+      "domain": "jurisdiction_and_standard_edition",
+      "status": "UNKNOWN",
+      "decision_owner": "jkinlay (pending target jurisdiction/equipment)"
+    },
+    {
+      "domain": "buyer_and_oem_acceptance",
+      "status": "UNKNOWN",
+      "decision_owner": "jkinlay (pending buyer/OEM definition)"
+    },
+    {
+      "domain": "insurer_acceptance",
+      "status": "UNKNOWN",
+      "decision_owner": "jkinlay (pending insurer/equipment context)"
+    },
+    {
+      "domain": "sds_and_environmental_policy",
+      "status": "UNKNOWN",
+      "decision_owner": "jkinlay (pending application/jurisdiction policy)"
+    }
+  ],
+  "decision_rule": "UNKNOWN mandatory rules cannot produce a candidate PASS. No proposed number is an adopted hard constraint.",
+  "notes": [
+    "OCP immersion values apply only within their cited document scope and are not adopted as universal rules.",
+    "OCP cold-plate guideline section 3.1 states −26.3 °C as a minimum criterion while Table 1 lists +26.3 °C as a typical property; neither lower bound is adopted.",
+    "PFAS-free wording is not itself evidence of fluorine-free molecular identity.",
+    "No initial application selected."
+  ],
+  "inventory_dependency_ready": true,
+  "candidate_judgement_ready": false,
+  "independent_review": {
+    "reviewer": "/root/stream_a_control",
+    "date": "2026-10-01",
+    "disposition": "PASS_FOR_OFFLINE_INVENTORY_ONLY",
+    "material_findings_remaining": 0,
+    "limitation": "All three application profiles remain RESEARCH_DRAFT with mandatory UNKNOWN constraints; no candidate PASS/FAIL or deployability claim"
+  }
+}
