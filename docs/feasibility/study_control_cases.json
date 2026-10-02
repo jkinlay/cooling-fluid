@@ -1,12 +1,13 @@
 {
   "record_type": "FDE-FEAS-001 synthetic control-case inputs",
-  "version": "1.2",
+  "version": "1.7",
   "base_control": "docs/feasibility/study_control.json",
   "cases": [
     {
       "id": "POSITIVE",
       "input_scenario": "Owner-accepted control on the accepted start date with zero consumed research hours",
       "as_of_date": "2026-10-01",
+      "set": {"actual_research_hours": 0},
       "expected": "PUBLIC_DESK_ONLY",
       "expected_reasons": ["within_accepted_date_and_hour_caps"]
     },
@@ -59,9 +60,44 @@
       "expected_reasons": ["acceptance_scope_mismatch"]
     },
     {
-      "id": "NEGATIVE_UNSUPPORTED_CAP_RAISE",
-      "input_scenario": "Synthetic copy claiming the 120-hour cap without its owner amendment",
+      "id": "NEGATIVE_PUBLIC_DESK_BOOLEAN_AS_NUMBER",
+      "input_scenario": "Synthetic copy substituting numeric one for the accepted public-desk boolean",
       "as_of_date": "2026-10-01",
+      "evidence_terms_set": {"public_desk_only": 1},
+      "expected": "PROPOSED_NOT_STARTED",
+      "expected_reasons": ["acceptance_scope_mismatch"]
+    },
+    {
+      "id": "NEGATIVE_COORDINATED_DEADLINE_TAMPER",
+      "input_scenario": "Synthetic copy coordinating a later deadline in the record and mutable acceptance terms",
+      "as_of_date": "2026-10-01",
+      "set": {"accepted_review_deadline": "2026-10-15"},
+      "evidence_terms_set": {"review_deadline": "2026-10-15"},
+      "expected": "PROPOSED_NOT_STARTED",
+      "expected_reasons": ["acceptance_scope_mismatch"]
+    },
+    {
+      "id": "NEGATIVE_COORDINATED_OWNER_TOTAL_TAMPER",
+      "input_scenario": "Synthetic copy coordinating a higher owner-review total in the record and mutable acceptance terms",
+      "as_of_date": "2026-10-01",
+      "set": {"accepted_owner_hours_total": 9},
+      "evidence_terms_set": {"owner_hours_total": 9},
+      "expected": "PROPOSED_NOT_STARTED",
+      "expected_reasons": ["acceptance_scope_mismatch"]
+    },
+    {
+      "id": "NEGATIVE_COORDINATED_OWNER_WEEKLY_TAMPER",
+      "input_scenario": "Synthetic copy coordinating a higher weekly owner-review limit in the record and mutable acceptance terms",
+      "as_of_date": "2026-10-01",
+      "set": {"accepted_owner_hours_per_week": 5},
+      "evidence_terms_set": {"owner_hours_per_week": 5},
+      "expected": "PROPOSED_NOT_STARTED",
+      "expected_reasons": ["acceptance_scope_mismatch"]
+    },
+    {
+      "id": "NEGATIVE_UNSUPPORTED_CAP_RAISE",
+      "input_scenario": "Synthetic copy claiming the 1000-hour cap without its retained owner amendments",
+      "as_of_date": "2026-10-02",
       "remove": ["research_cap_amendments"],
       "expected": "PROPOSED_NOT_STARTED",
       "expected_reasons": ["acceptance_scope_mismatch"]
@@ -79,6 +115,87 @@
       "input_scenario": "Synthetic copy claiming an unverified amendment channel",
       "as_of_date": "2026-10-01",
       "amendment_set": {"channel": "unverified"},
+      "expected": "PROPOSED_NOT_STARTED",
+      "expected_reasons": ["acceptance_scope_mismatch"]
+    },
+    {
+      "id": "NEGATIVE_PUBLICATION_POLICY_PUBLISHED",
+      "input_scenario": "Synthetic copy claiming candidate-level publication is permitted",
+      "as_of_date": "2026-10-02",
+      "set": {"publication_policy_status": "PUBLISHED"},
+      "expected": "PROPOSED_NOT_STARTED",
+      "expected_reasons": ["publication_policy_outside_owner_acceptance"]
+    },
+    {
+      "id": "NEGATIVE_PUBLICATION_POLICY_ABSENT",
+      "input_scenario": "Synthetic copy omitting the candidate-level publication block",
+      "as_of_date": "2026-10-02",
+      "remove": ["publication_policy_status"],
+      "expected": "PROPOSED_NOT_STARTED",
+      "expected_reasons": ["publication_policy_outside_owner_acceptance"]
+    },
+    {
+      "id": "NEGATIVE_OUTCOME_CONTINUE_MUTATION",
+      "input_scenario": "Synthetic copy changing CONTINUE to permit publication and paid work",
+      "as_of_date": "2026-10-02",
+      "set_path": {"outcome_rules.CONTINUE": "Publication, paid work, and laboratory activity are permitted"},
+      "expected": "PROPOSED_NOT_STARTED",
+      "expected_reasons": ["immutable_control_mismatch"]
+    },
+    {
+      "id": "NEGATIVE_STOP_RULES_MUTATION",
+      "input_scenario": "Synthetic copy removing the no-automatic-continuation stop rule",
+      "as_of_date": "2026-10-02",
+      "set": {"stop_rules": ["No stop rules apply"]},
+      "expected": "PROPOSED_NOT_STARTED",
+      "expected_reasons": ["immutable_control_mismatch"]
+    },
+    {
+      "id": "NEGATIVE_CHECKPOINT_MUTATION",
+      "input_scenario": "Synthetic copy changing the checkpoint to permit indefinite continuation",
+      "as_of_date": "2026-10-02",
+      "set": {"checkpoint": "Continue indefinitely"},
+      "expected": "PROPOSED_NOT_STARTED",
+      "expected_reasons": ["immutable_control_mismatch"]
+    },
+    {
+      "id": "NEGATIVE_RUNTIME_HOURS_MUTATION",
+      "input_scenario": "Synthetic copy authorizing a runtime spike in research hours",
+      "as_of_date": "2026-10-02",
+      "set": {"runtime_spike_hours_cap": 1},
+      "expected": "PROPOSED_NOT_STARTED",
+      "expected_reasons": ["immutable_control_mismatch"]
+    },
+    {
+      "id": "NEGATIVE_RUNTIME_SPEND_MUTATION",
+      "input_scenario": "Synthetic copy authorizing a runtime spike in spend",
+      "as_of_date": "2026-10-02",
+      "set": {"runtime_spike_spend_cap": 1},
+      "expected": "PROPOSED_NOT_STARTED",
+      "expected_reasons": ["immutable_control_mismatch"]
+    },
+    {
+      "id": "NEGATIVE_LABORATORY_PARTNER_MUTATION",
+      "input_scenario": "Synthetic copy naming a laboratory partner",
+      "as_of_date": "2026-10-02",
+      "set": {"laboratory_partner": "Example Lab"},
+      "expected": "PROPOSED_NOT_STARTED",
+      "expected_reasons": ["immutable_control_mismatch"]
+    },
+    {
+      "id": "NEGATIVE_UNALLOWED_TOP_LEVEL_KEY",
+      "input_scenario": "Synthetic copy adding an unapproved publication authorization key",
+      "as_of_date": "2026-10-02",
+      "set": {"publication_authorized": true},
+      "expected": "PROPOSED_NOT_STARTED",
+      "expected_reasons": ["immutable_control_mismatch"]
+    },
+    {
+      "id": "NEGATIVE_SECOND_AMENDMENT_SCOPE_TAMPERED",
+      "input_scenario": "Synthetic copy with the retained 1000-hour amendment scope changed",
+      "as_of_date": "2026-10-02",
+      "amendment_index": 1,
+      "amendment_set": {"scope": "Different scope"},
       "expected": "PROPOSED_NOT_STARTED",
       "expected_reasons": ["acceptance_scope_mismatch"]
     },
@@ -107,6 +224,14 @@
       "expected_reasons": ["invalid_consumed_hours"]
     },
     {
+      "id": "NEGATIVE_NONFINITE_CONSUMED_HOURS",
+      "input_scenario": "Synthetic in-memory copy with nonfinite consumed research hours",
+      "as_of_date": "2026-10-01",
+      "nonfinite_set": {"actual_research_hours": "NaN"},
+      "expected": "PROPOSED_NOT_STARTED",
+      "expected_reasons": ["invalid_consumed_hours"]
+    },
+    {
       "id": "BOUNDARY_PRIOR_CAP_NO_STOP",
       "input_scenario": "Synthetic copy at the superseded initial 40-hour cap within the amended 120-hour limit",
       "as_of_date": "2026-10-01",
@@ -116,9 +241,24 @@
     },
     {
       "id": "BOUNDARY_HOUR_CAP",
-      "input_scenario": "Synthetic copy at exactly 120 shared research hours with unresolved decisive evidence",
+      "input_scenario": "Historical synthetic copy at the first amended 120-hour cap before the 1000-hour decision",
       "as_of_date": "2026-10-01",
       "set": {"actual_research_hours": 120, "decisive_evidence_status": "UNRESOLVED"},
+      "expected": "STOP_PENDING_OWNER_DECISION",
+      "expected_reasons": ["research_hour_cap_reached", "decisive_evidence_unresolved"]
+    },
+    {
+      "id": "POSITIVE_SECOND_AMENDMENT_EFFECTIVE",
+      "input_scenario": "Owner-accepted control after the retained 1000-hour amendment, with the recorded 67.2 research hours",
+      "as_of_date": "2026-10-02",
+      "expected": "PUBLIC_DESK_ONLY",
+      "expected_reasons": ["within_accepted_date_and_hour_caps"]
+    },
+    {
+      "id": "BOUNDARY_SECOND_AMENDMENT_HOUR_CAP",
+      "input_scenario": "Synthetic copy at exactly 1000 shared research hours after the second owner amendment",
+      "as_of_date": "2026-10-02",
+      "set": {"actual_research_hours": 1000, "decisive_evidence_status": "UNRESOLVED"},
       "expected": "STOP_PENDING_OWNER_DECISION",
       "expected_reasons": ["research_hour_cap_reached", "decisive_evidence_unresolved"]
     },
@@ -137,6 +277,26 @@
       "set": {"decisive_evidence_status": "UNRESOLVED"},
       "expected": "STOP_PENDING_OWNER_DECISION",
       "expected_reasons": ["accepted_deadline_passed", "decisive_evidence_unresolved"]
+    }
+  ],
+  "parser_regressions": [
+    {
+      "id": "NEGATIVE_RAW_CONTROL_DUPLICATE_PUBLICATION_POLICY",
+      "input_scenario": "Raw control JSON duplicates publication policy with an earlier PUBLISHED value",
+      "raw": "{\"publication_policy_status\":\"PUBLISHED\",\"publication_policy_status\":\"UNDECIDED_CANDIDATE_LEVEL_PUBLICATION_BLOCKED\"}",
+      "expected_error": "duplicate JSON object key: publication_policy_status"
+    },
+    {
+      "id": "NEGATIVE_RAW_CASES_DUPLICATE_CASES",
+      "input_scenario": "Raw cases JSON duplicates the cases key",
+      "raw": "{\"cases\":[],\"cases\":[]}",
+      "expected_error": "duplicate JSON object key: cases"
+    },
+    {
+      "id": "NEGATIVE_RAW_CONTROL_NAN",
+      "input_scenario": "Raw control JSON uses a nonfinite NaN consumed-hours constant",
+      "raw": "{\"actual_research_hours\":NaN}",
+      "expected_error": "non-finite JSON constant: NaN"
     }
   ]
 }

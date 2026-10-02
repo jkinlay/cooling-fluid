@@ -1,18 +1,19 @@
 {
   "kind": "FDE-FEAS-001 control-case execution",
   "scope": "document control only; no chemistry or AWF dispatch verification",
+  "source_authentication_limitation": "Exact retained conversation text is compared locally; this checker cannot authenticate the original owner or conversation source.",
   "control_path": "docs/feasibility/study_control.json",
-  "control_sha256": "ac60d62fb9e8c9b7e3f59a35130c599e1d256f2fb7faf1f5615a4b2eea9d1a8c",
+  "control_sha256": "0f7bf49c9185d6d48f885c7edcf6baf8ad38cc21f91640e51f36d02d68099987",
   "cases_path": "docs/feasibility/study_control_cases.json",
-  "cases_sha256": "8dcb035a87d42a8468d8f50e323410f56047c7845b0cc700063d85f2b0ce80eb",
-  "checker_sha256": "ed007f5abfb20ab4c6a51a7bbdda56346e1c95296f9fbf69671de1e3766e56d5",
+  "cases_sha256": "4ea880c74d62cf4ae2a4b4c55adf23d9c8bbe112ce70fba777fc74a67a0bb0d1",
+  "checker_sha256": "b7901f45c762ffff9e63e700d412c9ece54c62a4aafc938e65f3e4668465f889",
   "results": [
     {
       "id": "POSITIVE",
       "input_scenario": "Owner-accepted control on the accepted start date with zero consumed research hours",
       "input_record": {
         "record_type": "ACCEPTED_M0_STUDY_CONTROL",
-        "version": "1.2",
+        "version": "1.3",
         "status": "ACCEPTED",
         "epic": "CFD-1",
         "owner_account": "jkinlay",
@@ -25,7 +26,7 @@
         "proposed_research_hours_cap": 40,
         "proposed_owner_hours_total": 8,
         "proposed_owner_hours_per_week": 4,
-        "accepted_research_hours_cap": 120,
+        "accepted_research_hours_cap": 1000,
         "accepted_owner_hours_total": 8,
         "accepted_owner_hours_per_week": 4,
         "actual_research_hours": 0,
@@ -67,11 +68,20 @@
             "previous_shared_research_hours_cap": 40,
             "accepted_shared_research_hours_cap": 120,
             "scope": "Research-hour ceiling only; the accepted 14 October deadline, owner-review limits, zero external spend and public desk-study restrictions remain unchanged."
+          },
+          {
+            "date": "2026-10-02",
+            "channel": "Codex conversation",
+            "owner": "jkinlay",
+            "response": "Increase the permitted research time to 1000 hours. Continue the project in all 3 streams and do not stop unless you are blocked or instructed to. Even if one of the streams is blocked, research should continue in the remaining streams",
+            "previous_shared_research_hours_cap": 120,
+            "accepted_shared_research_hours_cap": 1000,
+            "scope": "Shared research-hour ceiling only. Continue unblocked streams; the previously accepted 14 October deadline, eight owner-review hours (at most four per week), zero external spend and public desk-study/publication restrictions remain in force."
           }
         ],
         "runtime_spike_hours_cap": null,
         "runtime_spike_spend_cap": null,
-        "note": "The owner increased only the shared research-hour cap to 120 on 1 October 2026. Public desk research remains bounded by the accepted deadline and other limits. This does not authorize outreach, paid computation, purchases, experiments, candidate-level publication, or work beyond the cap/deadline. AWF dispatch and Jira lifecycle writes remain subject to their separate gates.",
+        "note": "The owner raised the shared research-hour cap to 120 on 1 October 2026 and to 1000 on 2 October 2026. Continue all unblocked streams. Public desk research remains bounded by the accepted 14 October deadline and other limits. This does not authorize outreach, paid computation, purchases, experiments, candidate-level publication, or work beyond the cap/deadline. AWF dispatch and Jira lifecycle writes remain subject to their separate gates.",
         "accepted_start_date": "2026-10-01",
         "accepted_external_spend_cap_gbp": 0,
         "schedule_basis": "The 29 Sep–12 Oct template proposal was superseded by owner acceptance on 1 Oct 2026; ten working days counted inclusively gives 14 Oct 2026.",
@@ -100,7 +110,7 @@
       "input_scenario": "Synthetic copy with the owner field removed",
       "input_record": {
         "record_type": "ACCEPTED_M0_STUDY_CONTROL",
-        "version": "1.2",
+        "version": "1.3",
         "status": "ACCEPTED",
         "epic": "CFD-1",
         "owner_accepted": true,
@@ -112,10 +122,10 @@
         "proposed_research_hours_cap": 40,
         "proposed_owner_hours_total": 8,
         "proposed_owner_hours_per_week": 4,
-        "accepted_research_hours_cap": 120,
+        "accepted_research_hours_cap": 1000,
         "accepted_owner_hours_total": 8,
         "accepted_owner_hours_per_week": 4,
-        "actual_research_hours": 0,
+        "actual_research_hours": 67.2,
         "authorized_external_spend_gbp": 0,
         "paid_action_authorized": false,
         "checkpoint": "Five working days or 20 shared research hours, whichever comes first; final decision at the accepted deadline or cap exhaustion.",
@@ -154,11 +164,20 @@
             "previous_shared_research_hours_cap": 40,
             "accepted_shared_research_hours_cap": 120,
             "scope": "Research-hour ceiling only; the accepted 14 October deadline, owner-review limits, zero external spend and public desk-study restrictions remain unchanged."
+          },
+          {
+            "date": "2026-10-02",
+            "channel": "Codex conversation",
+            "owner": "jkinlay",
+            "response": "Increase the permitted research time to 1000 hours. Continue the project in all 3 streams and do not stop unless you are blocked or instructed to. Even if one of the streams is blocked, research should continue in the remaining streams",
+            "previous_shared_research_hours_cap": 120,
+            "accepted_shared_research_hours_cap": 1000,
+            "scope": "Shared research-hour ceiling only. Continue unblocked streams; the previously accepted 14 October deadline, eight owner-review hours (at most four per week), zero external spend and public desk-study/publication restrictions remain in force."
           }
         ],
         "runtime_spike_hours_cap": null,
         "runtime_spike_spend_cap": null,
-        "note": "The owner increased only the shared research-hour cap to 120 on 1 October 2026. Public desk research remains bounded by the accepted deadline and other limits. This does not authorize outreach, paid computation, purchases, experiments, candidate-level publication, or work beyond the cap/deadline. AWF dispatch and Jira lifecycle writes remain subject to their separate gates.",
+        "note": "The owner raised the shared research-hour cap to 120 on 1 October 2026 and to 1000 on 2 October 2026. Continue all unblocked streams. Public desk research remains bounded by the accepted 14 October deadline and other limits. This does not authorize outreach, paid computation, purchases, experiments, candidate-level publication, or work beyond the cap/deadline. AWF dispatch and Jira lifecycle writes remain subject to their separate gates.",
         "accepted_start_date": "2026-10-01",
         "accepted_external_spend_cap_gbp": 0,
         "schedule_basis": "The 29 Sep–12 Oct template proposal was superseded by owner acceptance on 1 Oct 2026; ten working days counted inclusively gives 14 Oct 2026.",
@@ -175,10 +194,8 @@
       ],
       "observed": "PROPOSED_NOT_STARTED",
       "reasons": [
-        "missing_owner",
-        "acceptance_owner_mismatch",
-        "acceptance_scope_mismatch",
-        "acceptance_scope_mismatch"
+        "immutable_control_mismatch",
+        "missing_owner"
       ],
       "result": "PASS",
       "reviewer": "Codex controller; independent review pending",
@@ -190,7 +207,7 @@
       "input_scenario": "Synthetic copy with null accepted deadline",
       "input_record": {
         "record_type": "ACCEPTED_M0_STUDY_CONTROL",
-        "version": "1.2",
+        "version": "1.3",
         "status": "ACCEPTED",
         "epic": "CFD-1",
         "owner_account": "jkinlay",
@@ -203,10 +220,10 @@
         "proposed_research_hours_cap": 40,
         "proposed_owner_hours_total": 8,
         "proposed_owner_hours_per_week": 4,
-        "accepted_research_hours_cap": 120,
+        "accepted_research_hours_cap": 1000,
         "accepted_owner_hours_total": 8,
         "accepted_owner_hours_per_week": 4,
-        "actual_research_hours": 0,
+        "actual_research_hours": 67.2,
         "authorized_external_spend_gbp": 0,
         "paid_action_authorized": false,
         "checkpoint": "Five working days or 20 shared research hours, whichever comes first; final decision at the accepted deadline or cap exhaustion.",
@@ -245,11 +262,20 @@
             "previous_shared_research_hours_cap": 40,
             "accepted_shared_research_hours_cap": 120,
             "scope": "Research-hour ceiling only; the accepted 14 October deadline, owner-review limits, zero external spend and public desk-study restrictions remain unchanged."
+          },
+          {
+            "date": "2026-10-02",
+            "channel": "Codex conversation",
+            "owner": "jkinlay",
+            "response": "Increase the permitted research time to 1000 hours. Continue the project in all 3 streams and do not stop unless you are blocked or instructed to. Even if one of the streams is blocked, research should continue in the remaining streams",
+            "previous_shared_research_hours_cap": 120,
+            "accepted_shared_research_hours_cap": 1000,
+            "scope": "Shared research-hour ceiling only. Continue unblocked streams; the previously accepted 14 October deadline, eight owner-review hours (at most four per week), zero external spend and public desk-study/publication restrictions remain in force."
           }
         ],
         "runtime_spike_hours_cap": null,
         "runtime_spike_spend_cap": null,
-        "note": "The owner increased only the shared research-hour cap to 120 on 1 October 2026. Public desk research remains bounded by the accepted deadline and other limits. This does not authorize outreach, paid computation, purchases, experiments, candidate-level publication, or work beyond the cap/deadline. AWF dispatch and Jira lifecycle writes remain subject to their separate gates.",
+        "note": "The owner raised the shared research-hour cap to 120 on 1 October 2026 and to 1000 on 2 October 2026. Continue all unblocked streams. Public desk research remains bounded by the accepted 14 October deadline and other limits. This does not authorize outreach, paid computation, purchases, experiments, candidate-level publication, or work beyond the cap/deadline. AWF dispatch and Jira lifecycle writes remain subject to their separate gates.",
         "accepted_start_date": "2026-10-01",
         "accepted_external_spend_cap_gbp": 0,
         "schedule_basis": "The 29 Sep–12 Oct template proposal was superseded by owner acceptance on 1 Oct 2026; ten working days counted inclusively gives 14 Oct 2026.",
@@ -266,6 +292,7 @@
       ],
       "observed": "PROPOSED_NOT_STARTED",
       "reasons": [
+        "immutable_control_mismatch",
         "acceptance_scope_mismatch",
         "missing_or_invalid_accepted_review_deadline"
       ],
@@ -279,7 +306,7 @@
       "input_scenario": "Synthetic copy with accepted external spend cap removed",
       "input_record": {
         "record_type": "ACCEPTED_M0_STUDY_CONTROL",
-        "version": "1.2",
+        "version": "1.3",
         "status": "ACCEPTED",
         "epic": "CFD-1",
         "owner_account": "jkinlay",
@@ -292,10 +319,10 @@
         "proposed_research_hours_cap": 40,
         "proposed_owner_hours_total": 8,
         "proposed_owner_hours_per_week": 4,
-        "accepted_research_hours_cap": 120,
+        "accepted_research_hours_cap": 1000,
         "accepted_owner_hours_total": 8,
         "accepted_owner_hours_per_week": 4,
-        "actual_research_hours": 0,
+        "actual_research_hours": 67.2,
         "authorized_external_spend_gbp": 0,
         "paid_action_authorized": false,
         "checkpoint": "Five working days or 20 shared research hours, whichever comes first; final decision at the accepted deadline or cap exhaustion.",
@@ -334,11 +361,20 @@
             "previous_shared_research_hours_cap": 40,
             "accepted_shared_research_hours_cap": 120,
             "scope": "Research-hour ceiling only; the accepted 14 October deadline, owner-review limits, zero external spend and public desk-study restrictions remain unchanged."
+          },
+          {
+            "date": "2026-10-02",
+            "channel": "Codex conversation",
+            "owner": "jkinlay",
+            "response": "Increase the permitted research time to 1000 hours. Continue the project in all 3 streams and do not stop unless you are blocked or instructed to. Even if one of the streams is blocked, research should continue in the remaining streams",
+            "previous_shared_research_hours_cap": 120,
+            "accepted_shared_research_hours_cap": 1000,
+            "scope": "Shared research-hour ceiling only. Continue unblocked streams; the previously accepted 14 October deadline, eight owner-review hours (at most four per week), zero external spend and public desk-study/publication restrictions remain in force."
           }
         ],
         "runtime_spike_hours_cap": null,
         "runtime_spike_spend_cap": null,
-        "note": "The owner increased only the shared research-hour cap to 120 on 1 October 2026. Public desk research remains bounded by the accepted deadline and other limits. This does not authorize outreach, paid computation, purchases, experiments, candidate-level publication, or work beyond the cap/deadline. AWF dispatch and Jira lifecycle writes remain subject to their separate gates.",
+        "note": "The owner raised the shared research-hour cap to 120 on 1 October 2026 and to 1000 on 2 October 2026. Continue all unblocked streams. Public desk research remains bounded by the accepted 14 October deadline and other limits. This does not authorize outreach, paid computation, purchases, experiments, candidate-level publication, or work beyond the cap/deadline. AWF dispatch and Jira lifecycle writes remain subject to their separate gates.",
         "accepted_start_date": "2026-10-01",
         "schedule_basis": "The 29 Sep–12 Oct template proposal was superseded by owner acceptance on 1 Oct 2026; ten working days counted inclusively gives 14 Oct 2026.",
         "outcome_rules": {
@@ -354,6 +390,7 @@
       ],
       "observed": "PROPOSED_NOT_STARTED",
       "reasons": [
+        "immutable_control_mismatch",
         "acceptance_scope_mismatch",
         "missing_or_invalid_spend_cap"
       ],
@@ -367,7 +404,7 @@
       "input_scenario": "Synthetic copy with PROPOSED_NOT_STARTED status",
       "input_record": {
         "record_type": "ACCEPTED_M0_STUDY_CONTROL",
-        "version": "1.2",
+        "version": "1.3",
         "status": "PROPOSED_NOT_STARTED",
         "epic": "CFD-1",
         "owner_account": "jkinlay",
@@ -380,10 +417,10 @@
         "proposed_research_hours_cap": 40,
         "proposed_owner_hours_total": 8,
         "proposed_owner_hours_per_week": 4,
-        "accepted_research_hours_cap": 120,
+        "accepted_research_hours_cap": 1000,
         "accepted_owner_hours_total": 8,
         "accepted_owner_hours_per_week": 4,
-        "actual_research_hours": 0,
+        "actual_research_hours": 67.2,
         "authorized_external_spend_gbp": 0,
         "paid_action_authorized": false,
         "checkpoint": "Five working days or 20 shared research hours, whichever comes first; final decision at the accepted deadline or cap exhaustion.",
@@ -422,11 +459,20 @@
             "previous_shared_research_hours_cap": 40,
             "accepted_shared_research_hours_cap": 120,
             "scope": "Research-hour ceiling only; the accepted 14 October deadline, owner-review limits, zero external spend and public desk-study restrictions remain unchanged."
+          },
+          {
+            "date": "2026-10-02",
+            "channel": "Codex conversation",
+            "owner": "jkinlay",
+            "response": "Increase the permitted research time to 1000 hours. Continue the project in all 3 streams and do not stop unless you are blocked or instructed to. Even if one of the streams is blocked, research should continue in the remaining streams",
+            "previous_shared_research_hours_cap": 120,
+            "accepted_shared_research_hours_cap": 1000,
+            "scope": "Shared research-hour ceiling only. Continue unblocked streams; the previously accepted 14 October deadline, eight owner-review hours (at most four per week), zero external spend and public desk-study/publication restrictions remain in force."
           }
         ],
         "runtime_spike_hours_cap": null,
         "runtime_spike_spend_cap": null,
-        "note": "The owner increased only the shared research-hour cap to 120 on 1 October 2026. Public desk research remains bounded by the accepted deadline and other limits. This does not authorize outreach, paid computation, purchases, experiments, candidate-level publication, or work beyond the cap/deadline. AWF dispatch and Jira lifecycle writes remain subject to their separate gates.",
+        "note": "The owner raised the shared research-hour cap to 120 on 1 October 2026 and to 1000 on 2 October 2026. Continue all unblocked streams. Public desk research remains bounded by the accepted 14 October deadline and other limits. This does not authorize outreach, paid computation, purchases, experiments, candidate-level publication, or work beyond the cap/deadline. AWF dispatch and Jira lifecycle writes remain subject to their separate gates.",
         "accepted_start_date": "2026-10-01",
         "accepted_external_spend_cap_gbp": 0,
         "schedule_basis": "The 29 Sep–12 Oct template proposal was superseded by owner acceptance on 1 Oct 2026; ten working days counted inclusively gives 14 Oct 2026.",
@@ -443,6 +489,7 @@
       ],
       "observed": "PROPOSED_NOT_STARTED",
       "reasons": [
+        "immutable_control_mismatch",
         "status_not_accepted"
       ],
       "result": "PASS",
@@ -455,7 +502,7 @@
       "input_scenario": "Synthetic copy with an unrelated owner response",
       "input_record": {
         "record_type": "ACCEPTED_M0_STUDY_CONTROL",
-        "version": "1.2",
+        "version": "1.3",
         "status": "ACCEPTED",
         "epic": "CFD-1",
         "owner_account": "jkinlay",
@@ -468,10 +515,10 @@
         "proposed_research_hours_cap": 40,
         "proposed_owner_hours_total": 8,
         "proposed_owner_hours_per_week": 4,
-        "accepted_research_hours_cap": 120,
+        "accepted_research_hours_cap": 1000,
         "accepted_owner_hours_total": 8,
         "accepted_owner_hours_per_week": 4,
-        "actual_research_hours": 0,
+        "actual_research_hours": 67.2,
         "authorized_external_spend_gbp": 0,
         "paid_action_authorized": false,
         "checkpoint": "Five working days or 20 shared research hours, whichever comes first; final decision at the accepted deadline or cap exhaustion.",
@@ -510,11 +557,20 @@
             "previous_shared_research_hours_cap": 40,
             "accepted_shared_research_hours_cap": 120,
             "scope": "Research-hour ceiling only; the accepted 14 October deadline, owner-review limits, zero external spend and public desk-study restrictions remain unchanged."
+          },
+          {
+            "date": "2026-10-02",
+            "channel": "Codex conversation",
+            "owner": "jkinlay",
+            "response": "Increase the permitted research time to 1000 hours. Continue the project in all 3 streams and do not stop unless you are blocked or instructed to. Even if one of the streams is blocked, research should continue in the remaining streams",
+            "previous_shared_research_hours_cap": 120,
+            "accepted_shared_research_hours_cap": 1000,
+            "scope": "Shared research-hour ceiling only. Continue unblocked streams; the previously accepted 14 October deadline, eight owner-review hours (at most four per week), zero external spend and public desk-study/publication restrictions remain in force."
           }
         ],
         "runtime_spike_hours_cap": null,
         "runtime_spike_spend_cap": null,
-        "note": "The owner increased only the shared research-hour cap to 120 on 1 October 2026. Public desk research remains bounded by the accepted deadline and other limits. This does not authorize outreach, paid computation, purchases, experiments, candidate-level publication, or work beyond the cap/deadline. AWF dispatch and Jira lifecycle writes remain subject to their separate gates.",
+        "note": "The owner raised the shared research-hour cap to 120 on 1 October 2026 and to 1000 on 2 October 2026. Continue all unblocked streams. Public desk research remains bounded by the accepted 14 October deadline and other limits. This does not authorize outreach, paid computation, purchases, experiments, candidate-level publication, or work beyond the cap/deadline. AWF dispatch and Jira lifecycle writes remain subject to their separate gates.",
         "accepted_start_date": "2026-10-01",
         "accepted_external_spend_cap_gbp": 0,
         "schedule_basis": "The 29 Sep–12 Oct template proposal was superseded by owner acceptance on 1 Oct 2026; ten working days counted inclusively gives 14 Oct 2026.",
@@ -531,7 +587,9 @@
       ],
       "observed": "PROPOSED_NOT_STARTED",
       "reasons": [
-        "acceptance_response_mismatch"
+        "immutable_control_mismatch",
+        "acceptance_response_mismatch",
+        "acceptance_scope_mismatch"
       ],
       "result": "PASS",
       "reviewer": "Codex controller; independent review pending",
@@ -543,7 +601,7 @@
       "input_scenario": "Synthetic copy with the accepted research-hour term changed to 41",
       "input_record": {
         "record_type": "ACCEPTED_M0_STUDY_CONTROL",
-        "version": "1.2",
+        "version": "1.3",
         "status": "ACCEPTED",
         "epic": "CFD-1",
         "owner_account": "jkinlay",
@@ -556,10 +614,10 @@
         "proposed_research_hours_cap": 40,
         "proposed_owner_hours_total": 8,
         "proposed_owner_hours_per_week": 4,
-        "accepted_research_hours_cap": 120,
+        "accepted_research_hours_cap": 1000,
         "accepted_owner_hours_total": 8,
         "accepted_owner_hours_per_week": 4,
-        "actual_research_hours": 0,
+        "actual_research_hours": 67.2,
         "authorized_external_spend_gbp": 0,
         "paid_action_authorized": false,
         "checkpoint": "Five working days or 20 shared research hours, whichever comes first; final decision at the accepted deadline or cap exhaustion.",
@@ -598,11 +656,20 @@
             "previous_shared_research_hours_cap": 40,
             "accepted_shared_research_hours_cap": 120,
             "scope": "Research-hour ceiling only; the accepted 14 October deadline, owner-review limits, zero external spend and public desk-study restrictions remain unchanged."
+          },
+          {
+            "date": "2026-10-02",
+            "channel": "Codex conversation",
+            "owner": "jkinlay",
+            "response": "Increase the permitted research time to 1000 hours. Continue the project in all 3 streams and do not stop unless you are blocked or instructed to. Even if one of the streams is blocked, research should continue in the remaining streams",
+            "previous_shared_research_hours_cap": 120,
+            "accepted_shared_research_hours_cap": 1000,
+            "scope": "Shared research-hour ceiling only. Continue unblocked streams; the previously accepted 14 October deadline, eight owner-review hours (at most four per week), zero external spend and public desk-study/publication restrictions remain in force."
           }
         ],
         "runtime_spike_hours_cap": null,
         "runtime_spike_spend_cap": null,
-        "note": "The owner increased only the shared research-hour cap to 120 on 1 October 2026. Public desk research remains bounded by the accepted deadline and other limits. This does not authorize outreach, paid computation, purchases, experiments, candidate-level publication, or work beyond the cap/deadline. AWF dispatch and Jira lifecycle writes remain subject to their separate gates.",
+        "note": "The owner raised the shared research-hour cap to 120 on 1 October 2026 and to 1000 on 2 October 2026. Continue all unblocked streams. Public desk research remains bounded by the accepted 14 October deadline and other limits. This does not authorize outreach, paid computation, purchases, experiments, candidate-level publication, or work beyond the cap/deadline. AWF dispatch and Jira lifecycle writes remain subject to their separate gates.",
         "accepted_start_date": "2026-10-01",
         "accepted_external_spend_cap_gbp": 0,
         "schedule_basis": "The 29 Sep–12 Oct template proposal was superseded by owner acceptance on 1 Oct 2026; ten working days counted inclusively gives 14 Oct 2026.",
@@ -619,7 +686,7 @@
       ],
       "observed": "PROPOSED_NOT_STARTED",
       "reasons": [
-        "acceptance_scope_mismatch",
+        "immutable_control_mismatch",
         "acceptance_scope_mismatch"
       ],
       "result": "PASS",
@@ -628,11 +695,11 @@
       "evidence_ref": "docs/feasibility/study_control.json and docs/feasibility/study_control_cases.json"
     },
     {
-      "id": "NEGATIVE_UNSUPPORTED_CAP_RAISE",
-      "input_scenario": "Synthetic copy claiming the 120-hour cap without its owner amendment",
+      "id": "NEGATIVE_PUBLIC_DESK_BOOLEAN_AS_NUMBER",
+      "input_scenario": "Synthetic copy substituting numeric one for the accepted public-desk boolean",
       "input_record": {
         "record_type": "ACCEPTED_M0_STUDY_CONTROL",
-        "version": "1.2",
+        "version": "1.3",
         "status": "ACCEPTED",
         "epic": "CFD-1",
         "owner_account": "jkinlay",
@@ -645,10 +712,405 @@
         "proposed_research_hours_cap": 40,
         "proposed_owner_hours_total": 8,
         "proposed_owner_hours_per_week": 4,
-        "accepted_research_hours_cap": 120,
+        "accepted_research_hours_cap": 1000,
         "accepted_owner_hours_total": 8,
         "accepted_owner_hours_per_week": 4,
-        "actual_research_hours": 0,
+        "actual_research_hours": 67.2,
+        "authorized_external_spend_gbp": 0,
+        "paid_action_authorized": false,
+        "checkpoint": "Five working days or 20 shared research hours, whichever comes first; final decision at the accepted deadline or cap exhaustion.",
+        "named_chemistry_reviewer": null,
+        "named_thermal_reviewer": null,
+        "laboratory_partner": null,
+        "publication_policy_status": "UNDECIDED_CANDIDATE_LEVEL_PUBLICATION_BLOCKED",
+        "stop_rules": [
+          "All candidates in the bounded universe have measured hard failures => STOP_DOMAIN for that domain/profile",
+          "Missing decisive data => INCONCLUSIVE or separately capped evidence request",
+          "Cap/deadline reached => no automatic continuation",
+          "Sunk engineering cost cannot override a hard constraint"
+        ],
+        "acceptance_evidence": {
+          "date": "2026-10-01",
+          "channel": "Codex conversation",
+          "owner": "jkinlay",
+          "response": "Accept these M0 limits",
+          "scope": "1–14 October 2026; ten working days; 40 shared research hours; eight owner-review hours total, at most four per week; zero external spend; stated checkpoint and stop rules; public desk research only",
+          "accepted_terms": {
+            "start_date": "2026-10-01",
+            "review_deadline": "2026-10-14",
+            "research_hours_cap": 40,
+            "owner_hours_total": 8,
+            "owner_hours_per_week": 4,
+            "external_spend_cap_gbp": 0,
+            "public_desk_only": 1
+          }
+        },
+        "research_cap_amendments": [
+          {
+            "date": "2026-10-01",
+            "channel": "Codex conversation",
+            "owner": "jkinlay",
+            "response": "I am authorizing an increase in the number of research hours to 120",
+            "previous_shared_research_hours_cap": 40,
+            "accepted_shared_research_hours_cap": 120,
+            "scope": "Research-hour ceiling only; the accepted 14 October deadline, owner-review limits, zero external spend and public desk-study restrictions remain unchanged."
+          },
+          {
+            "date": "2026-10-02",
+            "channel": "Codex conversation",
+            "owner": "jkinlay",
+            "response": "Increase the permitted research time to 1000 hours. Continue the project in all 3 streams and do not stop unless you are blocked or instructed to. Even if one of the streams is blocked, research should continue in the remaining streams",
+            "previous_shared_research_hours_cap": 120,
+            "accepted_shared_research_hours_cap": 1000,
+            "scope": "Shared research-hour ceiling only. Continue unblocked streams; the previously accepted 14 October deadline, eight owner-review hours (at most four per week), zero external spend and public desk-study/publication restrictions remain in force."
+          }
+        ],
+        "runtime_spike_hours_cap": null,
+        "runtime_spike_spend_cap": null,
+        "note": "The owner raised the shared research-hour cap to 120 on 1 October 2026 and to 1000 on 2 October 2026. Continue all unblocked streams. Public desk research remains bounded by the accepted 14 October deadline and other limits. This does not authorize outreach, paid computation, purchases, experiments, candidate-level publication, or work beyond the cap/deadline. AWF dispatch and Jira lifecycle writes remain subject to their separate gates.",
+        "accepted_start_date": "2026-10-01",
+        "accepted_external_spend_cap_gbp": 0,
+        "schedule_basis": "The 29 Sep–12 Oct template proposal was superseded by owner acceptance on 1 Oct 2026; ten working days counted inclusively gives 14 Oct 2026.",
+        "outcome_rules": {
+          "STOP_DOMAIN": "All candidates in the named bounded universe/profile have measured hard failures against accepted constraints; owner decides to stop that domain.",
+          "INCONCLUSIVE": "Decisive evidence missing or conflicting; mark UNKNOWN and request separately capped evidence or conclude INCONCLUSIVE.",
+          "CONTINUE": "Only a specifically scoped public desk question inside the accepted M0 date/hour/spend limits after an owner-recorded decision; no automatic next stage."
+        }
+      },
+      "as_of_date": "2026-10-01",
+      "expected": "PROPOSED_NOT_STARTED",
+      "expected_reasons": [
+        "acceptance_scope_mismatch"
+      ],
+      "observed": "PROPOSED_NOT_STARTED",
+      "reasons": [
+        "immutable_control_mismatch",
+        "acceptance_scope_mismatch"
+      ],
+      "result": "PASS",
+      "reviewer": "Codex controller; independent review pending",
+      "date": "2026-10-01",
+      "evidence_ref": "docs/feasibility/study_control.json and docs/feasibility/study_control_cases.json"
+    },
+    {
+      "id": "NEGATIVE_COORDINATED_DEADLINE_TAMPER",
+      "input_scenario": "Synthetic copy coordinating a later deadline in the record and mutable acceptance terms",
+      "input_record": {
+        "record_type": "ACCEPTED_M0_STUDY_CONTROL",
+        "version": "1.3",
+        "status": "ACCEPTED",
+        "epic": "CFD-1",
+        "owner_account": "jkinlay",
+        "owner_accepted": true,
+        "proposed_start_date": "2026-10-01",
+        "proposed_review_deadline": "2026-10-14",
+        "actual_start_date": "2026-10-01",
+        "accepted_review_deadline": "2026-10-15",
+        "proposed_working_days": 10,
+        "proposed_research_hours_cap": 40,
+        "proposed_owner_hours_total": 8,
+        "proposed_owner_hours_per_week": 4,
+        "accepted_research_hours_cap": 1000,
+        "accepted_owner_hours_total": 8,
+        "accepted_owner_hours_per_week": 4,
+        "actual_research_hours": 67.2,
+        "authorized_external_spend_gbp": 0,
+        "paid_action_authorized": false,
+        "checkpoint": "Five working days or 20 shared research hours, whichever comes first; final decision at the accepted deadline or cap exhaustion.",
+        "named_chemistry_reviewer": null,
+        "named_thermal_reviewer": null,
+        "laboratory_partner": null,
+        "publication_policy_status": "UNDECIDED_CANDIDATE_LEVEL_PUBLICATION_BLOCKED",
+        "stop_rules": [
+          "All candidates in the bounded universe have measured hard failures => STOP_DOMAIN for that domain/profile",
+          "Missing decisive data => INCONCLUSIVE or separately capped evidence request",
+          "Cap/deadline reached => no automatic continuation",
+          "Sunk engineering cost cannot override a hard constraint"
+        ],
+        "acceptance_evidence": {
+          "date": "2026-10-01",
+          "channel": "Codex conversation",
+          "owner": "jkinlay",
+          "response": "Accept these M0 limits",
+          "scope": "1–14 October 2026; ten working days; 40 shared research hours; eight owner-review hours total, at most four per week; zero external spend; stated checkpoint and stop rules; public desk research only",
+          "accepted_terms": {
+            "start_date": "2026-10-01",
+            "review_deadline": "2026-10-15",
+            "research_hours_cap": 40,
+            "owner_hours_total": 8,
+            "owner_hours_per_week": 4,
+            "external_spend_cap_gbp": 0,
+            "public_desk_only": true
+          }
+        },
+        "research_cap_amendments": [
+          {
+            "date": "2026-10-01",
+            "channel": "Codex conversation",
+            "owner": "jkinlay",
+            "response": "I am authorizing an increase in the number of research hours to 120",
+            "previous_shared_research_hours_cap": 40,
+            "accepted_shared_research_hours_cap": 120,
+            "scope": "Research-hour ceiling only; the accepted 14 October deadline, owner-review limits, zero external spend and public desk-study restrictions remain unchanged."
+          },
+          {
+            "date": "2026-10-02",
+            "channel": "Codex conversation",
+            "owner": "jkinlay",
+            "response": "Increase the permitted research time to 1000 hours. Continue the project in all 3 streams and do not stop unless you are blocked or instructed to. Even if one of the streams is blocked, research should continue in the remaining streams",
+            "previous_shared_research_hours_cap": 120,
+            "accepted_shared_research_hours_cap": 1000,
+            "scope": "Shared research-hour ceiling only. Continue unblocked streams; the previously accepted 14 October deadline, eight owner-review hours (at most four per week), zero external spend and public desk-study/publication restrictions remain in force."
+          }
+        ],
+        "runtime_spike_hours_cap": null,
+        "runtime_spike_spend_cap": null,
+        "note": "The owner raised the shared research-hour cap to 120 on 1 October 2026 and to 1000 on 2 October 2026. Continue all unblocked streams. Public desk research remains bounded by the accepted 14 October deadline and other limits. This does not authorize outreach, paid computation, purchases, experiments, candidate-level publication, or work beyond the cap/deadline. AWF dispatch and Jira lifecycle writes remain subject to their separate gates.",
+        "accepted_start_date": "2026-10-01",
+        "accepted_external_spend_cap_gbp": 0,
+        "schedule_basis": "The 29 Sep–12 Oct template proposal was superseded by owner acceptance on 1 Oct 2026; ten working days counted inclusively gives 14 Oct 2026.",
+        "outcome_rules": {
+          "STOP_DOMAIN": "All candidates in the named bounded universe/profile have measured hard failures against accepted constraints; owner decides to stop that domain.",
+          "INCONCLUSIVE": "Decisive evidence missing or conflicting; mark UNKNOWN and request separately capped evidence or conclude INCONCLUSIVE.",
+          "CONTINUE": "Only a specifically scoped public desk question inside the accepted M0 date/hour/spend limits after an owner-recorded decision; no automatic next stage."
+        }
+      },
+      "as_of_date": "2026-10-01",
+      "expected": "PROPOSED_NOT_STARTED",
+      "expected_reasons": [
+        "acceptance_scope_mismatch"
+      ],
+      "observed": "PROPOSED_NOT_STARTED",
+      "reasons": [
+        "immutable_control_mismatch",
+        "acceptance_scope_mismatch",
+        "acceptance_scope_mismatch"
+      ],
+      "result": "PASS",
+      "reviewer": "Codex controller; independent review pending",
+      "date": "2026-10-01",
+      "evidence_ref": "docs/feasibility/study_control.json and docs/feasibility/study_control_cases.json"
+    },
+    {
+      "id": "NEGATIVE_COORDINATED_OWNER_TOTAL_TAMPER",
+      "input_scenario": "Synthetic copy coordinating a higher owner-review total in the record and mutable acceptance terms",
+      "input_record": {
+        "record_type": "ACCEPTED_M0_STUDY_CONTROL",
+        "version": "1.3",
+        "status": "ACCEPTED",
+        "epic": "CFD-1",
+        "owner_account": "jkinlay",
+        "owner_accepted": true,
+        "proposed_start_date": "2026-10-01",
+        "proposed_review_deadline": "2026-10-14",
+        "actual_start_date": "2026-10-01",
+        "accepted_review_deadline": "2026-10-14",
+        "proposed_working_days": 10,
+        "proposed_research_hours_cap": 40,
+        "proposed_owner_hours_total": 8,
+        "proposed_owner_hours_per_week": 4,
+        "accepted_research_hours_cap": 1000,
+        "accepted_owner_hours_total": 9,
+        "accepted_owner_hours_per_week": 4,
+        "actual_research_hours": 67.2,
+        "authorized_external_spend_gbp": 0,
+        "paid_action_authorized": false,
+        "checkpoint": "Five working days or 20 shared research hours, whichever comes first; final decision at the accepted deadline or cap exhaustion.",
+        "named_chemistry_reviewer": null,
+        "named_thermal_reviewer": null,
+        "laboratory_partner": null,
+        "publication_policy_status": "UNDECIDED_CANDIDATE_LEVEL_PUBLICATION_BLOCKED",
+        "stop_rules": [
+          "All candidates in the bounded universe have measured hard failures => STOP_DOMAIN for that domain/profile",
+          "Missing decisive data => INCONCLUSIVE or separately capped evidence request",
+          "Cap/deadline reached => no automatic continuation",
+          "Sunk engineering cost cannot override a hard constraint"
+        ],
+        "acceptance_evidence": {
+          "date": "2026-10-01",
+          "channel": "Codex conversation",
+          "owner": "jkinlay",
+          "response": "Accept these M0 limits",
+          "scope": "1–14 October 2026; ten working days; 40 shared research hours; eight owner-review hours total, at most four per week; zero external spend; stated checkpoint and stop rules; public desk research only",
+          "accepted_terms": {
+            "start_date": "2026-10-01",
+            "review_deadline": "2026-10-14",
+            "research_hours_cap": 40,
+            "owner_hours_total": 9,
+            "owner_hours_per_week": 4,
+            "external_spend_cap_gbp": 0,
+            "public_desk_only": true
+          }
+        },
+        "research_cap_amendments": [
+          {
+            "date": "2026-10-01",
+            "channel": "Codex conversation",
+            "owner": "jkinlay",
+            "response": "I am authorizing an increase in the number of research hours to 120",
+            "previous_shared_research_hours_cap": 40,
+            "accepted_shared_research_hours_cap": 120,
+            "scope": "Research-hour ceiling only; the accepted 14 October deadline, owner-review limits, zero external spend and public desk-study restrictions remain unchanged."
+          },
+          {
+            "date": "2026-10-02",
+            "channel": "Codex conversation",
+            "owner": "jkinlay",
+            "response": "Increase the permitted research time to 1000 hours. Continue the project in all 3 streams and do not stop unless you are blocked or instructed to. Even if one of the streams is blocked, research should continue in the remaining streams",
+            "previous_shared_research_hours_cap": 120,
+            "accepted_shared_research_hours_cap": 1000,
+            "scope": "Shared research-hour ceiling only. Continue unblocked streams; the previously accepted 14 October deadline, eight owner-review hours (at most four per week), zero external spend and public desk-study/publication restrictions remain in force."
+          }
+        ],
+        "runtime_spike_hours_cap": null,
+        "runtime_spike_spend_cap": null,
+        "note": "The owner raised the shared research-hour cap to 120 on 1 October 2026 and to 1000 on 2 October 2026. Continue all unblocked streams. Public desk research remains bounded by the accepted 14 October deadline and other limits. This does not authorize outreach, paid computation, purchases, experiments, candidate-level publication, or work beyond the cap/deadline. AWF dispatch and Jira lifecycle writes remain subject to their separate gates.",
+        "accepted_start_date": "2026-10-01",
+        "accepted_external_spend_cap_gbp": 0,
+        "schedule_basis": "The 29 Sep–12 Oct template proposal was superseded by owner acceptance on 1 Oct 2026; ten working days counted inclusively gives 14 Oct 2026.",
+        "outcome_rules": {
+          "STOP_DOMAIN": "All candidates in the named bounded universe/profile have measured hard failures against accepted constraints; owner decides to stop that domain.",
+          "INCONCLUSIVE": "Decisive evidence missing or conflicting; mark UNKNOWN and request separately capped evidence or conclude INCONCLUSIVE.",
+          "CONTINUE": "Only a specifically scoped public desk question inside the accepted M0 date/hour/spend limits after an owner-recorded decision; no automatic next stage."
+        }
+      },
+      "as_of_date": "2026-10-01",
+      "expected": "PROPOSED_NOT_STARTED",
+      "expected_reasons": [
+        "acceptance_scope_mismatch"
+      ],
+      "observed": "PROPOSED_NOT_STARTED",
+      "reasons": [
+        "immutable_control_mismatch",
+        "acceptance_scope_mismatch",
+        "acceptance_scope_mismatch"
+      ],
+      "result": "PASS",
+      "reviewer": "Codex controller; independent review pending",
+      "date": "2026-10-01",
+      "evidence_ref": "docs/feasibility/study_control.json and docs/feasibility/study_control_cases.json"
+    },
+    {
+      "id": "NEGATIVE_COORDINATED_OWNER_WEEKLY_TAMPER",
+      "input_scenario": "Synthetic copy coordinating a higher weekly owner-review limit in the record and mutable acceptance terms",
+      "input_record": {
+        "record_type": "ACCEPTED_M0_STUDY_CONTROL",
+        "version": "1.3",
+        "status": "ACCEPTED",
+        "epic": "CFD-1",
+        "owner_account": "jkinlay",
+        "owner_accepted": true,
+        "proposed_start_date": "2026-10-01",
+        "proposed_review_deadline": "2026-10-14",
+        "actual_start_date": "2026-10-01",
+        "accepted_review_deadline": "2026-10-14",
+        "proposed_working_days": 10,
+        "proposed_research_hours_cap": 40,
+        "proposed_owner_hours_total": 8,
+        "proposed_owner_hours_per_week": 4,
+        "accepted_research_hours_cap": 1000,
+        "accepted_owner_hours_total": 8,
+        "accepted_owner_hours_per_week": 5,
+        "actual_research_hours": 67.2,
+        "authorized_external_spend_gbp": 0,
+        "paid_action_authorized": false,
+        "checkpoint": "Five working days or 20 shared research hours, whichever comes first; final decision at the accepted deadline or cap exhaustion.",
+        "named_chemistry_reviewer": null,
+        "named_thermal_reviewer": null,
+        "laboratory_partner": null,
+        "publication_policy_status": "UNDECIDED_CANDIDATE_LEVEL_PUBLICATION_BLOCKED",
+        "stop_rules": [
+          "All candidates in the bounded universe have measured hard failures => STOP_DOMAIN for that domain/profile",
+          "Missing decisive data => INCONCLUSIVE or separately capped evidence request",
+          "Cap/deadline reached => no automatic continuation",
+          "Sunk engineering cost cannot override a hard constraint"
+        ],
+        "acceptance_evidence": {
+          "date": "2026-10-01",
+          "channel": "Codex conversation",
+          "owner": "jkinlay",
+          "response": "Accept these M0 limits",
+          "scope": "1–14 October 2026; ten working days; 40 shared research hours; eight owner-review hours total, at most four per week; zero external spend; stated checkpoint and stop rules; public desk research only",
+          "accepted_terms": {
+            "start_date": "2026-10-01",
+            "review_deadline": "2026-10-14",
+            "research_hours_cap": 40,
+            "owner_hours_total": 8,
+            "owner_hours_per_week": 5,
+            "external_spend_cap_gbp": 0,
+            "public_desk_only": true
+          }
+        },
+        "research_cap_amendments": [
+          {
+            "date": "2026-10-01",
+            "channel": "Codex conversation",
+            "owner": "jkinlay",
+            "response": "I am authorizing an increase in the number of research hours to 120",
+            "previous_shared_research_hours_cap": 40,
+            "accepted_shared_research_hours_cap": 120,
+            "scope": "Research-hour ceiling only; the accepted 14 October deadline, owner-review limits, zero external spend and public desk-study restrictions remain unchanged."
+          },
+          {
+            "date": "2026-10-02",
+            "channel": "Codex conversation",
+            "owner": "jkinlay",
+            "response": "Increase the permitted research time to 1000 hours. Continue the project in all 3 streams and do not stop unless you are blocked or instructed to. Even if one of the streams is blocked, research should continue in the remaining streams",
+            "previous_shared_research_hours_cap": 120,
+            "accepted_shared_research_hours_cap": 1000,
+            "scope": "Shared research-hour ceiling only. Continue unblocked streams; the previously accepted 14 October deadline, eight owner-review hours (at most four per week), zero external spend and public desk-study/publication restrictions remain in force."
+          }
+        ],
+        "runtime_spike_hours_cap": null,
+        "runtime_spike_spend_cap": null,
+        "note": "The owner raised the shared research-hour cap to 120 on 1 October 2026 and to 1000 on 2 October 2026. Continue all unblocked streams. Public desk research remains bounded by the accepted 14 October deadline and other limits. This does not authorize outreach, paid computation, purchases, experiments, candidate-level publication, or work beyond the cap/deadline. AWF dispatch and Jira lifecycle writes remain subject to their separate gates.",
+        "accepted_start_date": "2026-10-01",
+        "accepted_external_spend_cap_gbp": 0,
+        "schedule_basis": "The 29 Sep–12 Oct template proposal was superseded by owner acceptance on 1 Oct 2026; ten working days counted inclusively gives 14 Oct 2026.",
+        "outcome_rules": {
+          "STOP_DOMAIN": "All candidates in the named bounded universe/profile have measured hard failures against accepted constraints; owner decides to stop that domain.",
+          "INCONCLUSIVE": "Decisive evidence missing or conflicting; mark UNKNOWN and request separately capped evidence or conclude INCONCLUSIVE.",
+          "CONTINUE": "Only a specifically scoped public desk question inside the accepted M0 date/hour/spend limits after an owner-recorded decision; no automatic next stage."
+        }
+      },
+      "as_of_date": "2026-10-01",
+      "expected": "PROPOSED_NOT_STARTED",
+      "expected_reasons": [
+        "acceptance_scope_mismatch"
+      ],
+      "observed": "PROPOSED_NOT_STARTED",
+      "reasons": [
+        "immutable_control_mismatch",
+        "acceptance_scope_mismatch",
+        "acceptance_scope_mismatch"
+      ],
+      "result": "PASS",
+      "reviewer": "Codex controller; independent review pending",
+      "date": "2026-10-01",
+      "evidence_ref": "docs/feasibility/study_control.json and docs/feasibility/study_control_cases.json"
+    },
+    {
+      "id": "NEGATIVE_UNSUPPORTED_CAP_RAISE",
+      "input_scenario": "Synthetic copy claiming the 1000-hour cap without its retained owner amendments",
+      "input_record": {
+        "record_type": "ACCEPTED_M0_STUDY_CONTROL",
+        "version": "1.3",
+        "status": "ACCEPTED",
+        "epic": "CFD-1",
+        "owner_account": "jkinlay",
+        "owner_accepted": true,
+        "proposed_start_date": "2026-10-01",
+        "proposed_review_deadline": "2026-10-14",
+        "actual_start_date": "2026-10-01",
+        "accepted_review_deadline": "2026-10-14",
+        "proposed_working_days": 10,
+        "proposed_research_hours_cap": 40,
+        "proposed_owner_hours_total": 8,
+        "proposed_owner_hours_per_week": 4,
+        "accepted_research_hours_cap": 1000,
+        "accepted_owner_hours_total": 8,
+        "accepted_owner_hours_per_week": 4,
+        "actual_research_hours": 67.2,
         "authorized_external_spend_gbp": 0,
         "paid_action_authorized": false,
         "checkpoint": "Five working days or 20 shared research hours, whichever comes first; final decision at the accepted deadline or cap exhaustion.",
@@ -680,7 +1142,7 @@
         },
         "runtime_spike_hours_cap": null,
         "runtime_spike_spend_cap": null,
-        "note": "The owner increased only the shared research-hour cap to 120 on 1 October 2026. Public desk research remains bounded by the accepted deadline and other limits. This does not authorize outreach, paid computation, purchases, experiments, candidate-level publication, or work beyond the cap/deadline. AWF dispatch and Jira lifecycle writes remain subject to their separate gates.",
+        "note": "The owner raised the shared research-hour cap to 120 on 1 October 2026 and to 1000 on 2 October 2026. Continue all unblocked streams. Public desk research remains bounded by the accepted 14 October deadline and other limits. This does not authorize outreach, paid computation, purchases, experiments, candidate-level publication, or work beyond the cap/deadline. AWF dispatch and Jira lifecycle writes remain subject to their separate gates.",
         "accepted_start_date": "2026-10-01",
         "accepted_external_spend_cap_gbp": 0,
         "schedule_basis": "The 29 Sep–12 Oct template proposal was superseded by owner acceptance on 1 Oct 2026; ten working days counted inclusively gives 14 Oct 2026.",
@@ -690,18 +1152,20 @@
           "CONTINUE": "Only a specifically scoped public desk question inside the accepted M0 date/hour/spend limits after an owner-recorded decision; no automatic next stage."
         }
       },
-      "as_of_date": "2026-10-01",
+      "as_of_date": "2026-10-02",
       "expected": "PROPOSED_NOT_STARTED",
       "expected_reasons": [
         "acceptance_scope_mismatch"
       ],
       "observed": "PROPOSED_NOT_STARTED",
       "reasons": [
+        "immutable_control_mismatch",
+        "acceptance_scope_mismatch",
         "acceptance_scope_mismatch"
       ],
       "result": "PASS",
       "reviewer": "Codex controller; independent review pending",
-      "date": "2026-10-01",
+      "date": "2026-10-02",
       "evidence_ref": "docs/feasibility/study_control.json and docs/feasibility/study_control_cases.json"
     },
     {
@@ -709,7 +1173,7 @@
       "input_scenario": "Synthetic copy with the cap-only amendment scope removed",
       "input_record": {
         "record_type": "ACCEPTED_M0_STUDY_CONTROL",
-        "version": "1.2",
+        "version": "1.3",
         "status": "ACCEPTED",
         "epic": "CFD-1",
         "owner_account": "jkinlay",
@@ -722,10 +1186,10 @@
         "proposed_research_hours_cap": 40,
         "proposed_owner_hours_total": 8,
         "proposed_owner_hours_per_week": 4,
-        "accepted_research_hours_cap": 120,
+        "accepted_research_hours_cap": 1000,
         "accepted_owner_hours_total": 8,
         "accepted_owner_hours_per_week": 4,
-        "actual_research_hours": 0,
+        "actual_research_hours": 67.2,
         "authorized_external_spend_gbp": 0,
         "paid_action_authorized": false,
         "checkpoint": "Five working days or 20 shared research hours, whichever comes first; final decision at the accepted deadline or cap exhaustion.",
@@ -763,11 +1227,20 @@
             "response": "I am authorizing an increase in the number of research hours to 120",
             "previous_shared_research_hours_cap": 40,
             "accepted_shared_research_hours_cap": 120
+          },
+          {
+            "date": "2026-10-02",
+            "channel": "Codex conversation",
+            "owner": "jkinlay",
+            "response": "Increase the permitted research time to 1000 hours. Continue the project in all 3 streams and do not stop unless you are blocked or instructed to. Even if one of the streams is blocked, research should continue in the remaining streams",
+            "previous_shared_research_hours_cap": 120,
+            "accepted_shared_research_hours_cap": 1000,
+            "scope": "Shared research-hour ceiling only. Continue unblocked streams; the previously accepted 14 October deadline, eight owner-review hours (at most four per week), zero external spend and public desk-study/publication restrictions remain in force."
           }
         ],
         "runtime_spike_hours_cap": null,
         "runtime_spike_spend_cap": null,
-        "note": "The owner increased only the shared research-hour cap to 120 on 1 October 2026. Public desk research remains bounded by the accepted deadline and other limits. This does not authorize outreach, paid computation, purchases, experiments, candidate-level publication, or work beyond the cap/deadline. AWF dispatch and Jira lifecycle writes remain subject to their separate gates.",
+        "note": "The owner raised the shared research-hour cap to 120 on 1 October 2026 and to 1000 on 2 October 2026. Continue all unblocked streams. Public desk research remains bounded by the accepted 14 October deadline and other limits. This does not authorize outreach, paid computation, purchases, experiments, candidate-level publication, or work beyond the cap/deadline. AWF dispatch and Jira lifecycle writes remain subject to their separate gates.",
         "accepted_start_date": "2026-10-01",
         "accepted_external_spend_cap_gbp": 0,
         "schedule_basis": "The 29 Sep–12 Oct template proposal was superseded by owner acceptance on 1 Oct 2026; ten working days counted inclusively gives 14 Oct 2026.",
@@ -784,6 +1257,7 @@
       ],
       "observed": "PROPOSED_NOT_STARTED",
       "reasons": [
+        "immutable_control_mismatch",
         "acceptance_scope_mismatch",
         "acceptance_scope_mismatch"
       ],
@@ -797,7 +1271,7 @@
       "input_scenario": "Synthetic copy claiming an unverified amendment channel",
       "input_record": {
         "record_type": "ACCEPTED_M0_STUDY_CONTROL",
-        "version": "1.2",
+        "version": "1.3",
         "status": "ACCEPTED",
         "epic": "CFD-1",
         "owner_account": "jkinlay",
@@ -810,10 +1284,10 @@
         "proposed_research_hours_cap": 40,
         "proposed_owner_hours_total": 8,
         "proposed_owner_hours_per_week": 4,
-        "accepted_research_hours_cap": 120,
+        "accepted_research_hours_cap": 1000,
         "accepted_owner_hours_total": 8,
         "accepted_owner_hours_per_week": 4,
-        "actual_research_hours": 0,
+        "actual_research_hours": 67.2,
         "authorized_external_spend_gbp": 0,
         "paid_action_authorized": false,
         "checkpoint": "Five working days or 20 shared research hours, whichever comes first; final decision at the accepted deadline or cap exhaustion.",
@@ -852,11 +1326,20 @@
             "previous_shared_research_hours_cap": 40,
             "accepted_shared_research_hours_cap": 120,
             "scope": "Research-hour ceiling only; the accepted 14 October deadline, owner-review limits, zero external spend and public desk-study restrictions remain unchanged."
+          },
+          {
+            "date": "2026-10-02",
+            "channel": "Codex conversation",
+            "owner": "jkinlay",
+            "response": "Increase the permitted research time to 1000 hours. Continue the project in all 3 streams and do not stop unless you are blocked or instructed to. Even if one of the streams is blocked, research should continue in the remaining streams",
+            "previous_shared_research_hours_cap": 120,
+            "accepted_shared_research_hours_cap": 1000,
+            "scope": "Shared research-hour ceiling only. Continue unblocked streams; the previously accepted 14 October deadline, eight owner-review hours (at most four per week), zero external spend and public desk-study/publication restrictions remain in force."
           }
         ],
         "runtime_spike_hours_cap": null,
         "runtime_spike_spend_cap": null,
-        "note": "The owner increased only the shared research-hour cap to 120 on 1 October 2026. Public desk research remains bounded by the accepted deadline and other limits. This does not authorize outreach, paid computation, purchases, experiments, candidate-level publication, or work beyond the cap/deadline. AWF dispatch and Jira lifecycle writes remain subject to their separate gates.",
+        "note": "The owner raised the shared research-hour cap to 120 on 1 October 2026 and to 1000 on 2 October 2026. Continue all unblocked streams. Public desk research remains bounded by the accepted 14 October deadline and other limits. This does not authorize outreach, paid computation, purchases, experiments, candidate-level publication, or work beyond the cap/deadline. AWF dispatch and Jira lifecycle writes remain subject to their separate gates.",
         "accepted_start_date": "2026-10-01",
         "accepted_external_spend_cap_gbp": 0,
         "schedule_basis": "The 29 Sep–12 Oct template proposal was superseded by owner acceptance on 1 Oct 2026; ten working days counted inclusively gives 14 Oct 2026.",
@@ -873,6 +1356,7 @@
       ],
       "observed": "PROPOSED_NOT_STARTED",
       "reasons": [
+        "immutable_control_mismatch",
         "acceptance_scope_mismatch",
         "acceptance_scope_mismatch"
       ],
@@ -882,11 +1366,11 @@
       "evidence_ref": "docs/feasibility/study_control.json and docs/feasibility/study_control_cases.json"
     },
     {
-      "id": "NEGATIVE_INVALID_ACCEPTANCE_DATE",
-      "input_scenario": "Synthetic copy with an invalid acceptance date",
+      "id": "NEGATIVE_PUBLICATION_POLICY_PUBLISHED",
+      "input_scenario": "Synthetic copy claiming candidate-level publication is permitted",
       "input_record": {
         "record_type": "ACCEPTED_M0_STUDY_CONTROL",
-        "version": "1.2",
+        "version": "1.3",
         "status": "ACCEPTED",
         "epic": "CFD-1",
         "owner_account": "jkinlay",
@@ -899,17 +1383,17 @@
         "proposed_research_hours_cap": 40,
         "proposed_owner_hours_total": 8,
         "proposed_owner_hours_per_week": 4,
-        "accepted_research_hours_cap": 120,
+        "accepted_research_hours_cap": 1000,
         "accepted_owner_hours_total": 8,
         "accepted_owner_hours_per_week": 4,
-        "actual_research_hours": 0,
+        "actual_research_hours": 67.2,
         "authorized_external_spend_gbp": 0,
         "paid_action_authorized": false,
         "checkpoint": "Five working days or 20 shared research hours, whichever comes first; final decision at the accepted deadline or cap exhaustion.",
         "named_chemistry_reviewer": null,
         "named_thermal_reviewer": null,
         "laboratory_partner": null,
-        "publication_policy_status": "UNDECIDED_CANDIDATE_LEVEL_PUBLICATION_BLOCKED",
+        "publication_policy_status": "PUBLISHED",
         "stop_rules": [
           "All candidates in the bounded universe have measured hard failures => STOP_DOMAIN for that domain/profile",
           "Missing decisive data => INCONCLUSIVE or separately capped evidence request",
@@ -917,7 +1401,7 @@
           "Sunk engineering cost cannot override a hard constraint"
         ],
         "acceptance_evidence": {
-          "date": "not-a-date",
+          "date": "2026-10-01",
           "channel": "Codex conversation",
           "owner": "jkinlay",
           "response": "Accept these M0 limits",
@@ -941,11 +1425,20 @@
             "previous_shared_research_hours_cap": 40,
             "accepted_shared_research_hours_cap": 120,
             "scope": "Research-hour ceiling only; the accepted 14 October deadline, owner-review limits, zero external spend and public desk-study restrictions remain unchanged."
+          },
+          {
+            "date": "2026-10-02",
+            "channel": "Codex conversation",
+            "owner": "jkinlay",
+            "response": "Increase the permitted research time to 1000 hours. Continue the project in all 3 streams and do not stop unless you are blocked or instructed to. Even if one of the streams is blocked, research should continue in the remaining streams",
+            "previous_shared_research_hours_cap": 120,
+            "accepted_shared_research_hours_cap": 1000,
+            "scope": "Shared research-hour ceiling only. Continue unblocked streams; the previously accepted 14 October deadline, eight owner-review hours (at most four per week), zero external spend and public desk-study/publication restrictions remain in force."
           }
         ],
         "runtime_spike_hours_cap": null,
         "runtime_spike_spend_cap": null,
-        "note": "The owner increased only the shared research-hour cap to 120 on 1 October 2026. Public desk research remains bounded by the accepted deadline and other limits. This does not authorize outreach, paid computation, purchases, experiments, candidate-level publication, or work beyond the cap/deadline. AWF dispatch and Jira lifecycle writes remain subject to their separate gates.",
+        "note": "The owner raised the shared research-hour cap to 120 on 1 October 2026 and to 1000 on 2 October 2026. Continue all unblocked streams. Public desk research remains bounded by the accepted 14 October deadline and other limits. This does not authorize outreach, paid computation, purchases, experiments, candidate-level publication, or work beyond the cap/deadline. AWF dispatch and Jira lifecycle writes remain subject to their separate gates.",
         "accepted_start_date": "2026-10-01",
         "accepted_external_spend_cap_gbp": 0,
         "schedule_basis": "The 29 Sep–12 Oct template proposal was superseded by owner acceptance on 1 Oct 2026; ten working days counted inclusively gives 14 Oct 2026.",
@@ -955,28 +1448,27 @@
           "CONTINUE": "Only a specifically scoped public desk question inside the accepted M0 date/hour/spend limits after an owner-recorded decision; no automatic next stage."
         }
       },
-      "as_of_date": "2026-10-01",
+      "as_of_date": "2026-10-02",
       "expected": "PROPOSED_NOT_STARTED",
       "expected_reasons": [
-        "invalid_acceptance_date"
+        "publication_policy_outside_owner_acceptance"
       ],
       "observed": "PROPOSED_NOT_STARTED",
       "reasons": [
-        "invalid_acceptance_date",
-        "acceptance_scope_mismatch",
-        "acceptance_scope_mismatch"
+        "immutable_control_mismatch",
+        "publication_policy_outside_owner_acceptance"
       ],
       "result": "PASS",
       "reviewer": "Codex controller; independent review pending",
-      "date": "2026-10-01",
+      "date": "2026-10-02",
       "evidence_ref": "docs/feasibility/study_control.json and docs/feasibility/study_control_cases.json"
     },
     {
-      "id": "NEGATIVE_ARBITRARY_OUTCOMES",
-      "input_scenario": "Synthetic copy without STOP_DOMAIN, INCONCLUSIVE or CONTINUE definitions",
+      "id": "NEGATIVE_PUBLICATION_POLICY_ABSENT",
+      "input_scenario": "Synthetic copy omitting the candidate-level publication block",
       "input_record": {
         "record_type": "ACCEPTED_M0_STUDY_CONTROL",
-        "version": "1.2",
+        "version": "1.3",
         "status": "ACCEPTED",
         "epic": "CFD-1",
         "owner_account": "jkinlay",
@@ -989,10 +1481,107 @@
         "proposed_research_hours_cap": 40,
         "proposed_owner_hours_total": 8,
         "proposed_owner_hours_per_week": 4,
-        "accepted_research_hours_cap": 120,
+        "accepted_research_hours_cap": 1000,
         "accepted_owner_hours_total": 8,
         "accepted_owner_hours_per_week": 4,
-        "actual_research_hours": 0,
+        "actual_research_hours": 67.2,
+        "authorized_external_spend_gbp": 0,
+        "paid_action_authorized": false,
+        "checkpoint": "Five working days or 20 shared research hours, whichever comes first; final decision at the accepted deadline or cap exhaustion.",
+        "named_chemistry_reviewer": null,
+        "named_thermal_reviewer": null,
+        "laboratory_partner": null,
+        "stop_rules": [
+          "All candidates in the bounded universe have measured hard failures => STOP_DOMAIN for that domain/profile",
+          "Missing decisive data => INCONCLUSIVE or separately capped evidence request",
+          "Cap/deadline reached => no automatic continuation",
+          "Sunk engineering cost cannot override a hard constraint"
+        ],
+        "acceptance_evidence": {
+          "date": "2026-10-01",
+          "channel": "Codex conversation",
+          "owner": "jkinlay",
+          "response": "Accept these M0 limits",
+          "scope": "1–14 October 2026; ten working days; 40 shared research hours; eight owner-review hours total, at most four per week; zero external spend; stated checkpoint and stop rules; public desk research only",
+          "accepted_terms": {
+            "start_date": "2026-10-01",
+            "review_deadline": "2026-10-14",
+            "research_hours_cap": 40,
+            "owner_hours_total": 8,
+            "owner_hours_per_week": 4,
+            "external_spend_cap_gbp": 0,
+            "public_desk_only": true
+          }
+        },
+        "research_cap_amendments": [
+          {
+            "date": "2026-10-01",
+            "channel": "Codex conversation",
+            "owner": "jkinlay",
+            "response": "I am authorizing an increase in the number of research hours to 120",
+            "previous_shared_research_hours_cap": 40,
+            "accepted_shared_research_hours_cap": 120,
+            "scope": "Research-hour ceiling only; the accepted 14 October deadline, owner-review limits, zero external spend and public desk-study restrictions remain unchanged."
+          },
+          {
+            "date": "2026-10-02",
+            "channel": "Codex conversation",
+            "owner": "jkinlay",
+            "response": "Increase the permitted research time to 1000 hours. Continue the project in all 3 streams and do not stop unless you are blocked or instructed to. Even if one of the streams is blocked, research should continue in the remaining streams",
+            "previous_shared_research_hours_cap": 120,
+            "accepted_shared_research_hours_cap": 1000,
+            "scope": "Shared research-hour ceiling only. Continue unblocked streams; the previously accepted 14 October deadline, eight owner-review hours (at most four per week), zero external spend and public desk-study/publication restrictions remain in force."
+          }
+        ],
+        "runtime_spike_hours_cap": null,
+        "runtime_spike_spend_cap": null,
+        "note": "The owner raised the shared research-hour cap to 120 on 1 October 2026 and to 1000 on 2 October 2026. Continue all unblocked streams. Public desk research remains bounded by the accepted 14 October deadline and other limits. This does not authorize outreach, paid computation, purchases, experiments, candidate-level publication, or work beyond the cap/deadline. AWF dispatch and Jira lifecycle writes remain subject to their separate gates.",
+        "accepted_start_date": "2026-10-01",
+        "accepted_external_spend_cap_gbp": 0,
+        "schedule_basis": "The 29 Sep–12 Oct template proposal was superseded by owner acceptance on 1 Oct 2026; ten working days counted inclusively gives 14 Oct 2026.",
+        "outcome_rules": {
+          "STOP_DOMAIN": "All candidates in the named bounded universe/profile have measured hard failures against accepted constraints; owner decides to stop that domain.",
+          "INCONCLUSIVE": "Decisive evidence missing or conflicting; mark UNKNOWN and request separately capped evidence or conclude INCONCLUSIVE.",
+          "CONTINUE": "Only a specifically scoped public desk question inside the accepted M0 date/hour/spend limits after an owner-recorded decision; no automatic next stage."
+        }
+      },
+      "as_of_date": "2026-10-02",
+      "expected": "PROPOSED_NOT_STARTED",
+      "expected_reasons": [
+        "publication_policy_outside_owner_acceptance"
+      ],
+      "observed": "PROPOSED_NOT_STARTED",
+      "reasons": [
+        "immutable_control_mismatch",
+        "publication_policy_outside_owner_acceptance"
+      ],
+      "result": "PASS",
+      "reviewer": "Codex controller; independent review pending",
+      "date": "2026-10-02",
+      "evidence_ref": "docs/feasibility/study_control.json and docs/feasibility/study_control_cases.json"
+    },
+    {
+      "id": "NEGATIVE_OUTCOME_CONTINUE_MUTATION",
+      "input_scenario": "Synthetic copy changing CONTINUE to permit publication and paid work",
+      "input_record": {
+        "record_type": "ACCEPTED_M0_STUDY_CONTROL",
+        "version": "1.3",
+        "status": "ACCEPTED",
+        "epic": "CFD-1",
+        "owner_account": "jkinlay",
+        "owner_accepted": true,
+        "proposed_start_date": "2026-10-01",
+        "proposed_review_deadline": "2026-10-14",
+        "actual_start_date": "2026-10-01",
+        "accepted_review_deadline": "2026-10-14",
+        "proposed_working_days": 10,
+        "proposed_research_hours_cap": 40,
+        "proposed_owner_hours_total": 8,
+        "proposed_owner_hours_per_week": 4,
+        "accepted_research_hours_cap": 1000,
+        "accepted_owner_hours_total": 8,
+        "accepted_owner_hours_per_week": 4,
+        "actual_research_hours": 67.2,
         "authorized_external_spend_gbp": 0,
         "paid_action_authorized": false,
         "checkpoint": "Five working days or 20 shared research hours, whichever comes first; final decision at the accepted deadline or cap exhaustion.",
@@ -1031,11 +1620,895 @@
             "previous_shared_research_hours_cap": 40,
             "accepted_shared_research_hours_cap": 120,
             "scope": "Research-hour ceiling only; the accepted 14 October deadline, owner-review limits, zero external spend and public desk-study restrictions remain unchanged."
+          },
+          {
+            "date": "2026-10-02",
+            "channel": "Codex conversation",
+            "owner": "jkinlay",
+            "response": "Increase the permitted research time to 1000 hours. Continue the project in all 3 streams and do not stop unless you are blocked or instructed to. Even if one of the streams is blocked, research should continue in the remaining streams",
+            "previous_shared_research_hours_cap": 120,
+            "accepted_shared_research_hours_cap": 1000,
+            "scope": "Shared research-hour ceiling only. Continue unblocked streams; the previously accepted 14 October deadline, eight owner-review hours (at most four per week), zero external spend and public desk-study/publication restrictions remain in force."
           }
         ],
         "runtime_spike_hours_cap": null,
         "runtime_spike_spend_cap": null,
-        "note": "The owner increased only the shared research-hour cap to 120 on 1 October 2026. Public desk research remains bounded by the accepted deadline and other limits. This does not authorize outreach, paid computation, purchases, experiments, candidate-level publication, or work beyond the cap/deadline. AWF dispatch and Jira lifecycle writes remain subject to their separate gates.",
+        "note": "The owner raised the shared research-hour cap to 120 on 1 October 2026 and to 1000 on 2 October 2026. Continue all unblocked streams. Public desk research remains bounded by the accepted 14 October deadline and other limits. This does not authorize outreach, paid computation, purchases, experiments, candidate-level publication, or work beyond the cap/deadline. AWF dispatch and Jira lifecycle writes remain subject to their separate gates.",
+        "accepted_start_date": "2026-10-01",
+        "accepted_external_spend_cap_gbp": 0,
+        "schedule_basis": "The 29 Sep–12 Oct template proposal was superseded by owner acceptance on 1 Oct 2026; ten working days counted inclusively gives 14 Oct 2026.",
+        "outcome_rules": {
+          "STOP_DOMAIN": "All candidates in the named bounded universe/profile have measured hard failures against accepted constraints; owner decides to stop that domain.",
+          "INCONCLUSIVE": "Decisive evidence missing or conflicting; mark UNKNOWN and request separately capped evidence or conclude INCONCLUSIVE.",
+          "CONTINUE": "Publication, paid work, and laboratory activity are permitted"
+        }
+      },
+      "as_of_date": "2026-10-02",
+      "expected": "PROPOSED_NOT_STARTED",
+      "expected_reasons": [
+        "immutable_control_mismatch"
+      ],
+      "observed": "PROPOSED_NOT_STARTED",
+      "reasons": [
+        "immutable_control_mismatch"
+      ],
+      "result": "PASS",
+      "reviewer": "Codex controller; independent review pending",
+      "date": "2026-10-02",
+      "evidence_ref": "docs/feasibility/study_control.json and docs/feasibility/study_control_cases.json"
+    },
+    {
+      "id": "NEGATIVE_STOP_RULES_MUTATION",
+      "input_scenario": "Synthetic copy removing the no-automatic-continuation stop rule",
+      "input_record": {
+        "record_type": "ACCEPTED_M0_STUDY_CONTROL",
+        "version": "1.3",
+        "status": "ACCEPTED",
+        "epic": "CFD-1",
+        "owner_account": "jkinlay",
+        "owner_accepted": true,
+        "proposed_start_date": "2026-10-01",
+        "proposed_review_deadline": "2026-10-14",
+        "actual_start_date": "2026-10-01",
+        "accepted_review_deadline": "2026-10-14",
+        "proposed_working_days": 10,
+        "proposed_research_hours_cap": 40,
+        "proposed_owner_hours_total": 8,
+        "proposed_owner_hours_per_week": 4,
+        "accepted_research_hours_cap": 1000,
+        "accepted_owner_hours_total": 8,
+        "accepted_owner_hours_per_week": 4,
+        "actual_research_hours": 67.2,
+        "authorized_external_spend_gbp": 0,
+        "paid_action_authorized": false,
+        "checkpoint": "Five working days or 20 shared research hours, whichever comes first; final decision at the accepted deadline or cap exhaustion.",
+        "named_chemistry_reviewer": null,
+        "named_thermal_reviewer": null,
+        "laboratory_partner": null,
+        "publication_policy_status": "UNDECIDED_CANDIDATE_LEVEL_PUBLICATION_BLOCKED",
+        "stop_rules": [
+          "No stop rules apply"
+        ],
+        "acceptance_evidence": {
+          "date": "2026-10-01",
+          "channel": "Codex conversation",
+          "owner": "jkinlay",
+          "response": "Accept these M0 limits",
+          "scope": "1–14 October 2026; ten working days; 40 shared research hours; eight owner-review hours total, at most four per week; zero external spend; stated checkpoint and stop rules; public desk research only",
+          "accepted_terms": {
+            "start_date": "2026-10-01",
+            "review_deadline": "2026-10-14",
+            "research_hours_cap": 40,
+            "owner_hours_total": 8,
+            "owner_hours_per_week": 4,
+            "external_spend_cap_gbp": 0,
+            "public_desk_only": true
+          }
+        },
+        "research_cap_amendments": [
+          {
+            "date": "2026-10-01",
+            "channel": "Codex conversation",
+            "owner": "jkinlay",
+            "response": "I am authorizing an increase in the number of research hours to 120",
+            "previous_shared_research_hours_cap": 40,
+            "accepted_shared_research_hours_cap": 120,
+            "scope": "Research-hour ceiling only; the accepted 14 October deadline, owner-review limits, zero external spend and public desk-study restrictions remain unchanged."
+          },
+          {
+            "date": "2026-10-02",
+            "channel": "Codex conversation",
+            "owner": "jkinlay",
+            "response": "Increase the permitted research time to 1000 hours. Continue the project in all 3 streams and do not stop unless you are blocked or instructed to. Even if one of the streams is blocked, research should continue in the remaining streams",
+            "previous_shared_research_hours_cap": 120,
+            "accepted_shared_research_hours_cap": 1000,
+            "scope": "Shared research-hour ceiling only. Continue unblocked streams; the previously accepted 14 October deadline, eight owner-review hours (at most four per week), zero external spend and public desk-study/publication restrictions remain in force."
+          }
+        ],
+        "runtime_spike_hours_cap": null,
+        "runtime_spike_spend_cap": null,
+        "note": "The owner raised the shared research-hour cap to 120 on 1 October 2026 and to 1000 on 2 October 2026. Continue all unblocked streams. Public desk research remains bounded by the accepted 14 October deadline and other limits. This does not authorize outreach, paid computation, purchases, experiments, candidate-level publication, or work beyond the cap/deadline. AWF dispatch and Jira lifecycle writes remain subject to their separate gates.",
+        "accepted_start_date": "2026-10-01",
+        "accepted_external_spend_cap_gbp": 0,
+        "schedule_basis": "The 29 Sep–12 Oct template proposal was superseded by owner acceptance on 1 Oct 2026; ten working days counted inclusively gives 14 Oct 2026.",
+        "outcome_rules": {
+          "STOP_DOMAIN": "All candidates in the named bounded universe/profile have measured hard failures against accepted constraints; owner decides to stop that domain.",
+          "INCONCLUSIVE": "Decisive evidence missing or conflicting; mark UNKNOWN and request separately capped evidence or conclude INCONCLUSIVE.",
+          "CONTINUE": "Only a specifically scoped public desk question inside the accepted M0 date/hour/spend limits after an owner-recorded decision; no automatic next stage."
+        }
+      },
+      "as_of_date": "2026-10-02",
+      "expected": "PROPOSED_NOT_STARTED",
+      "expected_reasons": [
+        "immutable_control_mismatch"
+      ],
+      "observed": "PROPOSED_NOT_STARTED",
+      "reasons": [
+        "immutable_control_mismatch"
+      ],
+      "result": "PASS",
+      "reviewer": "Codex controller; independent review pending",
+      "date": "2026-10-02",
+      "evidence_ref": "docs/feasibility/study_control.json and docs/feasibility/study_control_cases.json"
+    },
+    {
+      "id": "NEGATIVE_CHECKPOINT_MUTATION",
+      "input_scenario": "Synthetic copy changing the checkpoint to permit indefinite continuation",
+      "input_record": {
+        "record_type": "ACCEPTED_M0_STUDY_CONTROL",
+        "version": "1.3",
+        "status": "ACCEPTED",
+        "epic": "CFD-1",
+        "owner_account": "jkinlay",
+        "owner_accepted": true,
+        "proposed_start_date": "2026-10-01",
+        "proposed_review_deadline": "2026-10-14",
+        "actual_start_date": "2026-10-01",
+        "accepted_review_deadline": "2026-10-14",
+        "proposed_working_days": 10,
+        "proposed_research_hours_cap": 40,
+        "proposed_owner_hours_total": 8,
+        "proposed_owner_hours_per_week": 4,
+        "accepted_research_hours_cap": 1000,
+        "accepted_owner_hours_total": 8,
+        "accepted_owner_hours_per_week": 4,
+        "actual_research_hours": 67.2,
+        "authorized_external_spend_gbp": 0,
+        "paid_action_authorized": false,
+        "checkpoint": "Continue indefinitely",
+        "named_chemistry_reviewer": null,
+        "named_thermal_reviewer": null,
+        "laboratory_partner": null,
+        "publication_policy_status": "UNDECIDED_CANDIDATE_LEVEL_PUBLICATION_BLOCKED",
+        "stop_rules": [
+          "All candidates in the bounded universe have measured hard failures => STOP_DOMAIN for that domain/profile",
+          "Missing decisive data => INCONCLUSIVE or separately capped evidence request",
+          "Cap/deadline reached => no automatic continuation",
+          "Sunk engineering cost cannot override a hard constraint"
+        ],
+        "acceptance_evidence": {
+          "date": "2026-10-01",
+          "channel": "Codex conversation",
+          "owner": "jkinlay",
+          "response": "Accept these M0 limits",
+          "scope": "1–14 October 2026; ten working days; 40 shared research hours; eight owner-review hours total, at most four per week; zero external spend; stated checkpoint and stop rules; public desk research only",
+          "accepted_terms": {
+            "start_date": "2026-10-01",
+            "review_deadline": "2026-10-14",
+            "research_hours_cap": 40,
+            "owner_hours_total": 8,
+            "owner_hours_per_week": 4,
+            "external_spend_cap_gbp": 0,
+            "public_desk_only": true
+          }
+        },
+        "research_cap_amendments": [
+          {
+            "date": "2026-10-01",
+            "channel": "Codex conversation",
+            "owner": "jkinlay",
+            "response": "I am authorizing an increase in the number of research hours to 120",
+            "previous_shared_research_hours_cap": 40,
+            "accepted_shared_research_hours_cap": 120,
+            "scope": "Research-hour ceiling only; the accepted 14 October deadline, owner-review limits, zero external spend and public desk-study restrictions remain unchanged."
+          },
+          {
+            "date": "2026-10-02",
+            "channel": "Codex conversation",
+            "owner": "jkinlay",
+            "response": "Increase the permitted research time to 1000 hours. Continue the project in all 3 streams and do not stop unless you are blocked or instructed to. Even if one of the streams is blocked, research should continue in the remaining streams",
+            "previous_shared_research_hours_cap": 120,
+            "accepted_shared_research_hours_cap": 1000,
+            "scope": "Shared research-hour ceiling only. Continue unblocked streams; the previously accepted 14 October deadline, eight owner-review hours (at most four per week), zero external spend and public desk-study/publication restrictions remain in force."
+          }
+        ],
+        "runtime_spike_hours_cap": null,
+        "runtime_spike_spend_cap": null,
+        "note": "The owner raised the shared research-hour cap to 120 on 1 October 2026 and to 1000 on 2 October 2026. Continue all unblocked streams. Public desk research remains bounded by the accepted 14 October deadline and other limits. This does not authorize outreach, paid computation, purchases, experiments, candidate-level publication, or work beyond the cap/deadline. AWF dispatch and Jira lifecycle writes remain subject to their separate gates.",
+        "accepted_start_date": "2026-10-01",
+        "accepted_external_spend_cap_gbp": 0,
+        "schedule_basis": "The 29 Sep–12 Oct template proposal was superseded by owner acceptance on 1 Oct 2026; ten working days counted inclusively gives 14 Oct 2026.",
+        "outcome_rules": {
+          "STOP_DOMAIN": "All candidates in the named bounded universe/profile have measured hard failures against accepted constraints; owner decides to stop that domain.",
+          "INCONCLUSIVE": "Decisive evidence missing or conflicting; mark UNKNOWN and request separately capped evidence or conclude INCONCLUSIVE.",
+          "CONTINUE": "Only a specifically scoped public desk question inside the accepted M0 date/hour/spend limits after an owner-recorded decision; no automatic next stage."
+        }
+      },
+      "as_of_date": "2026-10-02",
+      "expected": "PROPOSED_NOT_STARTED",
+      "expected_reasons": [
+        "immutable_control_mismatch"
+      ],
+      "observed": "PROPOSED_NOT_STARTED",
+      "reasons": [
+        "immutable_control_mismatch"
+      ],
+      "result": "PASS",
+      "reviewer": "Codex controller; independent review pending",
+      "date": "2026-10-02",
+      "evidence_ref": "docs/feasibility/study_control.json and docs/feasibility/study_control_cases.json"
+    },
+    {
+      "id": "NEGATIVE_RUNTIME_HOURS_MUTATION",
+      "input_scenario": "Synthetic copy authorizing a runtime spike in research hours",
+      "input_record": {
+        "record_type": "ACCEPTED_M0_STUDY_CONTROL",
+        "version": "1.3",
+        "status": "ACCEPTED",
+        "epic": "CFD-1",
+        "owner_account": "jkinlay",
+        "owner_accepted": true,
+        "proposed_start_date": "2026-10-01",
+        "proposed_review_deadline": "2026-10-14",
+        "actual_start_date": "2026-10-01",
+        "accepted_review_deadline": "2026-10-14",
+        "proposed_working_days": 10,
+        "proposed_research_hours_cap": 40,
+        "proposed_owner_hours_total": 8,
+        "proposed_owner_hours_per_week": 4,
+        "accepted_research_hours_cap": 1000,
+        "accepted_owner_hours_total": 8,
+        "accepted_owner_hours_per_week": 4,
+        "actual_research_hours": 67.2,
+        "authorized_external_spend_gbp": 0,
+        "paid_action_authorized": false,
+        "checkpoint": "Five working days or 20 shared research hours, whichever comes first; final decision at the accepted deadline or cap exhaustion.",
+        "named_chemistry_reviewer": null,
+        "named_thermal_reviewer": null,
+        "laboratory_partner": null,
+        "publication_policy_status": "UNDECIDED_CANDIDATE_LEVEL_PUBLICATION_BLOCKED",
+        "stop_rules": [
+          "All candidates in the bounded universe have measured hard failures => STOP_DOMAIN for that domain/profile",
+          "Missing decisive data => INCONCLUSIVE or separately capped evidence request",
+          "Cap/deadline reached => no automatic continuation",
+          "Sunk engineering cost cannot override a hard constraint"
+        ],
+        "acceptance_evidence": {
+          "date": "2026-10-01",
+          "channel": "Codex conversation",
+          "owner": "jkinlay",
+          "response": "Accept these M0 limits",
+          "scope": "1–14 October 2026; ten working days; 40 shared research hours; eight owner-review hours total, at most four per week; zero external spend; stated checkpoint and stop rules; public desk research only",
+          "accepted_terms": {
+            "start_date": "2026-10-01",
+            "review_deadline": "2026-10-14",
+            "research_hours_cap": 40,
+            "owner_hours_total": 8,
+            "owner_hours_per_week": 4,
+            "external_spend_cap_gbp": 0,
+            "public_desk_only": true
+          }
+        },
+        "research_cap_amendments": [
+          {
+            "date": "2026-10-01",
+            "channel": "Codex conversation",
+            "owner": "jkinlay",
+            "response": "I am authorizing an increase in the number of research hours to 120",
+            "previous_shared_research_hours_cap": 40,
+            "accepted_shared_research_hours_cap": 120,
+            "scope": "Research-hour ceiling only; the accepted 14 October deadline, owner-review limits, zero external spend and public desk-study restrictions remain unchanged."
+          },
+          {
+            "date": "2026-10-02",
+            "channel": "Codex conversation",
+            "owner": "jkinlay",
+            "response": "Increase the permitted research time to 1000 hours. Continue the project in all 3 streams and do not stop unless you are blocked or instructed to. Even if one of the streams is blocked, research should continue in the remaining streams",
+            "previous_shared_research_hours_cap": 120,
+            "accepted_shared_research_hours_cap": 1000,
+            "scope": "Shared research-hour ceiling only. Continue unblocked streams; the previously accepted 14 October deadline, eight owner-review hours (at most four per week), zero external spend and public desk-study/publication restrictions remain in force."
+          }
+        ],
+        "runtime_spike_hours_cap": 1,
+        "runtime_spike_spend_cap": null,
+        "note": "The owner raised the shared research-hour cap to 120 on 1 October 2026 and to 1000 on 2 October 2026. Continue all unblocked streams. Public desk research remains bounded by the accepted 14 October deadline and other limits. This does not authorize outreach, paid computation, purchases, experiments, candidate-level publication, or work beyond the cap/deadline. AWF dispatch and Jira lifecycle writes remain subject to their separate gates.",
+        "accepted_start_date": "2026-10-01",
+        "accepted_external_spend_cap_gbp": 0,
+        "schedule_basis": "The 29 Sep–12 Oct template proposal was superseded by owner acceptance on 1 Oct 2026; ten working days counted inclusively gives 14 Oct 2026.",
+        "outcome_rules": {
+          "STOP_DOMAIN": "All candidates in the named bounded universe/profile have measured hard failures against accepted constraints; owner decides to stop that domain.",
+          "INCONCLUSIVE": "Decisive evidence missing or conflicting; mark UNKNOWN and request separately capped evidence or conclude INCONCLUSIVE.",
+          "CONTINUE": "Only a specifically scoped public desk question inside the accepted M0 date/hour/spend limits after an owner-recorded decision; no automatic next stage."
+        }
+      },
+      "as_of_date": "2026-10-02",
+      "expected": "PROPOSED_NOT_STARTED",
+      "expected_reasons": [
+        "immutable_control_mismatch"
+      ],
+      "observed": "PROPOSED_NOT_STARTED",
+      "reasons": [
+        "immutable_control_mismatch"
+      ],
+      "result": "PASS",
+      "reviewer": "Codex controller; independent review pending",
+      "date": "2026-10-02",
+      "evidence_ref": "docs/feasibility/study_control.json and docs/feasibility/study_control_cases.json"
+    },
+    {
+      "id": "NEGATIVE_RUNTIME_SPEND_MUTATION",
+      "input_scenario": "Synthetic copy authorizing a runtime spike in spend",
+      "input_record": {
+        "record_type": "ACCEPTED_M0_STUDY_CONTROL",
+        "version": "1.3",
+        "status": "ACCEPTED",
+        "epic": "CFD-1",
+        "owner_account": "jkinlay",
+        "owner_accepted": true,
+        "proposed_start_date": "2026-10-01",
+        "proposed_review_deadline": "2026-10-14",
+        "actual_start_date": "2026-10-01",
+        "accepted_review_deadline": "2026-10-14",
+        "proposed_working_days": 10,
+        "proposed_research_hours_cap": 40,
+        "proposed_owner_hours_total": 8,
+        "proposed_owner_hours_per_week": 4,
+        "accepted_research_hours_cap": 1000,
+        "accepted_owner_hours_total": 8,
+        "accepted_owner_hours_per_week": 4,
+        "actual_research_hours": 67.2,
+        "authorized_external_spend_gbp": 0,
+        "paid_action_authorized": false,
+        "checkpoint": "Five working days or 20 shared research hours, whichever comes first; final decision at the accepted deadline or cap exhaustion.",
+        "named_chemistry_reviewer": null,
+        "named_thermal_reviewer": null,
+        "laboratory_partner": null,
+        "publication_policy_status": "UNDECIDED_CANDIDATE_LEVEL_PUBLICATION_BLOCKED",
+        "stop_rules": [
+          "All candidates in the bounded universe have measured hard failures => STOP_DOMAIN for that domain/profile",
+          "Missing decisive data => INCONCLUSIVE or separately capped evidence request",
+          "Cap/deadline reached => no automatic continuation",
+          "Sunk engineering cost cannot override a hard constraint"
+        ],
+        "acceptance_evidence": {
+          "date": "2026-10-01",
+          "channel": "Codex conversation",
+          "owner": "jkinlay",
+          "response": "Accept these M0 limits",
+          "scope": "1–14 October 2026; ten working days; 40 shared research hours; eight owner-review hours total, at most four per week; zero external spend; stated checkpoint and stop rules; public desk research only",
+          "accepted_terms": {
+            "start_date": "2026-10-01",
+            "review_deadline": "2026-10-14",
+            "research_hours_cap": 40,
+            "owner_hours_total": 8,
+            "owner_hours_per_week": 4,
+            "external_spend_cap_gbp": 0,
+            "public_desk_only": true
+          }
+        },
+        "research_cap_amendments": [
+          {
+            "date": "2026-10-01",
+            "channel": "Codex conversation",
+            "owner": "jkinlay",
+            "response": "I am authorizing an increase in the number of research hours to 120",
+            "previous_shared_research_hours_cap": 40,
+            "accepted_shared_research_hours_cap": 120,
+            "scope": "Research-hour ceiling only; the accepted 14 October deadline, owner-review limits, zero external spend and public desk-study restrictions remain unchanged."
+          },
+          {
+            "date": "2026-10-02",
+            "channel": "Codex conversation",
+            "owner": "jkinlay",
+            "response": "Increase the permitted research time to 1000 hours. Continue the project in all 3 streams and do not stop unless you are blocked or instructed to. Even if one of the streams is blocked, research should continue in the remaining streams",
+            "previous_shared_research_hours_cap": 120,
+            "accepted_shared_research_hours_cap": 1000,
+            "scope": "Shared research-hour ceiling only. Continue unblocked streams; the previously accepted 14 October deadline, eight owner-review hours (at most four per week), zero external spend and public desk-study/publication restrictions remain in force."
+          }
+        ],
+        "runtime_spike_hours_cap": null,
+        "runtime_spike_spend_cap": 1,
+        "note": "The owner raised the shared research-hour cap to 120 on 1 October 2026 and to 1000 on 2 October 2026. Continue all unblocked streams. Public desk research remains bounded by the accepted 14 October deadline and other limits. This does not authorize outreach, paid computation, purchases, experiments, candidate-level publication, or work beyond the cap/deadline. AWF dispatch and Jira lifecycle writes remain subject to their separate gates.",
+        "accepted_start_date": "2026-10-01",
+        "accepted_external_spend_cap_gbp": 0,
+        "schedule_basis": "The 29 Sep–12 Oct template proposal was superseded by owner acceptance on 1 Oct 2026; ten working days counted inclusively gives 14 Oct 2026.",
+        "outcome_rules": {
+          "STOP_DOMAIN": "All candidates in the named bounded universe/profile have measured hard failures against accepted constraints; owner decides to stop that domain.",
+          "INCONCLUSIVE": "Decisive evidence missing or conflicting; mark UNKNOWN and request separately capped evidence or conclude INCONCLUSIVE.",
+          "CONTINUE": "Only a specifically scoped public desk question inside the accepted M0 date/hour/spend limits after an owner-recorded decision; no automatic next stage."
+        }
+      },
+      "as_of_date": "2026-10-02",
+      "expected": "PROPOSED_NOT_STARTED",
+      "expected_reasons": [
+        "immutable_control_mismatch"
+      ],
+      "observed": "PROPOSED_NOT_STARTED",
+      "reasons": [
+        "immutable_control_mismatch"
+      ],
+      "result": "PASS",
+      "reviewer": "Codex controller; independent review pending",
+      "date": "2026-10-02",
+      "evidence_ref": "docs/feasibility/study_control.json and docs/feasibility/study_control_cases.json"
+    },
+    {
+      "id": "NEGATIVE_LABORATORY_PARTNER_MUTATION",
+      "input_scenario": "Synthetic copy naming a laboratory partner",
+      "input_record": {
+        "record_type": "ACCEPTED_M0_STUDY_CONTROL",
+        "version": "1.3",
+        "status": "ACCEPTED",
+        "epic": "CFD-1",
+        "owner_account": "jkinlay",
+        "owner_accepted": true,
+        "proposed_start_date": "2026-10-01",
+        "proposed_review_deadline": "2026-10-14",
+        "actual_start_date": "2026-10-01",
+        "accepted_review_deadline": "2026-10-14",
+        "proposed_working_days": 10,
+        "proposed_research_hours_cap": 40,
+        "proposed_owner_hours_total": 8,
+        "proposed_owner_hours_per_week": 4,
+        "accepted_research_hours_cap": 1000,
+        "accepted_owner_hours_total": 8,
+        "accepted_owner_hours_per_week": 4,
+        "actual_research_hours": 67.2,
+        "authorized_external_spend_gbp": 0,
+        "paid_action_authorized": false,
+        "checkpoint": "Five working days or 20 shared research hours, whichever comes first; final decision at the accepted deadline or cap exhaustion.",
+        "named_chemistry_reviewer": null,
+        "named_thermal_reviewer": null,
+        "laboratory_partner": "Example Lab",
+        "publication_policy_status": "UNDECIDED_CANDIDATE_LEVEL_PUBLICATION_BLOCKED",
+        "stop_rules": [
+          "All candidates in the bounded universe have measured hard failures => STOP_DOMAIN for that domain/profile",
+          "Missing decisive data => INCONCLUSIVE or separately capped evidence request",
+          "Cap/deadline reached => no automatic continuation",
+          "Sunk engineering cost cannot override a hard constraint"
+        ],
+        "acceptance_evidence": {
+          "date": "2026-10-01",
+          "channel": "Codex conversation",
+          "owner": "jkinlay",
+          "response": "Accept these M0 limits",
+          "scope": "1–14 October 2026; ten working days; 40 shared research hours; eight owner-review hours total, at most four per week; zero external spend; stated checkpoint and stop rules; public desk research only",
+          "accepted_terms": {
+            "start_date": "2026-10-01",
+            "review_deadline": "2026-10-14",
+            "research_hours_cap": 40,
+            "owner_hours_total": 8,
+            "owner_hours_per_week": 4,
+            "external_spend_cap_gbp": 0,
+            "public_desk_only": true
+          }
+        },
+        "research_cap_amendments": [
+          {
+            "date": "2026-10-01",
+            "channel": "Codex conversation",
+            "owner": "jkinlay",
+            "response": "I am authorizing an increase in the number of research hours to 120",
+            "previous_shared_research_hours_cap": 40,
+            "accepted_shared_research_hours_cap": 120,
+            "scope": "Research-hour ceiling only; the accepted 14 October deadline, owner-review limits, zero external spend and public desk-study restrictions remain unchanged."
+          },
+          {
+            "date": "2026-10-02",
+            "channel": "Codex conversation",
+            "owner": "jkinlay",
+            "response": "Increase the permitted research time to 1000 hours. Continue the project in all 3 streams and do not stop unless you are blocked or instructed to. Even if one of the streams is blocked, research should continue in the remaining streams",
+            "previous_shared_research_hours_cap": 120,
+            "accepted_shared_research_hours_cap": 1000,
+            "scope": "Shared research-hour ceiling only. Continue unblocked streams; the previously accepted 14 October deadline, eight owner-review hours (at most four per week), zero external spend and public desk-study/publication restrictions remain in force."
+          }
+        ],
+        "runtime_spike_hours_cap": null,
+        "runtime_spike_spend_cap": null,
+        "note": "The owner raised the shared research-hour cap to 120 on 1 October 2026 and to 1000 on 2 October 2026. Continue all unblocked streams. Public desk research remains bounded by the accepted 14 October deadline and other limits. This does not authorize outreach, paid computation, purchases, experiments, candidate-level publication, or work beyond the cap/deadline. AWF dispatch and Jira lifecycle writes remain subject to their separate gates.",
+        "accepted_start_date": "2026-10-01",
+        "accepted_external_spend_cap_gbp": 0,
+        "schedule_basis": "The 29 Sep–12 Oct template proposal was superseded by owner acceptance on 1 Oct 2026; ten working days counted inclusively gives 14 Oct 2026.",
+        "outcome_rules": {
+          "STOP_DOMAIN": "All candidates in the named bounded universe/profile have measured hard failures against accepted constraints; owner decides to stop that domain.",
+          "INCONCLUSIVE": "Decisive evidence missing or conflicting; mark UNKNOWN and request separately capped evidence or conclude INCONCLUSIVE.",
+          "CONTINUE": "Only a specifically scoped public desk question inside the accepted M0 date/hour/spend limits after an owner-recorded decision; no automatic next stage."
+        }
+      },
+      "as_of_date": "2026-10-02",
+      "expected": "PROPOSED_NOT_STARTED",
+      "expected_reasons": [
+        "immutable_control_mismatch"
+      ],
+      "observed": "PROPOSED_NOT_STARTED",
+      "reasons": [
+        "immutable_control_mismatch"
+      ],
+      "result": "PASS",
+      "reviewer": "Codex controller; independent review pending",
+      "date": "2026-10-02",
+      "evidence_ref": "docs/feasibility/study_control.json and docs/feasibility/study_control_cases.json"
+    },
+    {
+      "id": "NEGATIVE_UNALLOWED_TOP_LEVEL_KEY",
+      "input_scenario": "Synthetic copy adding an unapproved publication authorization key",
+      "input_record": {
+        "record_type": "ACCEPTED_M0_STUDY_CONTROL",
+        "version": "1.3",
+        "status": "ACCEPTED",
+        "epic": "CFD-1",
+        "owner_account": "jkinlay",
+        "owner_accepted": true,
+        "proposed_start_date": "2026-10-01",
+        "proposed_review_deadline": "2026-10-14",
+        "actual_start_date": "2026-10-01",
+        "accepted_review_deadline": "2026-10-14",
+        "proposed_working_days": 10,
+        "proposed_research_hours_cap": 40,
+        "proposed_owner_hours_total": 8,
+        "proposed_owner_hours_per_week": 4,
+        "accepted_research_hours_cap": 1000,
+        "accepted_owner_hours_total": 8,
+        "accepted_owner_hours_per_week": 4,
+        "actual_research_hours": 67.2,
+        "authorized_external_spend_gbp": 0,
+        "paid_action_authorized": false,
+        "checkpoint": "Five working days or 20 shared research hours, whichever comes first; final decision at the accepted deadline or cap exhaustion.",
+        "named_chemistry_reviewer": null,
+        "named_thermal_reviewer": null,
+        "laboratory_partner": null,
+        "publication_policy_status": "UNDECIDED_CANDIDATE_LEVEL_PUBLICATION_BLOCKED",
+        "stop_rules": [
+          "All candidates in the bounded universe have measured hard failures => STOP_DOMAIN for that domain/profile",
+          "Missing decisive data => INCONCLUSIVE or separately capped evidence request",
+          "Cap/deadline reached => no automatic continuation",
+          "Sunk engineering cost cannot override a hard constraint"
+        ],
+        "acceptance_evidence": {
+          "date": "2026-10-01",
+          "channel": "Codex conversation",
+          "owner": "jkinlay",
+          "response": "Accept these M0 limits",
+          "scope": "1–14 October 2026; ten working days; 40 shared research hours; eight owner-review hours total, at most four per week; zero external spend; stated checkpoint and stop rules; public desk research only",
+          "accepted_terms": {
+            "start_date": "2026-10-01",
+            "review_deadline": "2026-10-14",
+            "research_hours_cap": 40,
+            "owner_hours_total": 8,
+            "owner_hours_per_week": 4,
+            "external_spend_cap_gbp": 0,
+            "public_desk_only": true
+          }
+        },
+        "research_cap_amendments": [
+          {
+            "date": "2026-10-01",
+            "channel": "Codex conversation",
+            "owner": "jkinlay",
+            "response": "I am authorizing an increase in the number of research hours to 120",
+            "previous_shared_research_hours_cap": 40,
+            "accepted_shared_research_hours_cap": 120,
+            "scope": "Research-hour ceiling only; the accepted 14 October deadline, owner-review limits, zero external spend and public desk-study restrictions remain unchanged."
+          },
+          {
+            "date": "2026-10-02",
+            "channel": "Codex conversation",
+            "owner": "jkinlay",
+            "response": "Increase the permitted research time to 1000 hours. Continue the project in all 3 streams and do not stop unless you are blocked or instructed to. Even if one of the streams is blocked, research should continue in the remaining streams",
+            "previous_shared_research_hours_cap": 120,
+            "accepted_shared_research_hours_cap": 1000,
+            "scope": "Shared research-hour ceiling only. Continue unblocked streams; the previously accepted 14 October deadline, eight owner-review hours (at most four per week), zero external spend and public desk-study/publication restrictions remain in force."
+          }
+        ],
+        "runtime_spike_hours_cap": null,
+        "runtime_spike_spend_cap": null,
+        "note": "The owner raised the shared research-hour cap to 120 on 1 October 2026 and to 1000 on 2 October 2026. Continue all unblocked streams. Public desk research remains bounded by the accepted 14 October deadline and other limits. This does not authorize outreach, paid computation, purchases, experiments, candidate-level publication, or work beyond the cap/deadline. AWF dispatch and Jira lifecycle writes remain subject to their separate gates.",
+        "accepted_start_date": "2026-10-01",
+        "accepted_external_spend_cap_gbp": 0,
+        "schedule_basis": "The 29 Sep–12 Oct template proposal was superseded by owner acceptance on 1 Oct 2026; ten working days counted inclusively gives 14 Oct 2026.",
+        "outcome_rules": {
+          "STOP_DOMAIN": "All candidates in the named bounded universe/profile have measured hard failures against accepted constraints; owner decides to stop that domain.",
+          "INCONCLUSIVE": "Decisive evidence missing or conflicting; mark UNKNOWN and request separately capped evidence or conclude INCONCLUSIVE.",
+          "CONTINUE": "Only a specifically scoped public desk question inside the accepted M0 date/hour/spend limits after an owner-recorded decision; no automatic next stage."
+        },
+        "publication_authorized": true
+      },
+      "as_of_date": "2026-10-02",
+      "expected": "PROPOSED_NOT_STARTED",
+      "expected_reasons": [
+        "immutable_control_mismatch"
+      ],
+      "observed": "PROPOSED_NOT_STARTED",
+      "reasons": [
+        "immutable_control_mismatch"
+      ],
+      "result": "PASS",
+      "reviewer": "Codex controller; independent review pending",
+      "date": "2026-10-02",
+      "evidence_ref": "docs/feasibility/study_control.json and docs/feasibility/study_control_cases.json"
+    },
+    {
+      "id": "NEGATIVE_SECOND_AMENDMENT_SCOPE_TAMPERED",
+      "input_scenario": "Synthetic copy with the retained 1000-hour amendment scope changed",
+      "input_record": {
+        "record_type": "ACCEPTED_M0_STUDY_CONTROL",
+        "version": "1.3",
+        "status": "ACCEPTED",
+        "epic": "CFD-1",
+        "owner_account": "jkinlay",
+        "owner_accepted": true,
+        "proposed_start_date": "2026-10-01",
+        "proposed_review_deadline": "2026-10-14",
+        "actual_start_date": "2026-10-01",
+        "accepted_review_deadline": "2026-10-14",
+        "proposed_working_days": 10,
+        "proposed_research_hours_cap": 40,
+        "proposed_owner_hours_total": 8,
+        "proposed_owner_hours_per_week": 4,
+        "accepted_research_hours_cap": 1000,
+        "accepted_owner_hours_total": 8,
+        "accepted_owner_hours_per_week": 4,
+        "actual_research_hours": 67.2,
+        "authorized_external_spend_gbp": 0,
+        "paid_action_authorized": false,
+        "checkpoint": "Five working days or 20 shared research hours, whichever comes first; final decision at the accepted deadline or cap exhaustion.",
+        "named_chemistry_reviewer": null,
+        "named_thermal_reviewer": null,
+        "laboratory_partner": null,
+        "publication_policy_status": "UNDECIDED_CANDIDATE_LEVEL_PUBLICATION_BLOCKED",
+        "stop_rules": [
+          "All candidates in the bounded universe have measured hard failures => STOP_DOMAIN for that domain/profile",
+          "Missing decisive data => INCONCLUSIVE or separately capped evidence request",
+          "Cap/deadline reached => no automatic continuation",
+          "Sunk engineering cost cannot override a hard constraint"
+        ],
+        "acceptance_evidence": {
+          "date": "2026-10-01",
+          "channel": "Codex conversation",
+          "owner": "jkinlay",
+          "response": "Accept these M0 limits",
+          "scope": "1–14 October 2026; ten working days; 40 shared research hours; eight owner-review hours total, at most four per week; zero external spend; stated checkpoint and stop rules; public desk research only",
+          "accepted_terms": {
+            "start_date": "2026-10-01",
+            "review_deadline": "2026-10-14",
+            "research_hours_cap": 40,
+            "owner_hours_total": 8,
+            "owner_hours_per_week": 4,
+            "external_spend_cap_gbp": 0,
+            "public_desk_only": true
+          }
+        },
+        "research_cap_amendments": [
+          {
+            "date": "2026-10-01",
+            "channel": "Codex conversation",
+            "owner": "jkinlay",
+            "response": "I am authorizing an increase in the number of research hours to 120",
+            "previous_shared_research_hours_cap": 40,
+            "accepted_shared_research_hours_cap": 120,
+            "scope": "Research-hour ceiling only; the accepted 14 October deadline, owner-review limits, zero external spend and public desk-study restrictions remain unchanged."
+          },
+          {
+            "date": "2026-10-02",
+            "channel": "Codex conversation",
+            "owner": "jkinlay",
+            "response": "Increase the permitted research time to 1000 hours. Continue the project in all 3 streams and do not stop unless you are blocked or instructed to. Even if one of the streams is blocked, research should continue in the remaining streams",
+            "previous_shared_research_hours_cap": 120,
+            "accepted_shared_research_hours_cap": 1000,
+            "scope": "Different scope"
+          }
+        ],
+        "runtime_spike_hours_cap": null,
+        "runtime_spike_spend_cap": null,
+        "note": "The owner raised the shared research-hour cap to 120 on 1 October 2026 and to 1000 on 2 October 2026. Continue all unblocked streams. Public desk research remains bounded by the accepted 14 October deadline and other limits. This does not authorize outreach, paid computation, purchases, experiments, candidate-level publication, or work beyond the cap/deadline. AWF dispatch and Jira lifecycle writes remain subject to their separate gates.",
+        "accepted_start_date": "2026-10-01",
+        "accepted_external_spend_cap_gbp": 0,
+        "schedule_basis": "The 29 Sep–12 Oct template proposal was superseded by owner acceptance on 1 Oct 2026; ten working days counted inclusively gives 14 Oct 2026.",
+        "outcome_rules": {
+          "STOP_DOMAIN": "All candidates in the named bounded universe/profile have measured hard failures against accepted constraints; owner decides to stop that domain.",
+          "INCONCLUSIVE": "Decisive evidence missing or conflicting; mark UNKNOWN and request separately capped evidence or conclude INCONCLUSIVE.",
+          "CONTINUE": "Only a specifically scoped public desk question inside the accepted M0 date/hour/spend limits after an owner-recorded decision; no automatic next stage."
+        }
+      },
+      "as_of_date": "2026-10-02",
+      "expected": "PROPOSED_NOT_STARTED",
+      "expected_reasons": [
+        "acceptance_scope_mismatch"
+      ],
+      "observed": "PROPOSED_NOT_STARTED",
+      "reasons": [
+        "immutable_control_mismatch",
+        "acceptance_scope_mismatch",
+        "acceptance_scope_mismatch"
+      ],
+      "result": "PASS",
+      "reviewer": "Codex controller; independent review pending",
+      "date": "2026-10-02",
+      "evidence_ref": "docs/feasibility/study_control.json and docs/feasibility/study_control_cases.json"
+    },
+    {
+      "id": "NEGATIVE_INVALID_ACCEPTANCE_DATE",
+      "input_scenario": "Synthetic copy with an invalid acceptance date",
+      "input_record": {
+        "record_type": "ACCEPTED_M0_STUDY_CONTROL",
+        "version": "1.3",
+        "status": "ACCEPTED",
+        "epic": "CFD-1",
+        "owner_account": "jkinlay",
+        "owner_accepted": true,
+        "proposed_start_date": "2026-10-01",
+        "proposed_review_deadline": "2026-10-14",
+        "actual_start_date": "2026-10-01",
+        "accepted_review_deadline": "2026-10-14",
+        "proposed_working_days": 10,
+        "proposed_research_hours_cap": 40,
+        "proposed_owner_hours_total": 8,
+        "proposed_owner_hours_per_week": 4,
+        "accepted_research_hours_cap": 1000,
+        "accepted_owner_hours_total": 8,
+        "accepted_owner_hours_per_week": 4,
+        "actual_research_hours": 67.2,
+        "authorized_external_spend_gbp": 0,
+        "paid_action_authorized": false,
+        "checkpoint": "Five working days or 20 shared research hours, whichever comes first; final decision at the accepted deadline or cap exhaustion.",
+        "named_chemistry_reviewer": null,
+        "named_thermal_reviewer": null,
+        "laboratory_partner": null,
+        "publication_policy_status": "UNDECIDED_CANDIDATE_LEVEL_PUBLICATION_BLOCKED",
+        "stop_rules": [
+          "All candidates in the bounded universe have measured hard failures => STOP_DOMAIN for that domain/profile",
+          "Missing decisive data => INCONCLUSIVE or separately capped evidence request",
+          "Cap/deadline reached => no automatic continuation",
+          "Sunk engineering cost cannot override a hard constraint"
+        ],
+        "acceptance_evidence": {
+          "date": "not-a-date",
+          "channel": "Codex conversation",
+          "owner": "jkinlay",
+          "response": "Accept these M0 limits",
+          "scope": "1–14 October 2026; ten working days; 40 shared research hours; eight owner-review hours total, at most four per week; zero external spend; stated checkpoint and stop rules; public desk research only",
+          "accepted_terms": {
+            "start_date": "2026-10-01",
+            "review_deadline": "2026-10-14",
+            "research_hours_cap": 40,
+            "owner_hours_total": 8,
+            "owner_hours_per_week": 4,
+            "external_spend_cap_gbp": 0,
+            "public_desk_only": true
+          }
+        },
+        "research_cap_amendments": [
+          {
+            "date": "2026-10-01",
+            "channel": "Codex conversation",
+            "owner": "jkinlay",
+            "response": "I am authorizing an increase in the number of research hours to 120",
+            "previous_shared_research_hours_cap": 40,
+            "accepted_shared_research_hours_cap": 120,
+            "scope": "Research-hour ceiling only; the accepted 14 October deadline, owner-review limits, zero external spend and public desk-study restrictions remain unchanged."
+          },
+          {
+            "date": "2026-10-02",
+            "channel": "Codex conversation",
+            "owner": "jkinlay",
+            "response": "Increase the permitted research time to 1000 hours. Continue the project in all 3 streams and do not stop unless you are blocked or instructed to. Even if one of the streams is blocked, research should continue in the remaining streams",
+            "previous_shared_research_hours_cap": 120,
+            "accepted_shared_research_hours_cap": 1000,
+            "scope": "Shared research-hour ceiling only. Continue unblocked streams; the previously accepted 14 October deadline, eight owner-review hours (at most four per week), zero external spend and public desk-study/publication restrictions remain in force."
+          }
+        ],
+        "runtime_spike_hours_cap": null,
+        "runtime_spike_spend_cap": null,
+        "note": "The owner raised the shared research-hour cap to 120 on 1 October 2026 and to 1000 on 2 October 2026. Continue all unblocked streams. Public desk research remains bounded by the accepted 14 October deadline and other limits. This does not authorize outreach, paid computation, purchases, experiments, candidate-level publication, or work beyond the cap/deadline. AWF dispatch and Jira lifecycle writes remain subject to their separate gates.",
+        "accepted_start_date": "2026-10-01",
+        "accepted_external_spend_cap_gbp": 0,
+        "schedule_basis": "The 29 Sep–12 Oct template proposal was superseded by owner acceptance on 1 Oct 2026; ten working days counted inclusively gives 14 Oct 2026.",
+        "outcome_rules": {
+          "STOP_DOMAIN": "All candidates in the named bounded universe/profile have measured hard failures against accepted constraints; owner decides to stop that domain.",
+          "INCONCLUSIVE": "Decisive evidence missing or conflicting; mark UNKNOWN and request separately capped evidence or conclude INCONCLUSIVE.",
+          "CONTINUE": "Only a specifically scoped public desk question inside the accepted M0 date/hour/spend limits after an owner-recorded decision; no automatic next stage."
+        }
+      },
+      "as_of_date": "2026-10-01",
+      "expected": "PROPOSED_NOT_STARTED",
+      "expected_reasons": [
+        "invalid_acceptance_date"
+      ],
+      "observed": "PROPOSED_NOT_STARTED",
+      "reasons": [
+        "immutable_control_mismatch",
+        "invalid_acceptance_date",
+        "acceptance_scope_mismatch"
+      ],
+      "result": "PASS",
+      "reviewer": "Codex controller; independent review pending",
+      "date": "2026-10-01",
+      "evidence_ref": "docs/feasibility/study_control.json and docs/feasibility/study_control_cases.json"
+    },
+    {
+      "id": "NEGATIVE_ARBITRARY_OUTCOMES",
+      "input_scenario": "Synthetic copy without STOP_DOMAIN, INCONCLUSIVE or CONTINUE definitions",
+      "input_record": {
+        "record_type": "ACCEPTED_M0_STUDY_CONTROL",
+        "version": "1.3",
+        "status": "ACCEPTED",
+        "epic": "CFD-1",
+        "owner_account": "jkinlay",
+        "owner_accepted": true,
+        "proposed_start_date": "2026-10-01",
+        "proposed_review_deadline": "2026-10-14",
+        "actual_start_date": "2026-10-01",
+        "accepted_review_deadline": "2026-10-14",
+        "proposed_working_days": 10,
+        "proposed_research_hours_cap": 40,
+        "proposed_owner_hours_total": 8,
+        "proposed_owner_hours_per_week": 4,
+        "accepted_research_hours_cap": 1000,
+        "accepted_owner_hours_total": 8,
+        "accepted_owner_hours_per_week": 4,
+        "actual_research_hours": 67.2,
+        "authorized_external_spend_gbp": 0,
+        "paid_action_authorized": false,
+        "checkpoint": "Five working days or 20 shared research hours, whichever comes first; final decision at the accepted deadline or cap exhaustion.",
+        "named_chemistry_reviewer": null,
+        "named_thermal_reviewer": null,
+        "laboratory_partner": null,
+        "publication_policy_status": "UNDECIDED_CANDIDATE_LEVEL_PUBLICATION_BLOCKED",
+        "stop_rules": [
+          "All candidates in the bounded universe have measured hard failures => STOP_DOMAIN for that domain/profile",
+          "Missing decisive data => INCONCLUSIVE or separately capped evidence request",
+          "Cap/deadline reached => no automatic continuation",
+          "Sunk engineering cost cannot override a hard constraint"
+        ],
+        "acceptance_evidence": {
+          "date": "2026-10-01",
+          "channel": "Codex conversation",
+          "owner": "jkinlay",
+          "response": "Accept these M0 limits",
+          "scope": "1–14 October 2026; ten working days; 40 shared research hours; eight owner-review hours total, at most four per week; zero external spend; stated checkpoint and stop rules; public desk research only",
+          "accepted_terms": {
+            "start_date": "2026-10-01",
+            "review_deadline": "2026-10-14",
+            "research_hours_cap": 40,
+            "owner_hours_total": 8,
+            "owner_hours_per_week": 4,
+            "external_spend_cap_gbp": 0,
+            "public_desk_only": true
+          }
+        },
+        "research_cap_amendments": [
+          {
+            "date": "2026-10-01",
+            "channel": "Codex conversation",
+            "owner": "jkinlay",
+            "response": "I am authorizing an increase in the number of research hours to 120",
+            "previous_shared_research_hours_cap": 40,
+            "accepted_shared_research_hours_cap": 120,
+            "scope": "Research-hour ceiling only; the accepted 14 October deadline, owner-review limits, zero external spend and public desk-study restrictions remain unchanged."
+          },
+          {
+            "date": "2026-10-02",
+            "channel": "Codex conversation",
+            "owner": "jkinlay",
+            "response": "Increase the permitted research time to 1000 hours. Continue the project in all 3 streams and do not stop unless you are blocked or instructed to. Even if one of the streams is blocked, research should continue in the remaining streams",
+            "previous_shared_research_hours_cap": 120,
+            "accepted_shared_research_hours_cap": 1000,
+            "scope": "Shared research-hour ceiling only. Continue unblocked streams; the previously accepted 14 October deadline, eight owner-review hours (at most four per week), zero external spend and public desk-study/publication restrictions remain in force."
+          }
+        ],
+        "runtime_spike_hours_cap": null,
+        "runtime_spike_spend_cap": null,
+        "note": "The owner raised the shared research-hour cap to 120 on 1 October 2026 and to 1000 on 2 October 2026. Continue all unblocked streams. Public desk research remains bounded by the accepted 14 October deadline and other limits. This does not authorize outreach, paid computation, purchases, experiments, candidate-level publication, or work beyond the cap/deadline. AWF dispatch and Jira lifecycle writes remain subject to their separate gates.",
         "accepted_start_date": "2026-10-01",
         "accepted_external_spend_cap_gbp": 0,
         "schedule_basis": "The 29 Sep–12 Oct template proposal was superseded by owner acceptance on 1 Oct 2026; ten working days counted inclusively gives 14 Oct 2026.",
@@ -1050,6 +2523,7 @@
       ],
       "observed": "PROPOSED_NOT_STARTED",
       "reasons": [
+        "immutable_control_mismatch",
         "missing_outcome_rules"
       ],
       "result": "PASS",
@@ -1062,7 +2536,7 @@
       "input_scenario": "Synthetic copy with negative consumed research hours",
       "input_record": {
         "record_type": "ACCEPTED_M0_STUDY_CONTROL",
-        "version": "1.2",
+        "version": "1.3",
         "status": "ACCEPTED",
         "epic": "CFD-1",
         "owner_account": "jkinlay",
@@ -1075,7 +2549,7 @@
         "proposed_research_hours_cap": 40,
         "proposed_owner_hours_total": 8,
         "proposed_owner_hours_per_week": 4,
-        "accepted_research_hours_cap": 120,
+        "accepted_research_hours_cap": 1000,
         "accepted_owner_hours_total": 8,
         "accepted_owner_hours_per_week": 4,
         "actual_research_hours": -1,
@@ -1117,11 +2591,117 @@
             "previous_shared_research_hours_cap": 40,
             "accepted_shared_research_hours_cap": 120,
             "scope": "Research-hour ceiling only; the accepted 14 October deadline, owner-review limits, zero external spend and public desk-study restrictions remain unchanged."
+          },
+          {
+            "date": "2026-10-02",
+            "channel": "Codex conversation",
+            "owner": "jkinlay",
+            "response": "Increase the permitted research time to 1000 hours. Continue the project in all 3 streams and do not stop unless you are blocked or instructed to. Even if one of the streams is blocked, research should continue in the remaining streams",
+            "previous_shared_research_hours_cap": 120,
+            "accepted_shared_research_hours_cap": 1000,
+            "scope": "Shared research-hour ceiling only. Continue unblocked streams; the previously accepted 14 October deadline, eight owner-review hours (at most four per week), zero external spend and public desk-study/publication restrictions remain in force."
           }
         ],
         "runtime_spike_hours_cap": null,
         "runtime_spike_spend_cap": null,
-        "note": "The owner increased only the shared research-hour cap to 120 on 1 October 2026. Public desk research remains bounded by the accepted deadline and other limits. This does not authorize outreach, paid computation, purchases, experiments, candidate-level publication, or work beyond the cap/deadline. AWF dispatch and Jira lifecycle writes remain subject to their separate gates.",
+        "note": "The owner raised the shared research-hour cap to 120 on 1 October 2026 and to 1000 on 2 October 2026. Continue all unblocked streams. Public desk research remains bounded by the accepted 14 October deadline and other limits. This does not authorize outreach, paid computation, purchases, experiments, candidate-level publication, or work beyond the cap/deadline. AWF dispatch and Jira lifecycle writes remain subject to their separate gates.",
+        "accepted_start_date": "2026-10-01",
+        "accepted_external_spend_cap_gbp": 0,
+        "schedule_basis": "The 29 Sep–12 Oct template proposal was superseded by owner acceptance on 1 Oct 2026; ten working days counted inclusively gives 14 Oct 2026.",
+        "outcome_rules": {
+          "STOP_DOMAIN": "All candidates in the named bounded universe/profile have measured hard failures against accepted constraints; owner decides to stop that domain.",
+          "INCONCLUSIVE": "Decisive evidence missing or conflicting; mark UNKNOWN and request separately capped evidence or conclude INCONCLUSIVE.",
+          "CONTINUE": "Only a specifically scoped public desk question inside the accepted M0 date/hour/spend limits after an owner-recorded decision; no automatic next stage."
+        }
+      },
+      "as_of_date": "2026-10-01",
+      "expected": "PROPOSED_NOT_STARTED",
+      "expected_reasons": [
+        "invalid_consumed_hours"
+      ],
+      "observed": "PROPOSED_NOT_STARTED",
+      "reasons": [
+        "invalid_consumed_hours"
+      ],
+      "result": "PASS",
+      "reviewer": "Codex controller; independent review pending",
+      "date": "2026-10-01",
+      "evidence_ref": "docs/feasibility/study_control.json and docs/feasibility/study_control_cases.json"
+    },
+    {
+      "id": "NEGATIVE_NONFINITE_CONSUMED_HOURS",
+      "input_scenario": "Synthetic in-memory copy with nonfinite consumed research hours",
+      "input_record": {
+        "record_type": "ACCEPTED_M0_STUDY_CONTROL",
+        "version": "1.3",
+        "status": "ACCEPTED",
+        "epic": "CFD-1",
+        "owner_account": "jkinlay",
+        "owner_accepted": true,
+        "proposed_start_date": "2026-10-01",
+        "proposed_review_deadline": "2026-10-14",
+        "actual_start_date": "2026-10-01",
+        "accepted_review_deadline": "2026-10-14",
+        "proposed_working_days": 10,
+        "proposed_research_hours_cap": 40,
+        "proposed_owner_hours_total": 8,
+        "proposed_owner_hours_per_week": 4,
+        "accepted_research_hours_cap": 1000,
+        "accepted_owner_hours_total": 8,
+        "accepted_owner_hours_per_week": 4,
+        "actual_research_hours": "NaN",
+        "authorized_external_spend_gbp": 0,
+        "paid_action_authorized": false,
+        "checkpoint": "Five working days or 20 shared research hours, whichever comes first; final decision at the accepted deadline or cap exhaustion.",
+        "named_chemistry_reviewer": null,
+        "named_thermal_reviewer": null,
+        "laboratory_partner": null,
+        "publication_policy_status": "UNDECIDED_CANDIDATE_LEVEL_PUBLICATION_BLOCKED",
+        "stop_rules": [
+          "All candidates in the bounded universe have measured hard failures => STOP_DOMAIN for that domain/profile",
+          "Missing decisive data => INCONCLUSIVE or separately capped evidence request",
+          "Cap/deadline reached => no automatic continuation",
+          "Sunk engineering cost cannot override a hard constraint"
+        ],
+        "acceptance_evidence": {
+          "date": "2026-10-01",
+          "channel": "Codex conversation",
+          "owner": "jkinlay",
+          "response": "Accept these M0 limits",
+          "scope": "1–14 October 2026; ten working days; 40 shared research hours; eight owner-review hours total, at most four per week; zero external spend; stated checkpoint and stop rules; public desk research only",
+          "accepted_terms": {
+            "start_date": "2026-10-01",
+            "review_deadline": "2026-10-14",
+            "research_hours_cap": 40,
+            "owner_hours_total": 8,
+            "owner_hours_per_week": 4,
+            "external_spend_cap_gbp": 0,
+            "public_desk_only": true
+          }
+        },
+        "research_cap_amendments": [
+          {
+            "date": "2026-10-01",
+            "channel": "Codex conversation",
+            "owner": "jkinlay",
+            "response": "I am authorizing an increase in the number of research hours to 120",
+            "previous_shared_research_hours_cap": 40,
+            "accepted_shared_research_hours_cap": 120,
+            "scope": "Research-hour ceiling only; the accepted 14 October deadline, owner-review limits, zero external spend and public desk-study restrictions remain unchanged."
+          },
+          {
+            "date": "2026-10-02",
+            "channel": "Codex conversation",
+            "owner": "jkinlay",
+            "response": "Increase the permitted research time to 1000 hours. Continue the project in all 3 streams and do not stop unless you are blocked or instructed to. Even if one of the streams is blocked, research should continue in the remaining streams",
+            "previous_shared_research_hours_cap": 120,
+            "accepted_shared_research_hours_cap": 1000,
+            "scope": "Shared research-hour ceiling only. Continue unblocked streams; the previously accepted 14 October deadline, eight owner-review hours (at most four per week), zero external spend and public desk-study/publication restrictions remain in force."
+          }
+        ],
+        "runtime_spike_hours_cap": null,
+        "runtime_spike_spend_cap": null,
+        "note": "The owner raised the shared research-hour cap to 120 on 1 October 2026 and to 1000 on 2 October 2026. Continue all unblocked streams. Public desk research remains bounded by the accepted 14 October deadline and other limits. This does not authorize outreach, paid computation, purchases, experiments, candidate-level publication, or work beyond the cap/deadline. AWF dispatch and Jira lifecycle writes remain subject to their separate gates.",
         "accepted_start_date": "2026-10-01",
         "accepted_external_spend_cap_gbp": 0,
         "schedule_basis": "The 29 Sep–12 Oct template proposal was superseded by owner acceptance on 1 Oct 2026; ten working days counted inclusively gives 14 Oct 2026.",
@@ -1150,7 +2730,7 @@
       "input_scenario": "Synthetic copy at the superseded initial 40-hour cap within the amended 120-hour limit",
       "input_record": {
         "record_type": "ACCEPTED_M0_STUDY_CONTROL",
-        "version": "1.2",
+        "version": "1.3",
         "status": "ACCEPTED",
         "epic": "CFD-1",
         "owner_account": "jkinlay",
@@ -1163,7 +2743,7 @@
         "proposed_research_hours_cap": 40,
         "proposed_owner_hours_total": 8,
         "proposed_owner_hours_per_week": 4,
-        "accepted_research_hours_cap": 120,
+        "accepted_research_hours_cap": 1000,
         "accepted_owner_hours_total": 8,
         "accepted_owner_hours_per_week": 4,
         "actual_research_hours": 40,
@@ -1205,11 +2785,20 @@
             "previous_shared_research_hours_cap": 40,
             "accepted_shared_research_hours_cap": 120,
             "scope": "Research-hour ceiling only; the accepted 14 October deadline, owner-review limits, zero external spend and public desk-study restrictions remain unchanged."
+          },
+          {
+            "date": "2026-10-02",
+            "channel": "Codex conversation",
+            "owner": "jkinlay",
+            "response": "Increase the permitted research time to 1000 hours. Continue the project in all 3 streams and do not stop unless you are blocked or instructed to. Even if one of the streams is blocked, research should continue in the remaining streams",
+            "previous_shared_research_hours_cap": 120,
+            "accepted_shared_research_hours_cap": 1000,
+            "scope": "Shared research-hour ceiling only. Continue unblocked streams; the previously accepted 14 October deadline, eight owner-review hours (at most four per week), zero external spend and public desk-study/publication restrictions remain in force."
           }
         ],
         "runtime_spike_hours_cap": null,
         "runtime_spike_spend_cap": null,
-        "note": "The owner increased only the shared research-hour cap to 120 on 1 October 2026. Public desk research remains bounded by the accepted deadline and other limits. This does not authorize outreach, paid computation, purchases, experiments, candidate-level publication, or work beyond the cap/deadline. AWF dispatch and Jira lifecycle writes remain subject to their separate gates.",
+        "note": "The owner raised the shared research-hour cap to 120 on 1 October 2026 and to 1000 on 2 October 2026. Continue all unblocked streams. Public desk research remains bounded by the accepted 14 October deadline and other limits. This does not authorize outreach, paid computation, purchases, experiments, candidate-level publication, or work beyond the cap/deadline. AWF dispatch and Jira lifecycle writes remain subject to their separate gates.",
         "accepted_start_date": "2026-10-01",
         "accepted_external_spend_cap_gbp": 0,
         "schedule_basis": "The 29 Sep–12 Oct template proposal was superseded by owner acceptance on 1 Oct 2026; ten working days counted inclusively gives 14 Oct 2026.",
@@ -1235,10 +2824,10 @@
     },
     {
       "id": "BOUNDARY_HOUR_CAP",
-      "input_scenario": "Synthetic copy at exactly 120 shared research hours with unresolved decisive evidence",
+      "input_scenario": "Historical synthetic copy at the first amended 120-hour cap before the 1000-hour decision",
       "input_record": {
         "record_type": "ACCEPTED_M0_STUDY_CONTROL",
-        "version": "1.2",
+        "version": "1.3",
         "status": "ACCEPTED",
         "epic": "CFD-1",
         "owner_account": "jkinlay",
@@ -1251,7 +2840,7 @@
         "proposed_research_hours_cap": 40,
         "proposed_owner_hours_total": 8,
         "proposed_owner_hours_per_week": 4,
-        "accepted_research_hours_cap": 120,
+        "accepted_research_hours_cap": 1000,
         "accepted_owner_hours_total": 8,
         "accepted_owner_hours_per_week": 4,
         "actual_research_hours": 120,
@@ -1293,11 +2882,20 @@
             "previous_shared_research_hours_cap": 40,
             "accepted_shared_research_hours_cap": 120,
             "scope": "Research-hour ceiling only; the accepted 14 October deadline, owner-review limits, zero external spend and public desk-study restrictions remain unchanged."
+          },
+          {
+            "date": "2026-10-02",
+            "channel": "Codex conversation",
+            "owner": "jkinlay",
+            "response": "Increase the permitted research time to 1000 hours. Continue the project in all 3 streams and do not stop unless you are blocked or instructed to. Even if one of the streams is blocked, research should continue in the remaining streams",
+            "previous_shared_research_hours_cap": 120,
+            "accepted_shared_research_hours_cap": 1000,
+            "scope": "Shared research-hour ceiling only. Continue unblocked streams; the previously accepted 14 October deadline, eight owner-review hours (at most four per week), zero external spend and public desk-study/publication restrictions remain in force."
           }
         ],
         "runtime_spike_hours_cap": null,
         "runtime_spike_spend_cap": null,
-        "note": "The owner increased only the shared research-hour cap to 120 on 1 October 2026. Public desk research remains bounded by the accepted deadline and other limits. This does not authorize outreach, paid computation, purchases, experiments, candidate-level publication, or work beyond the cap/deadline. AWF dispatch and Jira lifecycle writes remain subject to their separate gates.",
+        "note": "The owner raised the shared research-hour cap to 120 on 1 October 2026 and to 1000 on 2 October 2026. Continue all unblocked streams. Public desk research remains bounded by the accepted 14 October deadline and other limits. This does not authorize outreach, paid computation, purchases, experiments, candidate-level publication, or work beyond the cap/deadline. AWF dispatch and Jira lifecycle writes remain subject to their separate gates.",
         "accepted_start_date": "2026-10-01",
         "accepted_external_spend_cap_gbp": 0,
         "schedule_basis": "The 29 Sep–12 Oct template proposal was superseded by owner acceptance on 1 Oct 2026; ten working days counted inclusively gives 14 Oct 2026.",
@@ -1325,11 +2923,11 @@
       "evidence_ref": "docs/feasibility/study_control.json and docs/feasibility/study_control_cases.json"
     },
     {
-      "id": "BOUNDARY_LAST_ACCEPTED_DAY",
-      "input_scenario": "Synthetic copy on 14 October, the last accepted working day, below the shared hour cap",
+      "id": "POSITIVE_SECOND_AMENDMENT_EFFECTIVE",
+      "input_scenario": "Owner-accepted control after the retained 1000-hour amendment, with the recorded 67.2 research hours",
       "input_record": {
         "record_type": "ACCEPTED_M0_STUDY_CONTROL",
-        "version": "1.2",
+        "version": "1.3",
         "status": "ACCEPTED",
         "epic": "CFD-1",
         "owner_account": "jkinlay",
@@ -1342,7 +2940,204 @@
         "proposed_research_hours_cap": 40,
         "proposed_owner_hours_total": 8,
         "proposed_owner_hours_per_week": 4,
-        "accepted_research_hours_cap": 120,
+        "accepted_research_hours_cap": 1000,
+        "accepted_owner_hours_total": 8,
+        "accepted_owner_hours_per_week": 4,
+        "actual_research_hours": 67.2,
+        "authorized_external_spend_gbp": 0,
+        "paid_action_authorized": false,
+        "checkpoint": "Five working days or 20 shared research hours, whichever comes first; final decision at the accepted deadline or cap exhaustion.",
+        "named_chemistry_reviewer": null,
+        "named_thermal_reviewer": null,
+        "laboratory_partner": null,
+        "publication_policy_status": "UNDECIDED_CANDIDATE_LEVEL_PUBLICATION_BLOCKED",
+        "stop_rules": [
+          "All candidates in the bounded universe have measured hard failures => STOP_DOMAIN for that domain/profile",
+          "Missing decisive data => INCONCLUSIVE or separately capped evidence request",
+          "Cap/deadline reached => no automatic continuation",
+          "Sunk engineering cost cannot override a hard constraint"
+        ],
+        "acceptance_evidence": {
+          "date": "2026-10-01",
+          "channel": "Codex conversation",
+          "owner": "jkinlay",
+          "response": "Accept these M0 limits",
+          "scope": "1–14 October 2026; ten working days; 40 shared research hours; eight owner-review hours total, at most four per week; zero external spend; stated checkpoint and stop rules; public desk research only",
+          "accepted_terms": {
+            "start_date": "2026-10-01",
+            "review_deadline": "2026-10-14",
+            "research_hours_cap": 40,
+            "owner_hours_total": 8,
+            "owner_hours_per_week": 4,
+            "external_spend_cap_gbp": 0,
+            "public_desk_only": true
+          }
+        },
+        "research_cap_amendments": [
+          {
+            "date": "2026-10-01",
+            "channel": "Codex conversation",
+            "owner": "jkinlay",
+            "response": "I am authorizing an increase in the number of research hours to 120",
+            "previous_shared_research_hours_cap": 40,
+            "accepted_shared_research_hours_cap": 120,
+            "scope": "Research-hour ceiling only; the accepted 14 October deadline, owner-review limits, zero external spend and public desk-study restrictions remain unchanged."
+          },
+          {
+            "date": "2026-10-02",
+            "channel": "Codex conversation",
+            "owner": "jkinlay",
+            "response": "Increase the permitted research time to 1000 hours. Continue the project in all 3 streams and do not stop unless you are blocked or instructed to. Even if one of the streams is blocked, research should continue in the remaining streams",
+            "previous_shared_research_hours_cap": 120,
+            "accepted_shared_research_hours_cap": 1000,
+            "scope": "Shared research-hour ceiling only. Continue unblocked streams; the previously accepted 14 October deadline, eight owner-review hours (at most four per week), zero external spend and public desk-study/publication restrictions remain in force."
+          }
+        ],
+        "runtime_spike_hours_cap": null,
+        "runtime_spike_spend_cap": null,
+        "note": "The owner raised the shared research-hour cap to 120 on 1 October 2026 and to 1000 on 2 October 2026. Continue all unblocked streams. Public desk research remains bounded by the accepted 14 October deadline and other limits. This does not authorize outreach, paid computation, purchases, experiments, candidate-level publication, or work beyond the cap/deadline. AWF dispatch and Jira lifecycle writes remain subject to their separate gates.",
+        "accepted_start_date": "2026-10-01",
+        "accepted_external_spend_cap_gbp": 0,
+        "schedule_basis": "The 29 Sep–12 Oct template proposal was superseded by owner acceptance on 1 Oct 2026; ten working days counted inclusively gives 14 Oct 2026.",
+        "outcome_rules": {
+          "STOP_DOMAIN": "All candidates in the named bounded universe/profile have measured hard failures against accepted constraints; owner decides to stop that domain.",
+          "INCONCLUSIVE": "Decisive evidence missing or conflicting; mark UNKNOWN and request separately capped evidence or conclude INCONCLUSIVE.",
+          "CONTINUE": "Only a specifically scoped public desk question inside the accepted M0 date/hour/spend limits after an owner-recorded decision; no automatic next stage."
+        }
+      },
+      "as_of_date": "2026-10-02",
+      "expected": "PUBLIC_DESK_ONLY",
+      "expected_reasons": [
+        "within_accepted_date_and_hour_caps"
+      ],
+      "observed": "PUBLIC_DESK_ONLY",
+      "reasons": [
+        "within_accepted_date_and_hour_caps"
+      ],
+      "result": "PASS",
+      "reviewer": "Codex controller; independent review pending",
+      "date": "2026-10-02",
+      "evidence_ref": "docs/feasibility/study_control.json and docs/feasibility/study_control_cases.json"
+    },
+    {
+      "id": "BOUNDARY_SECOND_AMENDMENT_HOUR_CAP",
+      "input_scenario": "Synthetic copy at exactly 1000 shared research hours after the second owner amendment",
+      "input_record": {
+        "record_type": "ACCEPTED_M0_STUDY_CONTROL",
+        "version": "1.3",
+        "status": "ACCEPTED",
+        "epic": "CFD-1",
+        "owner_account": "jkinlay",
+        "owner_accepted": true,
+        "proposed_start_date": "2026-10-01",
+        "proposed_review_deadline": "2026-10-14",
+        "actual_start_date": "2026-10-01",
+        "accepted_review_deadline": "2026-10-14",
+        "proposed_working_days": 10,
+        "proposed_research_hours_cap": 40,
+        "proposed_owner_hours_total": 8,
+        "proposed_owner_hours_per_week": 4,
+        "accepted_research_hours_cap": 1000,
+        "accepted_owner_hours_total": 8,
+        "accepted_owner_hours_per_week": 4,
+        "actual_research_hours": 1000,
+        "authorized_external_spend_gbp": 0,
+        "paid_action_authorized": false,
+        "checkpoint": "Five working days or 20 shared research hours, whichever comes first; final decision at the accepted deadline or cap exhaustion.",
+        "named_chemistry_reviewer": null,
+        "named_thermal_reviewer": null,
+        "laboratory_partner": null,
+        "publication_policy_status": "UNDECIDED_CANDIDATE_LEVEL_PUBLICATION_BLOCKED",
+        "stop_rules": [
+          "All candidates in the bounded universe have measured hard failures => STOP_DOMAIN for that domain/profile",
+          "Missing decisive data => INCONCLUSIVE or separately capped evidence request",
+          "Cap/deadline reached => no automatic continuation",
+          "Sunk engineering cost cannot override a hard constraint"
+        ],
+        "acceptance_evidence": {
+          "date": "2026-10-01",
+          "channel": "Codex conversation",
+          "owner": "jkinlay",
+          "response": "Accept these M0 limits",
+          "scope": "1–14 October 2026; ten working days; 40 shared research hours; eight owner-review hours total, at most four per week; zero external spend; stated checkpoint and stop rules; public desk research only",
+          "accepted_terms": {
+            "start_date": "2026-10-01",
+            "review_deadline": "2026-10-14",
+            "research_hours_cap": 40,
+            "owner_hours_total": 8,
+            "owner_hours_per_week": 4,
+            "external_spend_cap_gbp": 0,
+            "public_desk_only": true
+          }
+        },
+        "research_cap_amendments": [
+          {
+            "date": "2026-10-01",
+            "channel": "Codex conversation",
+            "owner": "jkinlay",
+            "response": "I am authorizing an increase in the number of research hours to 120",
+            "previous_shared_research_hours_cap": 40,
+            "accepted_shared_research_hours_cap": 120,
+            "scope": "Research-hour ceiling only; the accepted 14 October deadline, owner-review limits, zero external spend and public desk-study restrictions remain unchanged."
+          },
+          {
+            "date": "2026-10-02",
+            "channel": "Codex conversation",
+            "owner": "jkinlay",
+            "response": "Increase the permitted research time to 1000 hours. Continue the project in all 3 streams and do not stop unless you are blocked or instructed to. Even if one of the streams is blocked, research should continue in the remaining streams",
+            "previous_shared_research_hours_cap": 120,
+            "accepted_shared_research_hours_cap": 1000,
+            "scope": "Shared research-hour ceiling only. Continue unblocked streams; the previously accepted 14 October deadline, eight owner-review hours (at most four per week), zero external spend and public desk-study/publication restrictions remain in force."
+          }
+        ],
+        "runtime_spike_hours_cap": null,
+        "runtime_spike_spend_cap": null,
+        "note": "The owner raised the shared research-hour cap to 120 on 1 October 2026 and to 1000 on 2 October 2026. Continue all unblocked streams. Public desk research remains bounded by the accepted 14 October deadline and other limits. This does not authorize outreach, paid computation, purchases, experiments, candidate-level publication, or work beyond the cap/deadline. AWF dispatch and Jira lifecycle writes remain subject to their separate gates.",
+        "accepted_start_date": "2026-10-01",
+        "accepted_external_spend_cap_gbp": 0,
+        "schedule_basis": "The 29 Sep–12 Oct template proposal was superseded by owner acceptance on 1 Oct 2026; ten working days counted inclusively gives 14 Oct 2026.",
+        "outcome_rules": {
+          "STOP_DOMAIN": "All candidates in the named bounded universe/profile have measured hard failures against accepted constraints; owner decides to stop that domain.",
+          "INCONCLUSIVE": "Decisive evidence missing or conflicting; mark UNKNOWN and request separately capped evidence or conclude INCONCLUSIVE.",
+          "CONTINUE": "Only a specifically scoped public desk question inside the accepted M0 date/hour/spend limits after an owner-recorded decision; no automatic next stage."
+        },
+        "decisive_evidence_status": "UNRESOLVED"
+      },
+      "as_of_date": "2026-10-02",
+      "expected": "STOP_PENDING_OWNER_DECISION",
+      "expected_reasons": [
+        "research_hour_cap_reached",
+        "decisive_evidence_unresolved"
+      ],
+      "observed": "STOP_PENDING_OWNER_DECISION",
+      "reasons": [
+        "research_hour_cap_reached",
+        "decisive_evidence_unresolved"
+      ],
+      "result": "PASS",
+      "reviewer": "Codex controller; independent review pending",
+      "date": "2026-10-02",
+      "evidence_ref": "docs/feasibility/study_control.json and docs/feasibility/study_control_cases.json"
+    },
+    {
+      "id": "BOUNDARY_LAST_ACCEPTED_DAY",
+      "input_scenario": "Synthetic copy on 14 October, the last accepted working day, below the shared hour cap",
+      "input_record": {
+        "record_type": "ACCEPTED_M0_STUDY_CONTROL",
+        "version": "1.3",
+        "status": "ACCEPTED",
+        "epic": "CFD-1",
+        "owner_account": "jkinlay",
+        "owner_accepted": true,
+        "proposed_start_date": "2026-10-01",
+        "proposed_review_deadline": "2026-10-14",
+        "actual_start_date": "2026-10-01",
+        "accepted_review_deadline": "2026-10-14",
+        "proposed_working_days": 10,
+        "proposed_research_hours_cap": 40,
+        "proposed_owner_hours_total": 8,
+        "proposed_owner_hours_per_week": 4,
+        "accepted_research_hours_cap": 1000,
         "accepted_owner_hours_total": 8,
         "accepted_owner_hours_per_week": 4,
         "actual_research_hours": 119,
@@ -1384,11 +3179,20 @@
             "previous_shared_research_hours_cap": 40,
             "accepted_shared_research_hours_cap": 120,
             "scope": "Research-hour ceiling only; the accepted 14 October deadline, owner-review limits, zero external spend and public desk-study restrictions remain unchanged."
+          },
+          {
+            "date": "2026-10-02",
+            "channel": "Codex conversation",
+            "owner": "jkinlay",
+            "response": "Increase the permitted research time to 1000 hours. Continue the project in all 3 streams and do not stop unless you are blocked or instructed to. Even if one of the streams is blocked, research should continue in the remaining streams",
+            "previous_shared_research_hours_cap": 120,
+            "accepted_shared_research_hours_cap": 1000,
+            "scope": "Shared research-hour ceiling only. Continue unblocked streams; the previously accepted 14 October deadline, eight owner-review hours (at most four per week), zero external spend and public desk-study/publication restrictions remain in force."
           }
         ],
         "runtime_spike_hours_cap": null,
         "runtime_spike_spend_cap": null,
-        "note": "The owner increased only the shared research-hour cap to 120 on 1 October 2026. Public desk research remains bounded by the accepted deadline and other limits. This does not authorize outreach, paid computation, purchases, experiments, candidate-level publication, or work beyond the cap/deadline. AWF dispatch and Jira lifecycle writes remain subject to their separate gates.",
+        "note": "The owner raised the shared research-hour cap to 120 on 1 October 2026 and to 1000 on 2 October 2026. Continue all unblocked streams. Public desk research remains bounded by the accepted 14 October deadline and other limits. This does not authorize outreach, paid computation, purchases, experiments, candidate-level publication, or work beyond the cap/deadline. AWF dispatch and Jira lifecycle writes remain subject to their separate gates.",
         "accepted_start_date": "2026-10-01",
         "accepted_external_spend_cap_gbp": 0,
         "schedule_basis": "The 29 Sep–12 Oct template proposal was superseded by owner acceptance on 1 Oct 2026; ten working days counted inclusively gives 14 Oct 2026.",
@@ -1409,7 +3213,7 @@
       ],
       "result": "PASS",
       "reviewer": "Codex controller; independent review pending",
-      "date": "2026-10-01",
+      "date": "2026-10-14",
       "evidence_ref": "docs/feasibility/study_control.json and docs/feasibility/study_control_cases.json"
     },
     {
@@ -1417,7 +3221,7 @@
       "input_scenario": "Synthetic copy immediately after the accepted final day with unresolved decisive evidence",
       "input_record": {
         "record_type": "ACCEPTED_M0_STUDY_CONTROL",
-        "version": "1.2",
+        "version": "1.3",
         "status": "ACCEPTED",
         "epic": "CFD-1",
         "owner_account": "jkinlay",
@@ -1430,10 +3234,10 @@
         "proposed_research_hours_cap": 40,
         "proposed_owner_hours_total": 8,
         "proposed_owner_hours_per_week": 4,
-        "accepted_research_hours_cap": 120,
+        "accepted_research_hours_cap": 1000,
         "accepted_owner_hours_total": 8,
         "accepted_owner_hours_per_week": 4,
-        "actual_research_hours": 0,
+        "actual_research_hours": 67.2,
         "authorized_external_spend_gbp": 0,
         "paid_action_authorized": false,
         "checkpoint": "Five working days or 20 shared research hours, whichever comes first; final decision at the accepted deadline or cap exhaustion.",
@@ -1472,11 +3276,20 @@
             "previous_shared_research_hours_cap": 40,
             "accepted_shared_research_hours_cap": 120,
             "scope": "Research-hour ceiling only; the accepted 14 October deadline, owner-review limits, zero external spend and public desk-study restrictions remain unchanged."
+          },
+          {
+            "date": "2026-10-02",
+            "channel": "Codex conversation",
+            "owner": "jkinlay",
+            "response": "Increase the permitted research time to 1000 hours. Continue the project in all 3 streams and do not stop unless you are blocked or instructed to. Even if one of the streams is blocked, research should continue in the remaining streams",
+            "previous_shared_research_hours_cap": 120,
+            "accepted_shared_research_hours_cap": 1000,
+            "scope": "Shared research-hour ceiling only. Continue unblocked streams; the previously accepted 14 October deadline, eight owner-review hours (at most four per week), zero external spend and public desk-study/publication restrictions remain in force."
           }
         ],
         "runtime_spike_hours_cap": null,
         "runtime_spike_spend_cap": null,
-        "note": "The owner increased only the shared research-hour cap to 120 on 1 October 2026. Public desk research remains bounded by the accepted deadline and other limits. This does not authorize outreach, paid computation, purchases, experiments, candidate-level publication, or work beyond the cap/deadline. AWF dispatch and Jira lifecycle writes remain subject to their separate gates.",
+        "note": "The owner raised the shared research-hour cap to 120 on 1 October 2026 and to 1000 on 2 October 2026. Continue all unblocked streams. Public desk research remains bounded by the accepted 14 October deadline and other limits. This does not authorize outreach, paid computation, purchases, experiments, candidate-level publication, or work beyond the cap/deadline. AWF dispatch and Jira lifecycle writes remain subject to their separate gates.",
         "accepted_start_date": "2026-10-01",
         "accepted_external_spend_cap_gbp": 0,
         "schedule_basis": "The 29 Sep–12 Oct template proposal was superseded by owner acceptance on 1 Oct 2026; ten working days counted inclusively gives 14 Oct 2026.",
@@ -1500,8 +3313,56 @@
       ],
       "result": "PASS",
       "reviewer": "Codex controller; independent review pending",
-      "date": "2026-10-01",
+      "date": "2026-10-15",
       "evidence_ref": "docs/feasibility/study_control.json and docs/feasibility/study_control_cases.json"
+    },
+    {
+      "id": "NEGATIVE_RAW_CONTROL_DUPLICATE_PUBLICATION_POLICY",
+      "input_scenario": "Raw control JSON duplicates publication policy with an earlier PUBLISHED value",
+      "raw_input": "{\"publication_policy_status\":\"PUBLISHED\",\"publication_policy_status\":\"UNDECIDED_CANDIDATE_LEVEL_PUBLICATION_BLOCKED\"}",
+      "expected": "REJECTED",
+      "expected_reasons": [
+        "duplicate JSON object key: publication_policy_status"
+      ],
+      "observed": "REJECTED",
+      "reasons": [
+        "NEGATIVE_RAW_CONTROL_DUPLICATE_PUBLICATION_POLICY: duplicate JSON object key: publication_policy_status"
+      ],
+      "result": "PASS",
+      "reviewer": "Codex controller; independent review pending",
+      "evidence_ref": "docs/feasibility/study_control_cases.json"
+    },
+    {
+      "id": "NEGATIVE_RAW_CASES_DUPLICATE_CASES",
+      "input_scenario": "Raw cases JSON duplicates the cases key",
+      "raw_input": "{\"cases\":[],\"cases\":[]}",
+      "expected": "REJECTED",
+      "expected_reasons": [
+        "duplicate JSON object key: cases"
+      ],
+      "observed": "REJECTED",
+      "reasons": [
+        "NEGATIVE_RAW_CASES_DUPLICATE_CASES: duplicate JSON object key: cases"
+      ],
+      "result": "PASS",
+      "reviewer": "Codex controller; independent review pending",
+      "evidence_ref": "docs/feasibility/study_control_cases.json"
+    },
+    {
+      "id": "NEGATIVE_RAW_CONTROL_NAN",
+      "input_scenario": "Raw control JSON uses a nonfinite NaN consumed-hours constant",
+      "raw_input": "{\"actual_research_hours\":NaN}",
+      "expected": "REJECTED",
+      "expected_reasons": [
+        "non-finite JSON constant: NaN"
+      ],
+      "observed": "REJECTED",
+      "reasons": [
+        "NEGATIVE_RAW_CONTROL_NAN: non-finite JSON constant: NaN"
+      ],
+      "result": "PASS",
+      "reviewer": "Codex controller; independent review pending",
+      "evidence_ref": "docs/feasibility/study_control_cases.json"
     }
   ],
   "all_pass": true
