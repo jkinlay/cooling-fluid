@@ -4,7 +4,7 @@ Read [docs/README.md](docs/README.md), [docs/M0_Feasibility_Study.md](docs/M0_Fe
 
 The primary research tool for compound analysis is Mathematica and its Chemistry knowledge base, with relevant chemistry plug-ins where available. Reputable external chemical and regulatory databases and reproducible Python code and libraries may supplement it. Record each source, retrieval date, chemical identity, property conditions, units, method, and uncertainty. Separate measured data, correlations, predictions, and claims. Treat missing decisive evidence as UNKNOWN; do not infer safety or deployability from a molecular identity or a single property.
 
-Jira project CFD has Epic CFD-1 and nine M0 Tasks. AWF's configured Jira scope is empty until an explicit ticket selector and ownership are accepted. Do not make AWF Jira lifecycle writes on that basis alone.
+Jira project CFD has Epic CFD-1 and nine M0 Tasks. On 2 October 2026 the owner accepted AWF Jira scope CFD-1 and jkinlay ownership of CFD-2 through CFD-10. The controller remains the sole Jira lifecycle writer. Use the reviewed selector and ownership record, observe each live issue before and after a mapped lifecycle write, and stop that ticket's writes on a mismatch or unknown outcome. Never transition the Epic.
 
 Keep candidate-level publication, outreach, supplier contact, paid computation, and laboratory activity within the accepted study control and publication decision. The repository is public. Protect unpublished formulations and confidential information. Preserve the existing feasibility and specification package as historical evidence; its manifest and ZIP hashes are byte-bound.
 
