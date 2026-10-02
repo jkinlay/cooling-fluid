@@ -1,6 +1,6 @@
 # M0 desk-study control and stream plan for CFD-1
 
-The owner accepted the control in `docs/feasibility/study_control.json` on 1 October 2026 for public desk research through 14 October 2026. Its ten working days, 40 research hours, eight owner-review hours and £0 external spend are shared across all streams. This is the M0 mandate; it does not complete the analysis or activate AWF dispatch/Jira lifecycle writes.
+The owner accepted the control in `docs/feasibility/study_control.json` on 1 October 2026 for public desk research through 14 October 2026. The initial 40-hour shared research cap rose to 120 later that day and to **1000 shared research hours on 2 October**. The ten working days, eight owner-review hours (at most four per week), and £0 external spend remain unchanged and shared across all streams. This is the current M0 mandate; it does not complete the analysis or activate AWF dispatch/Jira lifecycle writes.
 
 The frozen existing baseline is `docs/feasibility/Cooling_Fluid_Candidate_Table.xlsx` (SHA-256 `888fa3d843d8b05c34f031dd0843b81dbee2f74a9fe991a7c5df828ab9d56fb2`) and `docs/feasibility/feasibility_table.json` (SHA-256 `517bcee853ab0e0c2eb1018068f816409899ce12e52c1b0600013fae4d1f3ea1`). These are prior public-source evidence, not M0 acceptance or fluid qualification.
 
