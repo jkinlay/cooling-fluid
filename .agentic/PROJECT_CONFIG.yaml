@@ -15,7 +15,7 @@
     "scope": {
       "allow_entire_project": false,
       "selector_mode": "all",
-      "included_epics": [],
+      "included_epics": ["CFD-1"],
       "labels_any": [],
       "components_any": [],
       "additional_jql": "",
