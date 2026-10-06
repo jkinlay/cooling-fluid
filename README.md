@@ -1,17 +1,16 @@
 # Cooling Fluid Discovery
 
-This repository holds the planning baseline for a proposed cooling fluid research programme. The [M0 feasibility study](docs/M0_Feasibility_Study.md) and [v1.1 specification package](docs/README.md) describe the original nine-task desk-study plan. They are retained as historical, byte-bound evidence; some of their proposed-control language predates the owner's later decisions.
+This public repository preserves the Cooling Fluid Discovery planning materials and workflow configuration. The v1.1 feasibility and specification package is a historical baseline; its proposed dates, limits and decisions are not a live study-status record.
 
-## Active M0 study — status at 6 October 2026
+## Start here
 
-The owner accepted a public desk study for **1–14 October 2026** and subsequently raised the shared research allowance to **1,000 hours**. The remaining limits are **eight owner-review hours total, at most four per week**, and **£0 external spend**. Research is limited to public information and local analysis. Supplier contact, paid data or computation, physical experiments, and candidate publication require separate decisions. The accepted control and amendments are being incorporated through the project's review process; this page records the owner decisions and does not replace their evidence record.
+- [M0 feasibility and value study](docs/M0_Feasibility_Study.md): the original nine-task desk-study plan and decision framework.
+- [v1.1 specification package](docs/README.md): requirements, work-package map, review history, validation and byte-bound archive.
+- [Project instructions](PROJECT_INSTRUCTIONS.md): research methods, evidence standards, publication limits and Jira ownership rules. Its opening study-control sentence reflects the earlier proposed baseline; later owner decisions and reviewed change records take precedence.
+- [Jira Epic CFD-1](https://jkinlay.atlassian.net/browse/CFD-1): the project work structure.
 
-The work follows [Jira Epic CFD-1](https://jkinlay.atlassian.net/browse/CFD-1) and nine M0 tasks:
+## Research and evidence
 
-- **Stream A:** application profiles, study control, and workflow evidence.
-- **Stream B:** identity and source evidence for the 32 compounds in the source workbook.
-- **Stream C:** Mathematica `ChemicalData` and corroborating property methods, including explicit source conditions and uncertainty.
+Mathematica `ChemicalData` is the primary chemistry knowledge base for the compound study. Reputable public chemistry and regulatory sources, reproducible Python analysis and relevant plug-ins may supplement it. Evidence records distinguish chemical identity, property conditions, units, method and uncertainty. Missing decisive evidence remains **UNKNOWN**; an identity or single reported property does not establish application suitability.
 
-The study is in progress. No compound has been qualified for an application, and missing decisive evidence remains **UNKNOWN**. Candidate-level working results are held locally pending the owner's publication decision. The project uses AWF template **1.9.1** for its agent workflow; repository adoption does not by itself qualify external review, CI, or Jira adapters.
-
-For scope and scientific reporting rules, read [PROJECT_INSTRUCTIONS.md](PROJECT_INSTRUCTIONS.md). For the historical planning package and its integrity checks, start at [docs/README.md](docs/README.md).
+The source workbook lists 32 compounds. Candidate-level working outputs remain local pending the owner's publication decision. The planning package establishes no qualified fluid, procurement decision, laboratory programme or deployment authorization. AWF template **1.9.1** provides the repository's agent-workflow framework; external review, CI and Jira adapters have their own qualification gates.
