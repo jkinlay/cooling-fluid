@@ -1,0 +1,28 @@
+{
+  "candidates": 32,
+  "envelopes_touching_or_crossing_a_bound": 11,
+  "input_path": "docs/feasibility/feasibility_table.json",
+  "input_sha256": "517bcee853ab0e0c2eb1018068f816409899ce12e52c1b0600013fae4d1f3ea1",
+  "policy": "Inclusive 45-55 C screen recomputed from the published evidence envelope: wholly inside is PASS, wholly outside is FAIL, crossing a bound or missing is UNKNOWN. Report-only; the dataset is not modified.",
+  "problem_counts": {},
+  "published_status_counts": {
+    "FAIL": 8,
+    "PASS": 13,
+    "UNKNOWN": 11
+  },
+  "recomputed_status_counts": {
+    "FAIL": 8,
+    "PASS": 13,
+    "UNKNOWN": 11
+  },
+  "screen_bounds_c": {
+    "lower_inclusive": 45.0,
+    "upper_inclusive": 55.0
+  },
+  "status": "PASS",
+  "status_transitions": {
+    "FAIL->FAIL": 8,
+    "PASS->PASS": 13,
+    "UNKNOWN->UNKNOWN": 11
+  }
+}
