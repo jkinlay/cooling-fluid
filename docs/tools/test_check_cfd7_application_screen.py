@@ -1,4 +1,8 @@
 import copy
+import hashlib
+import subprocess
+import sys
+import tempfile
 import json
 from pathlib import Path
 import unittest
@@ -119,6 +123,20 @@ class ScreenTests(unittest.TestCase):
     def test_bad_label_rejected(self):
         with self.assertRaises(ValueError):
             screen(True, True, res("ESTIMATED", "INSIDE"))
+
+
+class ReportBindingTests(unittest.TestCase):
+    def test_report_records_rules_digest(self):
+        tools = Path(__file__).resolve().parent
+        rules_path = tools.parents[0] / "feasibility" / "cfd7_application_screen_rules.json"
+        with tempfile.TemporaryDirectory() as tmp:
+            reg = Path(tmp) / "register.json"
+            reg.write_text(json.dumps(register()), encoding="utf-8")
+            out = Path(tmp) / "out.json"
+            subprocess.run([sys.executable, str(tools / "check_cfd7_application_screen.py"), "--rules", str(rules_path),
+                            "--register", str(reg), "--output", str(out)], check=True)
+            report = json.loads(out.read_text(encoding="utf-8"))
+        self.assertEqual(report["local_evidence"]["rules_sha256"], hashlib.sha256(rules_path.read_bytes()).hexdigest())
 
 
 if __name__ == "__main__":
