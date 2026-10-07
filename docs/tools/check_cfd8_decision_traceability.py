@@ -33,7 +33,9 @@ RULES = ("result_traces_to_observation", "no_isomer_swap", "property_matches_fie
 FIELDS = ("normal_boiling_point", "flash_point")
 NUMERIC_FIELDS = ("value", "low", "high", "reported_plus_minus", "temperature_low_c", "temperature_high_c")
 TOLERANCE_C = 0.01
-ZERO_TEXT = re.compile(r"(?<![\d.])[-+]?0+(?:\.0*)?(?![\d.])")
+NUMBER_TEXT = re.compile(r"[-+]?(?:\d+(?:\.\d*)?|\.\d+)")
+CELSIUS_FIELDS = {"temperature_low_c", "temperature_high_c"}
+REPO_ROOT = Path(__file__).resolve().parents[2]
 
 
 def _num(value: Any) -> bool:
@@ -81,10 +83,36 @@ def check_result(candidate_id: Any, field: str, result: Any, observations: dict[
     return out
 
 
+def _reported_numbers(text: Any) -> list[float]:
+    return [float(m) for m in NUMBER_TEXT.findall(text)] if isinstance(text, str) else []
+
+
+def _to_celsius(value: float, unit: Any) -> float:
+    if unit == "K":
+        return value - 273.15
+    if unit == "degF":
+        return (value - 32) * 5 / 9
+    return value
+
+
 def zero_without_text(observation: dict[str, Any]) -> bool:
-    has_zero = any(_num(observation.get(k)) and observation.get(k) == 0 for k in NUMERIC_FIELDS)
-    text = observation.get("reported_value")
-    return has_zero and not (isinstance(text, str) and ZERO_TEXT.search(text))
+    """True if a numeric field is zero although the reported text supports no zero.
+
+    A zero is supported when the reported text contains a zero, or (for Celsius fields) a reported
+    number that converts to zero Celsius in the reported unit, e.g. a Kelvin value at the ice point.
+    """
+    numbers = _reported_numbers(observation.get("reported_value"))
+    raw_zero = any(abs(n) <= TOLERANCE_C for n in numbers)
+    unit = observation.get("reported_unit")
+    celsius_zero = raw_zero or any(abs(_to_celsius(n, unit)) <= TOLERANCE_C for n in numbers)
+    for key in NUMERIC_FIELDS:
+        val = observation.get(key)
+        if not (_num(val) and val == 0):
+            continue
+        supported = celsius_zero if key in CELSIUS_FIELDS else raw_zero
+        if not supported:
+            return True
+    return False
 
 
 def evaluate(dataset: dict[str, Any]) -> dict[str, Any]:
@@ -119,6 +147,15 @@ def evaluate(dataset: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def public_path(path: Path) -> str:
+    """Repository-relative path, so reruns never publish machine-specific absolute paths."""
+    resolved = path.resolve()
+    try:
+        return resolved.relative_to(REPO_ROOT).as_posix()
+    except ValueError:
+        return resolved.name
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--dataset", type=Path, required=True)
@@ -126,7 +163,7 @@ def main() -> int:
     args = parser.parse_args()
     raw = args.dataset.read_bytes()
     report = evaluate(json.loads(raw.decode("utf-8")))
-    report["dataset_path"] = args.dataset.as_posix()
+    report["dataset_path"] = public_path(args.dataset)
     report["dataset_sha256"] = hashlib.sha256(raw).hexdigest()
     args.output.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8", newline="\n")
     return 1 if report["status"] == "FAIL" else 0

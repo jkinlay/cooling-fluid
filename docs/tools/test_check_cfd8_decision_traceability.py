@@ -1,7 +1,9 @@
 import copy
 import unittest
 
-from check_cfd8_decision_traceability import evaluate, independent_source_count
+from pathlib import Path
+
+from check_cfd8_decision_traceability import REPO_ROOT, evaluate, independent_source_count, public_path
 
 
 def obs(oid, cand, prop, low, high, src="s1", text="12 K"):
@@ -80,6 +82,17 @@ class TraceabilityTests(unittest.TestCase):
         data["observations"][0]["reported_plus_minus"] = 0
         self.assertEqual(fails(data, "missing_not_zero"), 1)
 
+    def test_converted_zero_celsius_is_allowed(self):
+        data = dataset()
+        data["observations"][2].update({"value": 273.15, "low": 273.15, "high": 273.15, "temperature_low_c": 0.0,
+                                        "temperature_high_c": 0.0, "reported_value": "273.15 K", "reported_unit": "K"})
+        self.assertEqual(fails(data, "missing_not_zero"), 0)
+
+    def test_zero_raw_value_from_nonzero_kelvin_text_fails(self):
+        data = dataset()
+        data["observations"][2].update({"value": 0, "reported_value": "273.15 K", "reported_unit": "K"})
+        self.assertEqual(fails(data, "missing_not_zero"), 1)
+
     def test_reported_zero_is_allowed(self):
         data = dataset()
         data["observations"][2].update({"value": 0, "low": 0, "high": 0, "temperature_low_c": 0,
@@ -99,6 +112,15 @@ class TraceabilityTests(unittest.TestCase):
         data = dataset()
         data["candidates"][0]["flash_point"] = None
         self.assertEqual(evaluate(data)["status"], "FAIL")
+
+
+class PathTests(unittest.TestCase):
+    def test_absolute_path_published_repo_relative(self):
+        target = REPO_ROOT / "docs" / "feasibility" / "feasibility_table.json"
+        self.assertEqual(public_path(target), "docs/feasibility/feasibility_table.json")
+
+    def test_path_outside_repo_keeps_only_name(self):
+        self.assertEqual(public_path(Path(REPO_ROOT.anchor) / "elsewhere" / "data.json"), "data.json")
 
 
 if __name__ == "__main__":
