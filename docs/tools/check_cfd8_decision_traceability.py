@@ -5,9 +5,11 @@ Rules (per candidate result: normal_boiling_point and flash_point):
                                  value cites at least one observation.
   no_isomer_swap               - every cited observation belongs to the same candidate_id.
   property_matches_field       - every cited observation has the property of the result field.
-  celsius_consistent           - a boiling envelope equals the min/max Celsius bounds of its cited
-                                 observations; a selected flash point equals the Celsius value of
-                                 one cited observation.
+  celsius_consistent           - every cited boiling observation has finite low and high Celsius
+                                 bounds, and the envelope equals their min/max; a selected flash
+                                 point equals the Celsius value of one cited observation. A result
+                                 that cites observations must carry a value consistent with them;
+                                 only an uncited result may be valueless.
   missing_not_value            - a result that cites no observation carries no value (missing stays
                                  UNKNOWN, never a number).
   missing_not_zero             - no observation numeric field (including reported_plus_minus) is
@@ -70,12 +72,13 @@ def check_result(candidate_id: Any, field: str, result: Any, observations: dict[
     out["no_isomer_swap"] = "PASS" if all(o.get("candidate_id") == candidate_id for o in found) else "FAIL"
     out["property_matches_field"] = "PASS" if all(o.get("property") == field for o in found) else "FAIL"
     out["missing_not_value"] = "PASS" if ids or not has_value else "FAIL"
-    if not has_value:
+    if not has_value and not ids:
         out["celsius_consistent"] = "PASS"
     elif field == "normal_boiling_point":
-        lows = [o.get("temperature_low_c") for o in found if _num(o.get("temperature_low_c"))]
-        highs = [o.get("temperature_high_c") for o in found if _num(o.get("temperature_high_c"))]
-        ok = bool(lows and highs) and _close(values[0], min(lows)) and _close(values[1], max(highs))
+        complete = bool(found) and len(found) == len(cited) and all(
+            _num(o.get("temperature_low_c")) and _num(o.get("temperature_high_c")) for o in found)
+        ok = complete and _close(values[0], min(o["temperature_low_c"] for o in found)) \
+            and _close(values[1], max(o["temperature_high_c"] for o in found))
         out["celsius_consistent"] = "PASS" if ok else "FAIL"
     else:
         ok = any(_close(values[0], o.get("temperature_low_c")) for o in found)
