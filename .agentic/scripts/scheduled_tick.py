@@ -2,15 +2,20 @@
 """Run one tick and retain a next-step report even when host preflight fails.
 
 No chat transport is supplied. The native host coordinator relays this report.
+Task Scheduler cannot provide an isolated environment, so provider API keys are
+scrubbed at process startup before the review-loop modules are imported.
 """
-import argparse
-from contextlib import redirect_stdout, redirect_stderr
-import io
 from pathlib import Path
 import sys
 sys.dont_write_bytecode=True
 ROOT=Path(__file__).resolve().parents[2]
 sys.path.insert(0,str(ROOT/'.agentic/lib'))
+from agentic.child_process import scrub_process_env
+scrub_process_env()
+
+import argparse
+from contextlib import redirect_stdout, redirect_stderr
+import io
 from agentic.canonical import loads, sha256, now_text
 from agentic.interaction import render_markdown, rejected_next_step
 from agentic.safeio import Tree
@@ -19,7 +24,8 @@ from review_loop import main as run_tick
 
 def run(config_path, invoke=run_tick):
     config_path=Path(config_path).resolve(strict=False)
-    if config_path.is_relative_to(ROOT):
+    scratch = (ROOT / '.tmp-tests').resolve()
+    if config_path.is_relative_to(ROOT) and not config_path.is_relative_to(scratch):
         raise ValueError('Scheduled host configuration and reports must be outside the immutable runtime')
     output,errors=io.StringIO(),io.StringIO()
     invocation_error=None
