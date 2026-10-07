@@ -1,0 +1,39 @@
+{
+  "access": {
+    "candidates_no_public_access": 9,
+    "candidates_with_any_usable_supplier_document": 0,
+    "documents_identity_not_confirmed": 0,
+    "documents_retrieved": 0,
+    "supplier_a_search_blocked": 8,
+    "supplier_a_search_reached_without_document_content": 1,
+    "supplier_b_search_blocked": 9,
+    "suppliers_tried": 2
+  },
+  "dataset_sha256": "517bcee853ab0e0c2eb1018068f816409899ce12e52c1b0600013fae4d1f3ea1",
+  "flash_point": {
+    "NONE_FOUND": 0,
+    "NO_DOCUMENT": 9,
+    "TEXT_ONLY": 0,
+    "VALUES_FOUND_CONFLICTING": 0,
+    "VALUES_FOUND_CONSISTENT": 0,
+    "missing_flash_point_candidates_still_unknown": 3
+  },
+  "ghs": {
+    "H_CODE_ONLY": 0,
+    "NO_DOCUMENT": 9,
+    "NO_FLAMMABLE_STATEMENT": 0,
+    "STATED_CONFLICTING": 0,
+    "STATED_SINGLE": 0,
+    "categories_imputed": 0
+  },
+  "policy": "Counts and statuses only. Publicly accessible supplier product/SDS pages only, by plain GET; no login, forms, captchas or access-control workarounds. Blocked or content-less responses are UNKNOWN(no_public_access). Retrieved documents stay local. No value is selected, averaged or dropped; a GHS category is recorded only where a document states it; published dataset fields are not modified.",
+  "record_type": "cfd6_supplier_sds_gap_evidence_summary",
+  "research_inputs_unchanged": true,
+  "run_date": "2026-10-07",
+  "sample": {
+    "missing_flash_point": 3,
+    "no_ghs_category": 9,
+    "total": 9
+  },
+  "status": "COMPLETE"
+}
