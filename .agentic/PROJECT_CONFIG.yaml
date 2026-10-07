@@ -315,7 +315,7 @@
     ],
     "ci_candidate_policy": "synthetic_merge_required",
     "require_candidate_bound_ci_evidence": true,
-    "required_ci_checks": [],
+    "required_ci_checks": [{"name": "awf/planning-package", "app_id": 15368, "workflow_path": ".github/workflows/awf-candidate-validate.yml", "workflow_sha": "63c259f9d9fda8775139b5334fcd0bd775a2af55", "min_tests_executed": 39, "verifies_history": true, "local_command": "python -B docs/tools/validate_specification_package.py"}],
     "max_evidence_age_seconds": 1800,
     "test_timeout_seconds": 1800
   },
@@ -421,7 +421,7 @@
     "invalidate_on_head_change": true,
     "invalidate_on_target_base_change": true,
     "authorization_ttl_seconds": 900,
-    "trusted_owner_ids": [],
+    "trusted_owner_ids": [54314148],
     "high_risk_owner_quorum": 1
   },
   "controller": {
