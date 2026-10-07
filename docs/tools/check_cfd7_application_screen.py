@@ -7,6 +7,8 @@ Rules:
                        candidate judgement, the profile is approved and it has an adopted screening
                        constraint.
 screen_candidate() applies the evaluation order to one candidate's results for every adopted constraint.
+The report binds the exact rules bytes via local_evidence.rules_sha256 and the register via
+dataset_sha256.
 Output is aggregate-only: no candidate, source, name, CAS or measurement values.
 """
 from __future__ import annotations
@@ -187,6 +189,7 @@ def main() -> int:
     raw = args.register.read_bytes()
     report = evaluate(json.loads(raw_rules.decode("utf-8")), json.loads(raw.decode("utf-8")))
     report["rules_path"] = args.rules.as_posix()
+    report["local_evidence"] = {"rules_sha256": hashlib.sha256(raw_rules).hexdigest()}
     report["dataset_path"] = args.register.as_posix()
     report["dataset_sha256"] = hashlib.sha256(raw).hexdigest()
     args.output.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8", newline="\n")
