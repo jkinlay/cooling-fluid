@@ -214,6 +214,12 @@ class EvidencePolicyTests(unittest.TestCase):
         self.assertEqual(screen_evidence(reg, None), ("MISSING", None))
         self.assertEqual(screen_evidence(reg, SOURCE, predicted=True), ("PREDICTED", None))
 
+    def test_prediction_without_evidence_type_is_predicted_not_missing(self):
+        reg = policy_register()
+        self.assertEqual(screen_evidence(reg, None, predicted=True), ("PREDICTED", None))
+        result = {"a": res(screen_evidence(reg, None, predicted=True)[0], "OUTSIDE")}
+        self.assertEqual(screen_candidate(True, True, ["a"], result), ("DEFERRED_PREDICTED_FAIL", "predicted_fail"))
+
     def test_malformed_policy_fails_report(self):
         for bad in ({"source_reported_counts_as": "PREDICTED"}, {"applies_to_evidence_types": []}, {"label": ""}):
             reg = policy_register(**bad)

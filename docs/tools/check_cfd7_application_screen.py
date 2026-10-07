@@ -137,14 +137,15 @@ def evidence_policy(register: dict[str, Any]) -> dict[str, Any] | None:
 def screen_evidence(register: dict[str, Any], evidence_type: str | None, predicted: bool = False) -> tuple[str, str | None]:
     """Return (screen evidence, provenance label) for one observation.
 
-    Without an observation the evidence is MISSING. A prediction is always PREDICTED. A source evidence
-    type counts as MEASURED only if the register policy names it, and then carries the policy label so a
-    source-reported value is never presented as a project measurement.
+    A prediction is always PREDICTED, with or without a source evidence type. Otherwise, without an
+    observation the evidence is MISSING. A source evidence type counts as MEASURED only if the register
+    policy names it, and then carries the policy label so a source-reported value is never presented
+    as a project measurement.
     """
-    if evidence_type is None:
-        return "MISSING", None
     if predicted:
         return "PREDICTED", None
+    if evidence_type is None:
+        return "MISSING", None
     policy = evidence_policy(register)
     if policy is not None and evidence_type in policy["applies_to_evidence_types"]:
         return "MEASURED", policy["label"]
