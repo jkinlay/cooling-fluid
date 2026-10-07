@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0",
+  "register_id": "CFD3_SEARCH_BOUNDARY_REGISTER",
+  "policy": "Entries quote tracked public documents verbatim; no new boundaries are introduced.",
+  "entries": [
+    {
+      "entry_id": "SB-001",
+      "kind": "INCLUSION_RULE",
+      "statement": "The named-compound search covers C1–C6 molecules containing C/H/O/N/S/Cl, with no fluorine, plus adjacent boiling-range controls.",
+      "source": {
+        "path": "docs/feasibility/README.md",
+        "locator": "section: Cooling-fluid candidate screen — 29 September 2026"
+      }
+    },
+    {
+      "entry_id": "SB-002",
+      "kind": "SEARCH_BOUNDARY",
+      "statement": "It is a purposive family-based search, **not an exhaustive enumeration of NIST or all fluorine-free chemistry**.",
+      "source": {
+        "path": "docs/feasibility/README.md",
+        "locator": "section: Cooling-fluid candidate screen — 29 September 2026"
+      }
+    },
+    {
+      "entry_id": "SB-003",
+      "kind": "EXCLUSION",
+      "statement": "It excludes mixtures, invented compounds and other element families.",
+      "source": {
+        "path": "docs/feasibility/README.md",
+        "locator": "section: Cooling-fluid candidate screen — 29 September 2026"
+      }
+    },
+    {
+      "entry_id": "SB-004",
+      "kind": "NON_CLAIM",
+      "statement": "this was not a blinded preregistration.",
+      "source": {
+        "path": "docs/feasibility/README.md",
+        "locator": "section: Cooling-fluid candidate screen — 29 September 2026"
+      }
+    },
+    {
+      "entry_id": "SB-005",
+      "kind": "NON_CLAIM",
+      "statement": "no coolant qualified.",
+      "source": {
+        "path": "docs/feasibility/README.md",
+        "locator": "section: Cooling-fluid candidate screen — 29 September 2026"
+      }
+    },
+    {
+      "entry_id": "SB-006",
+      "kind": "SEARCH_BOUNDARY",
+      "statement": "The table uses the inclusive normal-boiling window **45–55°C**.",
+      "source": {
+        "path": "docs/feasibility/README.md",
+        "locator": "section: Results"
+      }
+    },
+    {
+      "entry_id": "SB-007",
+      "kind": "SEARCH_BOUNDARY",
+      "statement": "Unqualified supplier boiling points do not independently establish measurement pressure.",
+      "source": {
+        "path": "docs/feasibility/README.md",
+        "locator": "section: Results"
+      }
+    },
+    {
+      "entry_id": "SB-008",
+      "kind": "NON_CLAIM",
+      "statement": "No Wolfram kernel or candidate-level Wolfram queries were executed for this release.",
+      "source": {
+        "path": "docs/feasibility/README.md",
+        "locator": "section: How much more can be retrieved?"
+      }
+    }
+  ]
+}
