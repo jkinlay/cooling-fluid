@@ -1,0 +1,33 @@
+{
+  "agrees_with_published_status": 13,
+  "dataset_sha256": "517bcee853ab0e0c2eb1018068f816409899ce12e52c1b0600013fae4d1f3ea1",
+  "outcomes": {
+    "RESOLVED_FAIL": 1,
+    "RESOLVED_PASS": 1,
+    "UNKNOWN": 11
+  },
+  "policy": "Counts and statuses only. Live public reference-database lookups were made for the sampled records; retrieved data and per-record output are retained locally and not published. Inclusive 45-55 C screen on the envelope of all retrieved records (value +/- stated uncertainty); no averaging, no silent outlier removal, no value adopted.",
+  "record_type": "cfd5_boiling_conflict_resolution_summary",
+  "research_inputs_unchanged": true,
+  "resolved_basis": {
+    "all_live_rows": 2
+  },
+  "retrieval": {
+    "identity_not_confirmed": 0,
+    "no_live_records": 0,
+    "records_retrieved": 128,
+    "records_without_stated_uncertainty": 24
+  },
+  "run_date": "2026-10-07",
+  "sample": {
+    "in_both": 1,
+    "non_overlapping_groups": 3,
+    "published_status_unknown": 11,
+    "total": 13
+  },
+  "status": "COMPLETE",
+  "unknown_reasons": {
+    "genuine_boundary_crossing": 1,
+    "unreconciled_source_conflict": 10
+  }
+}
