@@ -28,13 +28,15 @@
     "resolver_script_sha256": "80a78b3f4a713c7514d2d4ced129e72f1798a6cba563ea13c24fd3179f92c929",
     "selection_rule_sha256": "184f10fe7c5c1930fd82a47ac7ba0e4519fdc3bdfbcb85d29e2e1b1487235420"
   },
+  "new_lookup_evidence_used": true,
   "operating_window_c": {
     "lower_inclusive": 45,
     "upper_inclusive": 55
   },
   "policy": "Counts and statuses only. Live public reference-database lookups for the sampled records; retrieved data, coefficients and computed values are retained locally and not published. Vapour-pressure fits are used only inside their stated temperature range (no extrapolation); enthalpies at other temperatures are not relabelled as operating-temperature latent heat. No averaging and no outlier removal.",
+  "prior_research_files_unchanged": true,
+  "published_dataset_unchanged": true,
   "record_type": "cfd5_vapour_pressure_latent_heat_validity_summary",
-  "research_inputs_unchanged": true,
   "run_date": "2026-10-07",
   "sample": {
     "basis": "published boiling status PASS or UNKNOWN",
