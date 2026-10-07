@@ -6,7 +6,7 @@ Rules:
   profile_readiness  - each register profile is SCREEN_NOT_READY unless the register is ready for
                        candidate judgement, the profile is approved and it has an adopted screening
                        constraint.
-screen_candidate() applies the evaluation order to one synthetic constraint-result list.
+screen_candidate() applies the evaluation order to one candidate's results for every adopted constraint.
 Output is aggregate-only: no candidate, source, name, CAS or measurement values.
 """
 from __future__ import annotations
@@ -20,8 +20,16 @@ from typing import Any
 
 POLICY = "Report-only. The register and dataset are not modified; counts only."
 STATUSES = ("SCREEN_NOT_READY", "UNKNOWN", "DEFERRED_PREDICTED_FAIL", "EXCLUDED_MEASURED_HARD_FAIL", "SURVIVES_SCREEN")
-ORDER = ("profile_gate", "adopted_constraints_only", "identity_gate", "measured_hard_fail",
-         "predicted_fail", "unresolved_constraint", "all_measured_inside")
+EXPECTED = (
+    ("profile_gate", "on_fail", "SCREEN_NOT_READY"),
+    ("adopted_constraints_only", "on_fail", "SCREEN_NOT_READY"),
+    ("identity_gate", "on_fail", "UNKNOWN"),
+    ("measured_hard_fail", "on_match", "EXCLUDED_MEASURED_HARD_FAIL"),
+    ("predicted_fail", "on_match", "DEFERRED_PREDICTED_FAIL"),
+    ("unresolved_constraint", "on_match", "UNKNOWN"),
+    ("all_measured_inside", "on_match", "SURVIVES_SCREEN"),
+)
+ORDER = tuple(rule for rule, _, _ in EXPECTED)
 EVIDENCE = {"MEASURED", "PREDICTED", "MISSING"}
 OUTCOMES = {"INSIDE", "OUTSIDE", "OVERLAP", "CONFLICT"}
 APPROVED_STATE = "APPROVED_FOR_CANDIDATE_JUDGEMENT"
@@ -51,10 +59,9 @@ def check_rules(rules: dict[str, Any]) -> list[str]:
     else:
         if [s.get("step") for s in steps] != list(range(1, len(ORDER) + 1)):
             problems.append("step_numbers")
-        for s in steps:
-            outcome = s.get("on_fail", s.get("on_match"))
-            if outcome not in STATUSES or ("on_fail" in s) == ("on_match" in s):
-                problems.append(f"outcome:{s.get('rule')}")
+        for s, (rule, key, status) in zip(steps, EXPECTED):
+            if s.get(key) != status or ("on_fail" in s) == ("on_match" in s):
+                problems.append(f"outcome:{rule}")
     if _has_numeric_limit(rules):
         problems.append("numeric_limit")
     return problems
@@ -73,22 +80,34 @@ def profile_ready(register: dict[str, Any], profile: dict[str, Any]) -> tuple[bo
     return True, ""
 
 
-def screen_candidate(ready: bool, identity_resolved: bool, results: list[dict[str, str]]) -> tuple[str, str]:
-    """Return (status, deciding rule) for one candidate under one profile."""
+def screen_candidate(ready: bool, identity_resolved: bool, adopted_keys: list[str],
+                     results: dict[str, dict[str, str]]) -> tuple[str, str]:
+    """Return (status, deciding rule) for one candidate under one profile.
+
+    adopted_keys lists every adopted screening constraint of the profile; results maps those keys to
+    evidence/outcome labels. An adopted constraint with no result counts as MISSING evidence, and a
+    result for a constraint that is not adopted is rejected.
+    """
     if not ready:
         return "SCREEN_NOT_READY", "profile_gate"
-    if not results:
+    if not adopted_keys:
         return "SCREEN_NOT_READY", "adopted_constraints_only"
-    for r in results:
+    if len(set(adopted_keys)) != len(adopted_keys):
+        raise ValueError("adopted constraint keys must be unique")
+    extra = set(results) - set(adopted_keys)
+    if extra:
+        raise ValueError("result supplied for a constraint that is not adopted")
+    covered = [results.get(key, {"evidence": "MISSING", "outcome": None}) for key in adopted_keys]
+    for r in covered:
         if r.get("evidence") not in EVIDENCE or r.get("outcome") not in OUTCOMES | {None}:
             raise ValueError("constraint result has an unknown evidence or outcome label")
     if not identity_resolved:
         return "UNKNOWN", "identity_gate"
-    if any(r["evidence"] == "MEASURED" and r.get("outcome") == "OUTSIDE" for r in results):
+    if any(r["evidence"] == "MEASURED" and r.get("outcome") == "OUTSIDE" for r in covered):
         return "EXCLUDED_MEASURED_HARD_FAIL", "measured_hard_fail"
-    if any(r["evidence"] == "PREDICTED" and r.get("outcome") == "OUTSIDE" for r in results):
+    if any(r["evidence"] == "PREDICTED" and r.get("outcome") == "OUTSIDE" for r in covered):
         return "DEFERRED_PREDICTED_FAIL", "predicted_fail"
-    if any(r["evidence"] != "MEASURED" or r.get("outcome") != "INSIDE" for r in results):
+    if any(r["evidence"] != "MEASURED" or r.get("outcome") != "INSIDE" for r in covered):
         return "UNKNOWN", "unresolved_constraint"
     return "SURVIVES_SCREEN", "all_measured_inside"
 

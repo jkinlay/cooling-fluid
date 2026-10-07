@@ -40,6 +40,11 @@ class RulesFileTests(unittest.TestCase):
         rules["evaluation_order"][6]["on_match"] = "PASS"
         self.assertIn("outcome:all_measured_inside", check_rules(rules))
 
+    def test_swapped_existing_status_fails(self):
+        rules = copy.deepcopy(RULES)
+        rules["evaluation_order"][3]["on_match"] = "SURVIVES_SCREEN"
+        self.assertIn("outcome:measured_hard_fail", check_rules(rules))
+
 
 class ReadinessTests(unittest.TestCase):
     def test_register_not_ready(self):
@@ -56,33 +61,46 @@ class ReadinessTests(unittest.TestCase):
         self.assertEqual(evaluate(RULES, reg)["profile_readiness_counts"], {"SCREEN_NOT_READY_adopted_constraints_only": 1})
 
 
+def screen(ready, identity, *results):
+    keys = [f"c{i}" for i in range(len(results))]
+    return screen_candidate(ready, identity, keys, dict(zip(keys, results)))
+
+
 class ScreenTests(unittest.TestCase):
     def test_not_ready_never_survives(self):
-        self.assertEqual(screen_candidate(False, True, [res("MEASURED", "INSIDE")])[0], "SCREEN_NOT_READY")
+        self.assertEqual(screen(False, True, res("MEASURED", "INSIDE"))[0], "SCREEN_NOT_READY")
 
     def test_identity_gate_before_constraints(self):
-        self.assertEqual(screen_candidate(True, False, [res("MEASURED", "OUTSIDE")]), ("UNKNOWN", "identity_gate"))
+        self.assertEqual(screen(True, False, res("MEASURED", "OUTSIDE")), ("UNKNOWN", "identity_gate"))
 
     def test_measured_fail_beats_everything(self):
-        status = screen_candidate(True, True, [res("PREDICTED", "OUTSIDE"), res("MEASURED", "OUTSIDE"), res("MISSING", None)])
+        status = screen(True, True, res("PREDICTED", "OUTSIDE"), res("MEASURED", "OUTSIDE"), res("MISSING", None))
         self.assertEqual(status[0], "EXCLUDED_MEASURED_HARD_FAIL")
 
     def test_predicted_fail_deferred(self):
-        self.assertEqual(screen_candidate(True, True, [res("PREDICTED", "OUTSIDE"), res("MEASURED", "INSIDE")])[0], "DEFERRED_PREDICTED_FAIL")
+        self.assertEqual(screen(True, True, res("PREDICTED", "OUTSIDE"), res("MEASURED", "INSIDE"))[0], "DEFERRED_PREDICTED_FAIL")
 
     def test_predicted_inside_is_not_pass(self):
-        self.assertEqual(screen_candidate(True, True, [res("PREDICTED", "INSIDE")]), ("UNKNOWN", "unresolved_constraint"))
+        self.assertEqual(screen(True, True, res("PREDICTED", "INSIDE")), ("UNKNOWN", "unresolved_constraint"))
 
     def test_missing_overlap_conflict_unknown(self):
         for r in (res("MISSING", None), res("MEASURED", "OVERLAP"), res("MEASURED", "CONFLICT")):
-            self.assertEqual(screen_candidate(True, True, [r, res("MEASURED", "INSIDE")])[0], "UNKNOWN")
+            self.assertEqual(screen(True, True, r, res("MEASURED", "INSIDE"))[0], "UNKNOWN")
 
     def test_all_measured_inside_survives(self):
-        self.assertEqual(screen_candidate(True, True, [res("MEASURED", "INSIDE")] * 2), ("SURVIVES_SCREEN", "all_measured_inside"))
+        self.assertEqual(screen(True, True, res("MEASURED", "INSIDE"), res("MEASURED", "INSIDE")), ("SURVIVES_SCREEN", "all_measured_inside"))
+
+    def test_omitted_adopted_constraint_is_missing(self):
+        status = screen_candidate(True, True, ["a", "b"], {"a": res("MEASURED", "INSIDE")})
+        self.assertEqual(status, ("UNKNOWN", "unresolved_constraint"))
+
+    def test_result_for_unadopted_constraint_rejected(self):
+        with self.assertRaises(ValueError):
+            screen_candidate(True, True, ["a"], {"a": res("MEASURED", "INSIDE"), "z": res("MEASURED", "INSIDE")})
 
     def test_bad_label_rejected(self):
         with self.assertRaises(ValueError):
-            screen_candidate(True, True, [res("ESTIMATED", "INSIDE")])
+            screen(True, True, res("ESTIMATED", "INSIDE"))
 
 
 if __name__ == "__main__":
