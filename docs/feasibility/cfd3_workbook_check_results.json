@@ -1,0 +1,244 @@
+{
+  "all_checks_pass": true,
+  "input_sha256": {
+    "dataset": "517bcee853ab0e0c2eb1018068f816409899ce12e52c1b0600013fae4d1f3ea1",
+    "workbook": "888fa3d843d8b05c34f031dd0843b81dbee2f74a9fe991a7c5df828ab9d56fb2"
+  },
+  "inputs": {
+    "dataset": "docs/feasibility/feasibility_table.json",
+    "workbook": "docs/feasibility/Cooling_Fluid_Candidate_Table.xlsx"
+  },
+  "mapping_coverage": {
+    "mapped_column_count": 38,
+    "unmapped_column_count": 7,
+    "unmapped_column_headers": [
+      "Property / question",
+      "Current coverage",
+      "Wolfram route",
+      "Other source route",
+      "What remains to establish",
+      "Evidence type",
+      "Source"
+    ]
+  },
+  "sheets": {
+    "Candidates": {
+      "columns": {
+        "Boiling screen": {
+          "mismatch_count": 0,
+          "status": "PASS"
+        },
+        "Boiling source ID": {
+          "mismatch_count": 0,
+          "status": "PASS"
+        },
+        "CAS": {
+          "mismatch_count": 0,
+          "status": "PASS"
+        },
+        "Catalogue purity": {
+          "mismatch_count": 0,
+          "status": "PASS"
+        },
+        "Compound": {
+          "mismatch_count": 0,
+          "status": "PASS"
+        },
+        "Evidence flags": {
+          "mismatch_count": 0,
+          "status": "PASS"
+        },
+        "FP relation": {
+          "mismatch_count": 0,
+          "status": "PASS"
+        },
+        "Family": {
+          "mismatch_count": 0,
+          "status": "PASS"
+        },
+        "Fire evidence": {
+          "mismatch_count": 0,
+          "status": "PASS"
+        },
+        "Flash point (\u00b0C)": {
+          "mismatch_count": 0,
+          "status": "PASS"
+        },
+        "Flash source ID": {
+          "mismatch_count": 0,
+          "status": "PASS"
+        },
+        "Flash-point method": {
+          "mismatch_count": 0,
+          "status": "PASS"
+        },
+        "Formula": {
+          "mismatch_count": 0,
+          "status": "PASS"
+        },
+        "ID": {
+          "mismatch_count": 0,
+          "status": "PASS"
+        },
+        "NIST high (\u00b0C)": {
+          "mismatch_count": 0,
+          "status": "PASS"
+        },
+        "NIST low (\u00b0C)": {
+          "mismatch_count": 0,
+          "status": "PASS"
+        },
+        "Next evidence need": {
+          "mismatch_count": 0,
+          "status": "PASS"
+        },
+        "Overall profile": {
+          "mismatch_count": 0,
+          "status": "PASS"
+        },
+        "Supplier bp report": {
+          "mismatch_count": 0,
+          "status": "PASS"
+        },
+        "Vaporization heat lead": {
+          "mismatch_count": 0,
+          "status": "PASS"
+        },
+        "Vapour-pressure lead": {
+          "mismatch_count": 0,
+          "status": "PASS"
+        }
+      },
+      "row_alignment": {
+        "dataset_row_count": 32,
+        "key_match_count": 32,
+        "status": "PASS",
+        "workbook_row_count": 32
+      },
+      "status": "PASS"
+    },
+    "Data gaps": {
+      "columns": {
+        "Current coverage": {
+          "mismatch_count": 0,
+          "status": "INFO"
+        },
+        "Evidence type": {
+          "mismatch_count": 0,
+          "status": "INFO"
+        },
+        "Other source route": {
+          "mismatch_count": 0,
+          "status": "INFO"
+        },
+        "Property / question": {
+          "mismatch_count": 0,
+          "status": "INFO"
+        },
+        "Source": {
+          "mismatch_count": 0,
+          "status": "INFO"
+        },
+        "What remains to establish": {
+          "mismatch_count": 0,
+          "status": "INFO"
+        },
+        "Wolfram route": {
+          "mismatch_count": 0,
+          "status": "INFO"
+        }
+      },
+      "row_alignment": {
+        "status": "INFO",
+        "workbook_row_count": 9
+      },
+      "status": "INFO"
+    },
+    "Evidence": {
+      "columns": {
+        "Candidate": {
+          "mismatch_count": 0,
+          "status": "PASS"
+        },
+        "Evidence note": {
+          "mismatch_count": 0,
+          "status": "PASS"
+        },
+        "High (\u00b0C)": {
+          "mismatch_count": 0,
+          "status": "PASS"
+        },
+        "Low (\u00b0C)": {
+          "mismatch_count": 0,
+          "status": "PASS"
+        },
+        "Method": {
+          "mismatch_count": 0,
+          "status": "PASS"
+        },
+        "Observation": {
+          "mismatch_count": 0,
+          "status": "PASS"
+        },
+        "Pressure / convention": {
+          "mismatch_count": 0,
+          "status": "PASS"
+        },
+        "Property": {
+          "mismatch_count": 0,
+          "status": "PASS"
+        },
+        "Relation": {
+          "mismatch_count": 0,
+          "status": "PASS"
+        },
+        "Reported high": {
+          "mismatch_count": 0,
+          "status": "PASS"
+        },
+        "Reported low": {
+          "mismatch_count": 0,
+          "status": "PASS"
+        },
+        "Reported value": {
+          "mismatch_count": 0,
+          "status": "PASS"
+        },
+        "Reported \u00b1": {
+          "mismatch_count": 0,
+          "status": "PASS"
+        },
+        "Retrieved": {
+          "mismatch_count": 0,
+          "status": "PASS"
+        },
+        "Source ID": {
+          "mismatch_count": 0,
+          "status": "PASS"
+        },
+        "Source URL": {
+          "mismatch_count": 0,
+          "status": "PASS"
+        },
+        "Unit": {
+          "mismatch_count": 0,
+          "status": "PASS"
+        }
+      },
+      "row_alignment": {
+        "dataset_row_count": 164,
+        "key_match_count": 164,
+        "status": "PASS",
+        "workbook_row_count": 164
+      },
+      "status": "PASS"
+    }
+  },
+  "workbook_structure": {
+    "expected_sheet_count": 3,
+    "formula_count": 4,
+    "missing_part_count": 0,
+    "present_sheet_count": 3,
+    "status": "INFO"
+  }
+}
