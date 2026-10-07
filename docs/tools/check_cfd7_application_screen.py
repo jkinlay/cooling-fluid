@@ -8,7 +8,8 @@ Rules:
                        constraint.
   evidence_policy    - the register's screening_evidence_policy, when present, maps only the named
                        source evidence types to MEASURED and labels them; a malformed policy fails.
-screen_candidate() applies the evaluation order to one candidate's results for every adopted constraint.
+screen_candidate() applies the evaluation order to one candidate's results for every adopted constraint;
+screen_record() binds that decision to its profile_id, rules_version and deciding step.
 screen_evidence() maps one observation's evidence type to a screen evidence label under that policy.
 The report binds the exact rules bytes via local_evidence.rules_sha256 and the register via
 dataset_sha256.
@@ -197,16 +198,26 @@ def screen_candidate(ready: bool | tuple[bool, str], identity_resolved: bool, ad
 
 
 def screen_record(ready: bool | tuple[bool, str], identity_resolved: bool, adopted_keys: list[str],
-                  results: dict[str, dict[str, str]]) -> dict[str, Any]:
-    """screen_candidate() plus the provenance labels of the evidence it used.
+                  results: dict[str, dict[str, str]], *, profile_id: str,
+                  rules: dict[str, Any]) -> dict[str, Any]:
+    """screen_candidate() bound to its profile and rules version, plus the evidence provenance labels.
 
+    The rules invariant requires every screen decision to record the rules version, the profile and the
+    deciding step, so profile_id (a non-empty string) and the well-formed rules mapping are required;
+    the record carries rules_version, profile_id, the deciding rule and its evaluation_order step.
     Each result may carry the label from screen_evidence() under "label". The record lists every label
     on the adopted constraints, so a source-reported decision is never indistinguishable from a
     project measurement.
     """
+    if not isinstance(profile_id, str) or not profile_id:
+        raise ValueError("profile_id must be a non-empty string")
+    if not isinstance(rules, dict) or check_rules(rules):
+        raise ValueError("rules must be a well-formed CFD-7 rules mapping")
     status, rule = screen_candidate(ready, identity_resolved, adopted_keys, results)
+    steps = {e["rule"]: e["step"] for e in rules["evaluation_order"]}
     labels = sorted({results[k]["label"] for k in adopted_keys if k in results and results[k].get("label")})
-    return {"status": status, "rule": rule, "evidence_labels": labels}
+    return {"evidence_labels": labels, "profile_id": profile_id, "rule": rule,
+            "rules_version": rules["version"], "status": status, "step": steps[rule]}
 
 
 def evaluate(rules: dict[str, Any], register: dict[str, Any]) -> dict[str, Any]:

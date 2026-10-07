@@ -12,6 +12,7 @@ from check_cfd7_application_screen import check_rules, evaluate, evidence_policy
 RULES = json.loads((Path(__file__).resolve().parents[1] / "feasibility" / "cfd7_application_screen_rules.json").read_text(encoding="utf-8"))
 REGISTER = json.loads((Path(__file__).resolve().parents[1] / "feasibility" / "acceptability_register.json").read_text(encoding="utf-8"))
 SOURCE = "SOURCE_REPORTED_NOT_PROJECT_MEASUREMENT"
+BIND = {"profile_id": "P1", "rules": RULES}
 
 
 def constraint(adopted=True):
@@ -243,17 +244,48 @@ class LabelledRecordTests(unittest.TestCase):
     def test_source_reported_label_kept_on_survivor_and_fail(self):
         reg = policy_register()
         for outcome, status in (("INSIDE", "SURVIVES_SCREEN"), ("OUTSIDE", "EXCLUDED_MEASURED_HARD_FAIL")):
-            record = screen_record(True, True, ["a"], {"a": self.labelled(reg, outcome)})
+            record = screen_record(True, True, ["a"], {"a": self.labelled(reg, outcome)}, **BIND)
             self.assertEqual((record["status"], record["evidence_labels"]), (status, ["SOURCE_REPORTED"]))
 
     def test_unlabelled_measurement_has_no_label(self):
-        self.assertEqual(screen_record(True, True, ["a"], {"a": res("MEASURED", "INSIDE")})["evidence_labels"], [])
+        self.assertEqual(screen_record(True, True, ["a"], {"a": res("MEASURED", "INSIDE")}, **BIND)["evidence_labels"], [])
 
     def test_label_on_non_measured_rejected(self):
         for bad in ({"evidence": "PREDICTED", "outcome": "OUTSIDE", "label": "SOURCE_REPORTED"},
                     {"evidence": "MEASURED", "outcome": "INSIDE", "label": ""}):
             with self.assertRaises(ValueError):
-                screen_record(True, True, ["a"], {"a": bad})
+                screen_record(True, True, ["a"], {"a": bad}, **BIND)
+
+
+class RecordBindingTests(unittest.TestCase):
+    def test_record_carries_profile_rules_version_and_step(self):
+        cases = (((False, "adopted_constraints_only"), True, {}, "adopted_constraints_only", 2),
+                 (True, False, {"a": res("MEASURED", "INSIDE")}, "identity_gate", 3),
+                 (True, True, {"a": res("PREDICTED", "OUTSIDE")}, "predicted_fail", 5),
+                 (True, True, {"a": res("MEASURED", "INSIDE")}, "all_measured_inside", 7))
+        for ready, ident, results, rule, step in cases:
+            record = screen_record(ready, ident, ["a"], results, **BIND)
+            self.assertEqual((record["profile_id"], record["rules_version"], record["rule"], record["step"]),
+                             ("P1", RULES["version"], rule, step))
+
+    def test_rules_version_follows_rules(self):
+        rules = json.loads(json.dumps(RULES))
+        rules["version"] = "2"
+        record = screen_record(True, True, ["a"], {"a": res("MEASURED", "INSIDE")}, profile_id="P1", rules=rules)
+        self.assertEqual(record["rules_version"], "2")
+
+    def test_binding_is_required(self):
+        args = (True, True, ["a"], {"a": res("MEASURED", "INSIDE")})
+        with self.assertRaises(TypeError):
+            screen_record(*args)
+        for bad in ("", None, 7):
+            with self.assertRaises(ValueError):
+                screen_record(*args, profile_id=bad, rules=RULES)
+        broken = json.loads(json.dumps(RULES))
+        del broken["version"]
+        for rules in (broken, None):
+            with self.assertRaises(ValueError):
+                screen_record(*args, profile_id="P1", rules=rules)
 
 
 class CommittedRegisterTests(unittest.TestCase):
