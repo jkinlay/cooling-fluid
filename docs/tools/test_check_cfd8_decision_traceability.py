@@ -68,6 +68,15 @@ class TraceabilityTests(unittest.TestCase):
             data["observations"][1][key] = bad
             self.assertEqual(fails(data, "celsius_consistent"), 1, key)
 
+    def test_cited_result_without_value_fails(self):
+        data = dataset()
+        data["candidates"][0]["normal_boiling_point"].update({"evidence_envelope_low_c": None, "evidence_envelope_high_c": None})
+        data["observations"][1]["temperature_high_c"] = None
+        self.assertEqual(fails(data, "celsius_consistent"), 1)
+        data = dataset()
+        data["candidates"][0]["flash_point"]["selected_value_c"] = None
+        self.assertEqual(fails(data, "celsius_consistent"), 1)
+
     def test_flash_selection_not_traced_fails(self):
         data = dataset()
         data["candidates"][0]["flash_point"]["selected_value_c"] = 6

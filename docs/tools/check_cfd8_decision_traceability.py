@@ -6,8 +6,10 @@ Rules (per candidate result: normal_boiling_point and flash_point):
   no_isomer_swap               - every cited observation belongs to the same candidate_id.
   property_matches_field       - every cited observation has the property of the result field.
   celsius_consistent           - every cited boiling observation has finite low and high Celsius
-                                 bounds, and the envelope equals their min/max; a selected flash point equals the Celsius value of
-                                 one cited observation.
+                                 bounds, and the envelope equals their min/max; a selected flash
+                                 point equals the Celsius value of one cited observation. A result
+                                 that cites observations must carry a value consistent with them;
+                                 only an uncited result may be valueless.
   missing_not_value            - a result that cites no observation carries no value (missing stays
                                  UNKNOWN, never a number).
   missing_not_zero             - no observation numeric field (including reported_plus_minus) is
@@ -70,7 +72,7 @@ def check_result(candidate_id: Any, field: str, result: Any, observations: dict[
     out["no_isomer_swap"] = "PASS" if all(o.get("candidate_id") == candidate_id for o in found) else "FAIL"
     out["property_matches_field"] = "PASS" if all(o.get("property") == field for o in found) else "FAIL"
     out["missing_not_value"] = "PASS" if ids or not has_value else "FAIL"
-    if not has_value:
+    if not has_value and not ids:
         out["celsius_consistent"] = "PASS"
     elif field == "normal_boiling_point":
         complete = bool(found) and len(found) == len(cited) and all(
