@@ -53,7 +53,7 @@ class FireRuleTests(unittest.TestCase):
 
     def test_output_has_no_values(self):
         text = repr(evaluate(dataset(), REGISTER))
-        for token in ("-20", "STOT", "H225"):
+        for token in ("-1.5", "STOT", "H225"):
             self.assertNotIn(token, text)
 
 
