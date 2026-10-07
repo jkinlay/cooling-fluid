@@ -1,0 +1,35 @@
+{
+  "dataset_sha256": "517bcee853ab0e0c2eb1018068f816409899ce12e52c1b0600013fae4d1f3ea1",
+  "flash_point": {
+    "NONE_FOUND": 5,
+    "TEXT_ONLY": 0,
+    "UNKNOWN_identity": 0,
+    "VALUES_FOUND_CONFLICTING": 1,
+    "VALUES_FOUND_CONSISTENT": 3,
+    "entries_retrieved": 16,
+    "missing_flash_point_candidates_still_unknown": 3,
+    "missing_flash_point_candidates_with_source_value": 0
+  },
+  "ghs": {
+    "H_CODE_ONLY": 7,
+    "NOT_CLASSIFIED_FLAMMABLE": 1,
+    "NO_GHS_RECORD": 1,
+    "STATED_CONFLICTING": 0,
+    "STATED_SINGLE": 0,
+    "UNKNOWN_identity": 0,
+    "candidates_with_disagreeing_flammable_hazard_statements": 1,
+    "categories_imputed": 0
+  },
+  "policy": "Counts and statuses only. Live public chemical-database lookups for the sampled records; retrieved data and per-record output are retained locally and not published. Source entries are kept separately; no value is selected, averaged or dropped; no GHS category is inferred from hazard statements; published dataset fields are not modified. Missing flash points stay UNKNOWN unless a source states a value.",
+  "record_type": "cfd6_flash_point_and_ghs_gap_evidence_summary",
+  "research_inputs_unchanged": true,
+  "run_date": "2026-10-07",
+  "sample": {
+    "identity_confirmed": 9,
+    "identity_not_confirmed": 0,
+    "missing_flash_point": 3,
+    "no_ghs_category": 9,
+    "total": 9
+  },
+  "status": "COMPLETE"
+}
