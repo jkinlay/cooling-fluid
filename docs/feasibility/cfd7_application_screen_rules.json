@@ -1,0 +1,32 @@
+{
+  "record_type": "CFD-7_APPLICATION_SCREEN_RULES",
+  "version": "1",
+  "status": "RULES_ONLY_NO_DATA",
+  "scope": "Defines how a candidate is screened against an application profile before a CFD-7 dossier treats it as surviving the agreed application screen. Contains no candidate, source, value or threshold data.",
+  "profile_source": "docs/feasibility/acceptability_register.json",
+  "allowed_screen_statuses": {
+    "SCREEN_NOT_READY": "The profile or register is not approved for candidate judgement, or the profile has no adopted screening constraint. No candidate can survive; dossier fields stay UNKNOWN and cannot be PASS.",
+    "UNKNOWN": "Identity is unresolved, or an adopted constraint has missing, predicted-only, overlapping or conflicting evidence.",
+    "DEFERRED_PREDICTED_FAIL": "Only a prediction or estimate fails an adopted constraint. The candidate is preserved for audit, separate from measured failures.",
+    "EXCLUDED_MEASURED_HARD_FAIL": "Source-traceable measured evidence fails an adopted hard constraint. Favourable evidence elsewhere cannot override it.",
+    "SURVIVES_SCREEN": "Every adopted hard constraint is met by measured evidence. This is not qualification and not a PASS for any dossier field."
+  },
+  "allowed_constraint_evidence": ["MEASURED", "PREDICTED", "MISSING"],
+  "allowed_constraint_outcomes": ["INSIDE", "OUTSIDE", "OVERLAP", "CONFLICT"],
+  "evaluation_order": [
+    {"step": 1, "rule": "profile_gate", "criterion": "The register reports candidate_judgement_ready true and the profile_state is RESEARCH_FROZEN, CAMPAIGN_READY or QUALIFICATION_READY (project specification profile states). RESEARCH_DRAFT is never screened.", "on_fail": "SCREEN_NOT_READY"},
+    {"step": 2, "rule": "adopted_constraints_only", "criterion": "Only constraints with status ADOPTED, hard_rule_adopted true and candidate_screening_rule true are evaluated. PROPOSED or UNKNOWN constraints never screen a candidate. A profile with no adopted constraint is not ready.", "on_fail": "SCREEN_NOT_READY"},
+    {"step": 3, "rule": "identity_gate", "criterion": "Compound identity and isomer are resolved before any constraint is evaluated.", "on_fail": "UNKNOWN"},
+    {"step": 4, "rule": "measured_hard_fail", "criterion": "Any adopted constraint with MEASURED evidence and outcome OUTSIDE.", "on_match": "EXCLUDED_MEASURED_HARD_FAIL"},
+    {"step": 5, "rule": "predicted_fail", "criterion": "Any adopted constraint with PREDICTED evidence and outcome OUTSIDE.", "on_match": "DEFERRED_PREDICTED_FAIL"},
+    {"step": 6, "rule": "unresolved_constraint", "criterion": "Any adopted constraint with MISSING or PREDICTED evidence, or outcome OVERLAP or CONFLICT. A prediction inside the limit is not a measured pass.", "on_match": "UNKNOWN"},
+    {"step": 7, "rule": "all_measured_inside", "criterion": "Every adopted constraint has MEASURED evidence with outcome INSIDE.", "on_match": "SURVIVES_SCREEN"}
+  ],
+  "invariants": [
+    "The first matching step decides the status; later steps are not evaluated.",
+    "An unresolved adopted constraint cannot produce SURVIVES_SCREEN.",
+    "SURVIVES_SCREEN does not change any qualification field and never marks unassessed compatibility or supply as PASS.",
+    "Every screen decision records the rules version, the profile and the deciding step."
+  ],
+  "threshold_policy": "This file adopts no numerical limit. Limits come only from constraints the decision owner adopts in the acceptability register."
+}
