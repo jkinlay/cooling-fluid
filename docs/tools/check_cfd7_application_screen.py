@@ -17,6 +17,7 @@ import argparse
 from collections import Counter
 import hashlib
 import json
+import re
 from pathlib import Path
 from typing import Any
 
@@ -36,16 +37,41 @@ EVIDENCE = {"MEASURED", "PREDICTED", "MISSING"}
 OUTCOMES = {"INSIDE", "OUTSIDE", "OVERLAP", "CONFLICT"}
 # Project specification profile states; RESEARCH_DRAFT is never screened.
 SCREENABLE_STATES = {"RESEARCH_FROZEN", "CAMPAIGN_READY", "QUALIFICATION_READY"}
-NUMERIC_KEYS = {"min", "max", "value", "limit", "threshold"}
+
+
+_NUMBER_TEXT = re.compile(r"\s*[-+]?(\d+(\.\d*)?|\.\d+)([eE][-+]?\d+)?\s*")
+
+
+def _is_number(val: Any) -> bool:
+    if isinstance(val, bool):
+        return False
+    if isinstance(val, (int, float)):
+        return True
+    return isinstance(val, str) and _NUMBER_TEXT.fullmatch(val) is not None
 
 
 def _has_numeric_limit(node: Any) -> bool:
+    """True if any value is a number (or numeric text) under any field name, at any depth."""
     if isinstance(node, dict):
-        return any((key in NUMERIC_KEYS and isinstance(val, (int, float)) and not isinstance(val, bool))
-                   or _has_numeric_limit(val) for key, val in node.items() if key != "step")
+        return any(_is_number(val) or _has_numeric_limit(val) for val in node.values())
     if isinstance(node, list):
-        return any(_has_numeric_limit(item) for item in node)
+        return any(_is_number(item) or _has_numeric_limit(item) for item in node)
     return False
+
+
+def _without_exempt_labels(rules: dict[str, Any]) -> dict[str, Any]:
+    """Drop only the exempt labels: a top-level string version and the integer step of each
+    top-level evaluation_order entry. Everything else, including nested copies, is scanned."""
+    scanned = {key: val for key, val in rules.items() if not (key == "version" and isinstance(val, str))}
+    order = scanned.get("evaluation_order")
+    if isinstance(order, list):
+        scanned["evaluation_order"] = [
+            {k: v for k, v in entry.items()
+             if not (k == "step" and isinstance(v, int) and not isinstance(v, bool))}
+            if isinstance(entry, dict) else entry
+            for entry in order
+        ]
+    return scanned
 
 
 def check_rules(rules: dict[str, Any]) -> list[str]:
@@ -65,7 +91,9 @@ def check_rules(rules: dict[str, Any]) -> list[str]:
         for s, (rule, key, status) in zip(steps, EXPECTED):
             if s.get(key) != status or ("on_fail" in s) == ("on_match" in s):
                 problems.append(f"outcome:{rule}")
-    if _has_numeric_limit(rules):
+    if not isinstance(rules.get("version"), str):
+        problems.append("version")
+    if _has_numeric_limit(_without_exempt_labels(rules)):
         problems.append("numeric_limit")
     return problems
 
@@ -84,16 +112,26 @@ def profile_ready(register: dict[str, Any], profile: dict[str, Any]) -> tuple[bo
     return True, ""
 
 
-def screen_candidate(ready: bool, identity_resolved: bool, adopted_keys: list[str],
+READINESS_RULES = ("profile_gate", "adopted_constraints_only")
+
+
+def screen_candidate(ready: bool | tuple[bool, str], identity_resolved: bool, adopted_keys: list[str],
                      results: dict[str, dict[str, str]]) -> tuple[str, str]:
     """Return (status, deciding rule) for one candidate under one profile.
 
+    ready is a bool or the (ok, rule) tuple from profile_ready(); with the tuple, a not-ready result
+    reports the readiness rule that failed.
     adopted_keys lists every adopted screening constraint of the profile; results maps those keys to
     evidence/outcome labels. An adopted constraint with no result counts as MISSING evidence, and a
     result for a constraint that is not adopted is rejected.
     """
+    reason = "profile_gate"
+    if isinstance(ready, tuple):
+        ready, reason = ready
+        if not ready and reason not in READINESS_RULES:
+            raise ValueError("readiness reason must name a readiness rule")
     if not ready:
-        return "SCREEN_NOT_READY", "profile_gate"
+        return "SCREEN_NOT_READY", reason
     if not adopted_keys:
         return "SCREEN_NOT_READY", "adopted_constraints_only"
     if len(set(adopted_keys)) != len(adopted_keys):
