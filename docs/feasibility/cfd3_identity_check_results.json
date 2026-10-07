@@ -1,0 +1,42 @@
+{
+  "all_checks_pass": true,
+  "checks": {
+    "candidate_ids": {
+      "findings": [],
+      "status": "PASS"
+    },
+    "cas_format_and_check_digit": {
+      "findings": [],
+      "status": "PASS"
+    },
+    "csv_identity_match": {
+      "findings": [],
+      "status": "PASS"
+    },
+    "observation_refs": {
+      "findings": [],
+      "status": "PASS"
+    },
+    "source_ids": {
+      "findings": [],
+      "status": "PASS"
+    },
+    "summary_counts": {
+      "findings": [],
+      "status": "PASS"
+    }
+  },
+  "counts": {
+    "candidates": 32,
+    "observations": 164,
+    "sources": 66
+  },
+  "input_sha256": {
+    "csv": "afb26c1f0047c5d8b176c70a1e152beadf73ba8d8fbdc8ae5399a62b26da3363",
+    "dataset": "517bcee853ab0e0c2eb1018068f816409899ce12e52c1b0600013fae4d1f3ea1"
+  },
+  "inputs": {
+    "csv": "docs/feasibility/feasibility_table.csv",
+    "dataset": "docs/feasibility/feasibility_table.json"
+  }
+}
