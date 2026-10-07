@@ -4,6 +4,8 @@ Cooling Fluid Discovery uses the pinned AWF 1.9.1 release. Its read-only `status
 
 This project-owned host adapter lets the **unchanged** 1.9.1 verifier observe the same GitHub facts without relaxing its acceptance checks. It accepts only AWF's exact `gh api` GET invocation for this repository, verifies the SHA-256 of the official GitHub CLI executable, changes only pull-request detail requests to API version `2022-11-28`, and projects each PR-files page to every entry's `filename`, `status`, and `sha`. AWF still checks the receipt's exact blob SHA, merge ancestry, release pin, managed bytes, default-branch blobs, and final repository tip. The adapter has no write path.
 
+AWF 1.9.2 `status` also reads repository rules. The allow-list therefore admits exactly two further GETs, both on this repository: `rules/branches/main?per_page=100&page=1..5` (effective branch rules) and `rulesets/{id}?includes_parents=true` (ruleset detail). Neither request is rewritten or projected; responses keep the 1 MiB bound.
+
 ## Build and run
 
 Build with .NET 7, then copy the four `Awf191GhCompat` runtime files (`.exe`, `.dll`, `.deps.json`, `.runtimeconfig.json`) to a directory **outside** the cooling-fluid checkout. AWF refuses a `--gh` executable inside the checkout.
