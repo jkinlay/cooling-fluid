@@ -1,0 +1,50 @@
+{
+  "categories": {
+    "boundary": {
+      "FAIL": 0,
+      "PASS": 11,
+      "UNRESOLVED": 0,
+      "sampled": 11,
+      "unresolved_reasons": {}
+    },
+    "conflict": {
+      "FAIL": 0,
+      "PASS": 5,
+      "UNRESOLVED": 1,
+      "sampled": 6,
+      "unresolved_reasons": {
+        "captured_source_string_not_normalisable_to_a_value": 1
+      }
+    },
+    "identity": {
+      "FAIL": 0,
+      "PASS": 31,
+      "UNRESOLVED": 1,
+      "sampled": 32,
+      "unresolved_reasons": {
+        "secondary_source_stereo_disagreement": 1
+      }
+    },
+    "missing_flash_point": {
+      "FAIL": 0,
+      "PASS": 1,
+      "UNRESOLVED": 2,
+      "sampled": 3,
+      "unresolved_reasons": {
+        "no_captured_evidence": 2
+      }
+    }
+  },
+  "dataset_sha256": "517bcee853ab0e0c2eb1018068f816409899ce12e52c1b0600013fae4d1f3ea1",
+  "policy": "Counts and statuses only. Reproduction used locally captured research files only; no live lookups. Per-record output is retained locally and not published.",
+  "record_type": "cfd3_reproduction_summary",
+  "research_inputs_unchanged": true,
+  "run_date": "2026-10-07",
+  "status": "COMPLETE",
+  "totals": {
+    "FAIL": 0,
+    "PASS": 48,
+    "UNRESOLVED": 4,
+    "sampled": 52
+  }
+}
