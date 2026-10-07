@@ -15,9 +15,23 @@
     "unresolved_reasons": {}
   },
   "dataset_sha256": "517bcee853ab0e0c2eb1018068f816409899ce12e52c1b0600013fae4d1f3ea1",
+  "local_evidence": {
+    "note": "Digests only. Binds this summary to the locally retained rule, script, per-record output and source manifest, which are not published.",
+    "per_record_results_sha256": "079243d799f717c6faeb5591d57ce83b80572cec6c09d106756c296a10db8f14",
+    "reproduction_script_sha256": "ca31ebeca6b9ee772493caa85b7992fb0546403bf44fe46932fbb9638e8cde6a",
+    "selection_rule_sha256": "30905a11981ce09de0d8339e9e261c351a82c3a173e6fcd9377d9f2c8dbc1500",
+    "source_manifest_before_equals_after": true,
+    "source_manifest_files": 117,
+    "source_manifest_is_per_file_sha256": true,
+    "source_manifest_sha256": "88d1c1f6944727d83eb923b771d4d7b2992bff0c3c9f978b6147669ad59f5129"
+  },
+  "local_procedure": "Retained off-repo in the owner's local cfd4-coverage-local folder: SELECTION_RULE.md states the rule and reproduce.py rebuilds every cell from the captured research files listed in the source manifest, writing per_record_results.json. Re-running it and comparing the digests above reproduces these counts.",
+  "new_lookup_evidence_used": false,
   "policy": "Counts and statuses only. Every cell of the locally captured property-coverage matrix was rebuilt from the captured raw record it cites; no live lookups. Per-record output is retained locally and not published. Coverage states describe query results only; they are not values, provenance, measurements or qualification.",
+  "prior_research_files_unchanged": true,
+  "prior_research_files_unchanged_basis": "Run window only: the per-file SHA-256 source manifests of every captured research file, taken immediately before and after the run, are byte-identical. It makes no claim about the files after the run; re-verify against the manifest before reuse.",
+  "published_dataset_unchanged": true,
   "record_type": "cfd4_coverage_matrix_reproduction_summary",
-  "research_inputs_unchanged": true,
   "run_date": "2026-10-07",
   "state_counts": {
     "FAILED": 0,
