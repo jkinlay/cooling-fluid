@@ -32,6 +32,13 @@ class JobTests(unittest.TestCase):
         run = run_jobs(REPO_ROOT, (("cfd8_decision_traceability_check_results.json", "no_such_checker.py", ()),))
         self.assertEqual(run["counts"], {"reproduced": 0, "differs": 0, "error": 1})
 
+    def test_missing_input_counts_as_error_without_crash(self):
+        job = ("cfd8_decision_traceability_check_results.json", "check_cfd8_decision_traceability.py",
+               ("--dataset", "docs/feasibility/no_such_input.json"))
+        run = run_jobs(REPO_ROOT, (job,))
+        self.assertEqual(run["counts"], {"reproduced": 0, "differs": 0, "error": 1})
+        self.assertNotIn("no_such_input_json_sha256", run["local_evidence"])
+
     def test_single_job_reproduces(self):
         job = [j for j in JOBS if j[0] == "cfd8_decision_traceability_check_results.json"]
         run = run_jobs(REPO_ROOT, tuple(job))

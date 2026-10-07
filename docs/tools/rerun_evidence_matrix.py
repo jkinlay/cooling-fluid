@@ -92,7 +92,8 @@ def run_jobs(root: Path, jobs=JOBS) -> dict[str, Any]:
             counts["reproduced" if same_json(committed, fresh_path.read_bytes()) else "differs"] += 1
             _ = proc.returncode  # a checker may exit non-zero on a FAIL report; reproduction is what counts
     for path in sorted(inputs):
-        evidence[_key(path)] = _sha((root / path).read_bytes())
+        if (root / path).is_file():  # a missing input is already counted as an error job; skip its digest
+            evidence[_key(path)] = _sha((root / path).read_bytes())
     return {"counts": counts, "local_evidence": dict(sorted(evidence.items()))}
 
 
