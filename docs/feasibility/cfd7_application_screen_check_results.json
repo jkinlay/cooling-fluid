@@ -1,0 +1,20 @@
+{
+  "adopted_screening_constraints": 0,
+  "dataset_path": "docs/feasibility/acceptability_register.json",
+  "dataset_sha256": "019ca9de23aac6766643bc7f289b7e8d3282b3e17cd7e7367fa838ec7ea38e44",
+  "policy": "Report-only. The register and dataset are not modified; counts only.",
+  "profile_readiness_counts": {
+    "SCREEN_NOT_READY_profile_gate": 3
+  },
+  "profiles": 3,
+  "rule_counts": {
+    "rules_well_formed": {
+      "FAIL": 0,
+      "PASS": 1
+    }
+  },
+  "rules_path": "docs/feasibility/cfd7_application_screen_rules.json",
+  "rules_problems": [],
+  "rules_version": "1",
+  "status": "PASS"
+}
