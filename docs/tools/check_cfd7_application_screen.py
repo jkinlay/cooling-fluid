@@ -93,7 +93,11 @@ def check_rules(rules: dict[str, Any]) -> list[str]:
             or [s.get("rule") for s in steps] != list(ORDER)):
         problems.append("order")
     else:
-        if [s.get("step") for s in steps] != list(range(1, len(ORDER) + 1)):
+        step_values = [s.get("step") for s in steps]
+        # bool is a subclass of int, so True == 1 (and 1.0 == 1) would pass a plain equality check.
+        # Each step must be an exact, non-Boolean int.
+        if (any(type(v) is not int for v in step_values)
+                or step_values != list(range(1, len(ORDER) + 1))):
             problems.append("step_numbers")
         for s, (rule, key, status) in zip(steps, EXPECTED):
             if s.get(key) != status or ("on_fail" in s) == ("on_match" in s):

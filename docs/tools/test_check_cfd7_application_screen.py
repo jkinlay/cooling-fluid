@@ -98,6 +98,15 @@ class RulesFileTests(unittest.TestCase):
         rules["evaluation_order"][3]["on_match"] = "SURVIVES_SCREEN"
         self.assertIn("outcome:measured_hard_fail", check_rules(rules))
 
+    def test_non_int_step_numbers_fail(self):
+        reg = register()
+        for bad in (True, False, 1.0, "1", None):
+            rules = copy.deepcopy(RULES)
+            rules["evaluation_order"][0]["step"] = bad
+            with self.subTest(bad=bad):
+                self.assertIn("step_numbers", check_rules(rules))
+                self.assertEqual(evaluate(rules, reg)["status"], "FAIL")
+
     def test_malformed_evaluation_order_entry_is_reported(self):
         reg = register()
         for bad in (None, "profile_gate", 1, ["step"]):
@@ -338,6 +347,16 @@ class RecordBindingTests(unittest.TestCase):
         for bad in (None, "profile_gate", 1):
             rules = copy.deepcopy(RULES)
             rules["evaluation_order"] = [bad]
+            with self.subTest(bad=bad):
+                with self.assertRaises(ValueError):
+                    screen_record(reg, reg["profiles"][0], True, results, rules=rules)
+
+    def test_boolean_step_rejected(self):
+        reg = register(ready=False)
+        results = {"a": res("MEASURED", "INSIDE")}
+        for bad in (True, 1.0):
+            rules = copy.deepcopy(RULES)
+            rules["evaluation_order"][0]["step"] = bad
             with self.subTest(bad=bad):
                 with self.assertRaises(ValueError):
                     screen_record(reg, reg["profiles"][0], True, results, rules=rules)
