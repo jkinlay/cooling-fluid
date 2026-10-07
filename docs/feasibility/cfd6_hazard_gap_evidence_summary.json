@@ -20,6 +20,14 @@
     "candidates_with_disagreeing_flammable_hazard_statements": 1,
     "categories_imputed": 0
   },
+  "local_evidence": {
+    "note": "Digests only. Binds this summary to the locally retained lookup evidence and per-record output, which are not published.",
+    "per_record_results_sha256": "1e75e2e1abc9feed3a2ed23aeb756a39dbd1acce720a0ca0a51e0933dd3754dd",
+    "raw_documents_count": 36,
+    "raw_documents_manifest_sha256": "a47587fc1ab5e45b69f99cfe3d38496868caeacbaecf803fece6e53d74b50b1e",
+    "resolver_script_sha256": "8727de5dbc962edc58015c64c56022844370e4e509e53ac783b6d7137d1c4270",
+    "selection_rule_sha256": "78fd2a0a6e8d982f113548ce38d32a7d88c66cdb171ace9894a3370a16323663"
+  },
   "policy": "Counts and statuses only. Live public chemical-database lookups for the sampled records; retrieved data and per-record output are retained locally and not published. Source entries are kept separately; no value is selected, averaged or dropped; no GHS category is inferred from hazard statements; published dataset fields are not modified. Missing flash points stay UNKNOWN unless a source states a value.",
   "record_type": "cfd6_flash_point_and_ghs_gap_evidence_summary",
   "research_inputs_unchanged": true,
