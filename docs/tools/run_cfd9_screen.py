@@ -113,8 +113,10 @@ def run(rules: dict[str, Any], register: dict[str, Any], dataset: dict[str, Any]
         counts = per_profile.setdefault(pid, Counter())
         rules_used = per_rule.setdefault(pid, Counter())
         for candidate in candidates:
-            results = {c["id"]: constraint_result(register, candidate, c, by_id) for c in adopted}
-            record = screen_record(readiness, identity_resolved(candidate), keys, results)
+            resolved = identity_resolved(candidate)
+            # Identity gate first: evidence is not read for an unresolved identity.
+            results = {c["id"]: constraint_result(register, candidate, c, by_id) for c in adopted} if resolved else {}
+            record = screen_record(readiness, resolved, keys, results)
             counts[record["status"]] += 1
             rules_used[record["rule"]] += 1
             labels.update(record["evidence_labels"])
@@ -159,7 +161,9 @@ def main() -> int:
     parser.add_argument("--summary", type=Path, required=True)
     parser.add_argument("--local-output", type=Path, required=True)
     args = parser.parse_args()
-    repo = Path(subprocess.check_output(["git", "rev-parse", "--show-toplevel"], text=True).strip())
+    # Anchor the guard to this script's checkout, not the caller's working directory.
+    repo = Path(subprocess.check_output(["git", "rev-parse", "--show-toplevel"], text=True,
+                                        cwd=Path(__file__).resolve().parent).strip())
     if _inside_repo(args.local_output, repo):
         raise SystemExit("--local-output must be outside the repository")
     raw_rules, raw_register, raw_dataset = (p.read_bytes() for p in (args.rules, args.register, args.dataset))

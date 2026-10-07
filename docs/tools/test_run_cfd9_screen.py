@@ -80,6 +80,28 @@ class RunTests(unittest.TestCase):
         summary, _ = run(RULES, register(), data)
         self.assertEqual(summary["deciding_rule_counts_by_profile"]["P"], {"identity_gate": 1})
 
+    def test_identity_gate_before_evidence_validation(self):
+        data = dataset([(12, 13)])
+        data["candidates"][0]["cas"] = ""
+        data["observations"][0]["evidence_type"] = "UNSUPPORTED"
+        summary, _ = run(RULES, register(), data)
+        self.assertEqual(summary["deciding_rule_counts_by_profile"]["P"], {"identity_gate": 1})
+
+    def test_guard_uses_script_checkout_not_cwd(self):
+        import subprocess, sys, tempfile
+        tools = Path(__file__).resolve().parent
+        with tempfile.TemporaryDirectory() as tmp:
+            subprocess.run(["git", "init", "-q", tmp], check=True)
+            out = tools.parent / "feasibility" / "_should_not_exist.json"
+            proc = subprocess.run([sys.executable, str(tools / "run_cfd9_screen.py"),
+                                   "--rules", str(FEAS / "cfd7_application_screen_rules.json"),
+                                   "--register", str(FEAS / "acceptability_register.json"),
+                                   "--dataset", str(FEAS / "feasibility_table.json"),
+                                   "--summary", str(Path(tmp) / "s.json"), "--local-output", str(out)],
+                                  cwd=tmp, capture_output=True, text=True)
+            self.assertNotEqual(proc.returncode, 0)
+            self.assertFalse(out.exists())
+
     def test_cited_observation_of_other_candidate_rejected(self):
         data = dataset([(12, 13)], [(14, 15)])
         data["candidates"][0]["normal_boiling_point"]["observation_ids"] = ["X1-0"]
