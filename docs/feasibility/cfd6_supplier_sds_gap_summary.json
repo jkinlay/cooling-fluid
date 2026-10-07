@@ -1,0 +1,53 @@
+{
+  "access": {
+    "candidates_no_public_access": 9,
+    "candidates_with_any_usable_supplier_document": 0,
+    "documents_identity_not_confirmed": 0,
+    "documents_retrieved": 0,
+    "supplier_a_search_blocked": 8,
+    "supplier_a_search_reached_without_document_content": 1,
+    "supplier_b_search_blocked": 9,
+    "suppliers_tried": 2
+  },
+  "dataset_sha256": "517bcee853ab0e0c2eb1018068f816409899ce12e52c1b0600013fae4d1f3ea1",
+  "flash_point": {
+    "NONE_FOUND": 0,
+    "NO_DOCUMENT": 9,
+    "TEXT_ONLY": 0,
+    "VALUES_FOUND_CONFLICTING": 0,
+    "VALUES_FOUND_CONSISTENT": 0,
+    "missing_flash_point_candidates_still_unknown": 3
+  },
+  "ghs": {
+    "H_CODE_ONLY": 0,
+    "NO_DOCUMENT": 9,
+    "NO_FLAMMABLE_STATEMENT": 0,
+    "STATED_CONFLICTING": 0,
+    "STATED_SINGLE": 0,
+    "categories_imputed": 0
+  },
+  "known_undercount": {
+    "candidates_with_observed_but_unretained_supplier_document": 1,
+    "note": "Before the run, a format probe observed one public supplier page stating a flash point and a GHS category for one sampled candidate. The probe was not retained and the page could not be refetched (access denied), so it is not included in these counts. Counts for that candidate are therefore understated."
+  },
+  "local_evidence": {
+    "note": "Digests only. Binds this summary to the locally retained lookup evidence and per-record output, which are not published.",
+    "per_record_results_sha256": "1ce94efa4db4226dbfcb6a1a59752133a5c4b250719cd1d85eb96bf8ff810309",
+    "raw_documents_count": 1,
+    "raw_documents_manifest_sha256": "48ca0080ef236706e20420d7d9f603e2f6cc6d90950f0a7f0e6c7d02a6ec4a3c",
+    "resolver_script_sha256": "0cdd8475a5c3fbdc01c3b07bc2cd3e2f2f321c47c2ff562303e91ccba8f7362d",
+    "selection_rule_sha256": "39ebee4273f183943345cad9cb26d6ef7a26c9e7a223588ceb22340c5b8438e0"
+  },
+  "new_lookup_evidence_used": true,
+  "policy": "Counts and statuses only. Publicly accessible supplier product/SDS pages only, by plain GET; no login, forms, captchas or access-control workarounds. Blocked or content-less responses are UNKNOWN(no_public_access). Retrieved documents stay local. No value is selected, averaged or dropped; a GHS category is recorded only where a document states it; published dataset fields are not modified.",
+  "prior_research_files_unchanged": true,
+  "published_dataset_unchanged": true,
+  "record_type": "cfd6_supplier_sds_gap_evidence_summary",
+  "run_date": "2026-10-07",
+  "sample": {
+    "missing_flash_point": 3,
+    "no_ghs_category": 9,
+    "total": 9
+  },
+  "status": "INCOMPLETE_KNOWN_UNDERCOUNT"
+}
