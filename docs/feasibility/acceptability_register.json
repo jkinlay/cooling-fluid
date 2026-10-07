@@ -1,8 +1,8 @@
 {
   "record_type": "CFD-2_APPLICATION_ACCEPTABILITY_REGISTER",
-  "version": "0.2",
-  "status": "FROZEN_FOR_OFFLINE_INVENTORY_ONLY",
-  "as_of": "2026-10-01",
+  "version": "0.3",
+  "status": "FROZEN_FOR_CANDIDATE_SCREENING",
+  "as_of": "2026-10-07",
   "study_control": "docs/feasibility/study_control.json",
   "source_register": [
     {
@@ -45,13 +45,13 @@
         {
           "id": "TPI-BOIL-EXPLORATORY",
           "domain": "normal_boiling_point",
-          "status": "PROPOSED",
+          "status": "ADOPTED",
           "value": {
             "min": 45,
-            "max": 55
+            "max": 60
           },
           "units": "°C",
-          "conditions": "normal boiling at 101.325 kPa; inclusive historical search screen only",
+          "conditions": "normal boiling at 101.325 kPa; inclusive lower and upper bounds",
           "inclusive_boundary": {
             "lower": true,
             "upper": true
@@ -59,13 +59,26 @@
           "source_ids": [
             "S4"
           ],
-          "decision_owner": "jkinlay (study owner; application-specific decision pending)",
-          "candidate_screening_rule": false,
-          "method": "Historical normal-boiling source method and pressure must be reconciled before use",
-          "threshold_rationale": "Exploratory search window only; no application acceptance rationale adopted",
-          "evidence_class": "PROJECT_HYPOTHESIS",
+          "decision_owner": "jkinlay (study owner)",
+          "candidate_screening_rule": true,
+          "method": "Compare the normal boiling point at 101.325 kPa against the inclusive window; evidence labels follow screening_evidence_policy",
+          "threshold_rationale": "Owner-adopted candidate screening window for CFD-9; screening only, not qualification or deployability acceptance",
+          "evidence_class": "OWNER_DECISION",
           "measurement_uncertainty": "UNKNOWN; not zero",
-          "hard_rule_adopted": false
+          "hard_rule_adopted": true,
+          "decision_provenance": {
+            "decided_by": "Jonathan Kinlay via DevHead",
+            "date": "2026-10-07",
+            "ticket": "CFD-9",
+            "supersedes": {
+              "status": "PROPOSED",
+              "value": {
+                "min": 45,
+                "max": 55
+              },
+              "evidence_class": "PROJECT_HYPOTHESIS"
+            }
+          }
         },
         {
           "id": "TPI-TEMPERATURE",
@@ -241,7 +254,14 @@
           "S4"
         ]
       },
-      "profile_state": "RESEARCH_DRAFT"
+      "profile_state": "RESEARCH_FROZEN",
+      "profile_state_provenance": {
+        "decided_by": "Jonathan Kinlay via DevHead",
+        "date": "2026-10-07",
+        "ticket": "CFD-9",
+        "previous_state": "RESEARCH_DRAFT",
+        "scope": "Frozen for candidate screening against adopted screening constraints only; other constraints stay UNKNOWN or PROPOSED and no qualification claim follows"
+      }
     },
     {
       "profile_id": "SP_IMMERSION",
@@ -643,20 +663,42 @@
       "decision_owner": "jkinlay (pending application/jurisdiction policy)"
     }
   ],
-  "decision_rule": "UNKNOWN mandatory rules cannot produce a candidate PASS. No proposed number is an adopted hard constraint.",
+  "decision_rule": "UNKNOWN mandatory rules cannot produce a candidate PASS. Only constraints with status ADOPTED, hard_rule_adopted true and candidate_screening_rule true screen candidates; a PROPOSED number is not an adopted hard constraint.",
   "notes": [
     "OCP immersion values apply only within their cited document scope and are not adopted as universal rules.",
     "OCP cold-plate guideline section 3.1 states −26.3 °C as a minimum criterion while Table 1 lists +26.3 °C as a typical property; neither lower bound is adopted.",
     "PFAS-free wording is not itself evidence of fluorine-free molecular identity.",
-    "No initial application selected."
+    "No initial application selected.",
+    "v0.3 (2026-10-07, CFD-9): owner decision by Jonathan Kinlay via DevHead adopts TPI-BOIL-EXPLORATORY as an inclusive screening window, freezes TP_IMMERSION_F0 at RESEARCH_FROZEN, sets candidate_judgement_ready and counts source-reported values as MEASURED for screening, labelled SOURCE_REPORTED. The independent review above covers v0.2 only."
   ],
   "inventory_dependency_ready": true,
-  "candidate_judgement_ready": false,
+  "candidate_judgement_ready": true,
+  "candidate_judgement_provenance": {
+    "decided_by": "Jonathan Kinlay via DevHead",
+    "date": "2026-10-07",
+    "ticket": "CFD-9",
+    "previous_value": false,
+    "scope": "Screening judgement only, for profiles at RESEARCH_FROZEN or later with an adopted screening constraint"
+  },
+  "screening_evidence_policy": {
+    "source_reported_counts_as": "MEASURED",
+    "applies_to_evidence_types": [
+      "SOURCE_REPORTED_NOT_PROJECT_MEASUREMENT"
+    ],
+    "label": "SOURCE_REPORTED",
+    "scope": "Candidate screening only. A source-reported value is treated as MEASURED evidence for the CFD-7 screen and every such result is labelled SOURCE_REPORTED; it is not a project measurement and does not change any qualification field.",
+    "decision_provenance": {
+      "decided_by": "Jonathan Kinlay via DevHead",
+      "date": "2026-10-07",
+      "ticket": "CFD-9"
+    }
+  },
   "independent_review": {
     "reviewer": "/root/stream_a_control",
     "date": "2026-10-01",
     "disposition": "PASS_FOR_OFFLINE_INVENTORY_ONLY",
     "material_findings_remaining": 0,
-    "limitation": "All three application profiles remain RESEARCH_DRAFT with mandatory UNKNOWN constraints; no candidate PASS/FAIL or deployability claim"
+    "limitation": "All three application profiles remain RESEARCH_DRAFT with mandatory UNKNOWN constraints; no candidate PASS/FAIL or deployability claim",
+    "reviewed_version": "0.2"
   }
 }

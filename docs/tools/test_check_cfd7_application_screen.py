@@ -7,9 +7,11 @@ import json
 from pathlib import Path
 import unittest
 
-from check_cfd7_application_screen import check_rules, evaluate, profile_ready, screen_candidate
+from check_cfd7_application_screen import check_rules, evaluate, evidence_policy, profile_ready, screen_candidate, screen_evidence, screen_record
 
 RULES = json.loads((Path(__file__).resolve().parents[1] / "feasibility" / "cfd7_application_screen_rules.json").read_text(encoding="utf-8"))
+REGISTER = json.loads((Path(__file__).resolve().parents[1] / "feasibility" / "acceptability_register.json").read_text(encoding="utf-8"))
+SOURCE = "SOURCE_REPORTED_NOT_PROJECT_MEASUREMENT"
 
 
 def constraint(adopted=True):
@@ -185,6 +187,102 @@ class ScreenTests(unittest.TestCase):
     def test_bad_label_rejected(self):
         with self.assertRaises(ValueError):
             screen(True, True, res("ESTIMATED", "INSIDE"))
+
+
+def policy_register(**overrides):
+    policy = {"source_reported_counts_as": "MEASURED", "applies_to_evidence_types": [SOURCE], "label": "SOURCE_REPORTED"}
+    policy.update(overrides)
+    reg = register()
+    reg["screening_evidence_policy"] = policy
+    return reg
+
+
+class EvidencePolicyTests(unittest.TestCase):
+    def test_source_reported_counts_as_measured_with_label(self):
+        self.assertEqual(screen_evidence(policy_register(), SOURCE), ("MEASURED", "SOURCE_REPORTED"))
+
+    def test_without_policy_source_reported_is_rejected(self):
+        with self.assertRaises(ValueError):
+            screen_evidence(register(), SOURCE)
+
+    def test_unlisted_type_rejected(self):
+        with self.assertRaises(ValueError):
+            screen_evidence(policy_register(), "VENDOR_CLAIM")
+
+    def test_missing_and_predicted_unchanged(self):
+        reg = policy_register()
+        self.assertEqual(screen_evidence(reg, None), ("MISSING", None))
+        self.assertEqual(screen_evidence(reg, SOURCE, predicted=True), ("PREDICTED", None))
+
+    def test_prediction_without_evidence_type_is_predicted_not_missing(self):
+        reg = policy_register()
+        self.assertEqual(screen_evidence(reg, None, predicted=True), ("PREDICTED", None))
+        result = {"a": res(screen_evidence(reg, None, predicted=True)[0], "OUTSIDE")}
+        self.assertEqual(screen_candidate(True, True, ["a"], result), ("DEFERRED_PREDICTED_FAIL", "predicted_fail"))
+
+    def test_malformed_policy_fails_report(self):
+        for bad in ({"source_reported_counts_as": "PREDICTED"}, {"applies_to_evidence_types": []}, {"label": ""}):
+            reg = policy_register(**bad)
+            with self.assertRaises(ValueError):
+                evidence_policy(reg)
+            self.assertIn("evidence_policy", evaluate(RULES, reg)["rules_problems"])
+
+    def test_source_reported_inside_survives_and_outside_is_measured_fail(self):
+        reg = policy_register()
+        inside = {"a": res(screen_evidence(reg, SOURCE)[0], "INSIDE")}
+        outside = {"a": res(screen_evidence(reg, SOURCE)[0], "OUTSIDE")}
+        self.assertEqual(screen_candidate(True, True, ["a"], inside), ("SURVIVES_SCREEN", "all_measured_inside"))
+        self.assertEqual(screen_candidate(True, True, ["a"], outside), ("EXCLUDED_MEASURED_HARD_FAIL", "measured_hard_fail"))
+
+
+class LabelledRecordTests(unittest.TestCase):
+    def labelled(self, reg, outcome):
+        evidence, label = screen_evidence(reg, SOURCE)
+        return {"evidence": evidence, "outcome": outcome, "label": label}
+
+    def test_source_reported_label_kept_on_survivor_and_fail(self):
+        reg = policy_register()
+        for outcome, status in (("INSIDE", "SURVIVES_SCREEN"), ("OUTSIDE", "EXCLUDED_MEASURED_HARD_FAIL")):
+            record = screen_record(True, True, ["a"], {"a": self.labelled(reg, outcome)})
+            self.assertEqual((record["status"], record["evidence_labels"]), (status, ["SOURCE_REPORTED"]))
+
+    def test_unlabelled_measurement_has_no_label(self):
+        self.assertEqual(screen_record(True, True, ["a"], {"a": res("MEASURED", "INSIDE")})["evidence_labels"], [])
+
+    def test_label_on_non_measured_rejected(self):
+        for bad in ({"evidence": "PREDICTED", "outcome": "OUTSIDE", "label": "SOURCE_REPORTED"},
+                    {"evidence": "MEASURED", "outcome": "INSIDE", "label": ""}):
+            with self.assertRaises(ValueError):
+                screen_record(True, True, ["a"], {"a": bad})
+
+
+class CommittedRegisterTests(unittest.TestCase):
+    """CFD-9 owner decision (Jonathan Kinlay via DevHead, 7 Oct 2026)."""
+
+    def profile(self, pid):
+        return next(p for p in REGISTER["profiles"] if p["profile_id"] == pid)
+
+    def test_only_two_phase_immersion_is_ready(self):
+        self.assertTrue(REGISTER["candidate_judgement_ready"])
+        self.assertEqual(profile_ready(REGISTER, self.profile("TP_IMMERSION_F0")), (True, ""))
+        for pid in ("SP_IMMERSION", "TP_DIRECT_CHIP"):
+            self.assertEqual(profile_ready(REGISTER, self.profile(pid)), (False, "profile_gate"))
+        report = evaluate(RULES, REGISTER)
+        self.assertEqual(report["status"], "PASS")
+        self.assertEqual(report["adopted_screening_constraints"], 1)
+        self.assertEqual(report["profile_readiness_counts"], {"READY": 1, "SCREEN_NOT_READY_profile_gate": 2})
+
+    def test_adopted_boiling_window(self):
+        from check_cfd7_application_screen import adopted_constraints
+        adopted = adopted_constraints(self.profile("TP_IMMERSION_F0"))
+        self.assertEqual([c["id"] for c in adopted], ["TPI-BOIL-EXPLORATORY"])
+        c = adopted[0]
+        self.assertEqual((c["domain"], c["value"], c["inclusive_boundary"]),
+                         ("normal_boiling_point", {"min": 45, "max": 60}, {"lower": True, "upper": True}))
+        self.assertEqual(c["decision_provenance"]["decided_by"], "Jonathan Kinlay via DevHead")
+
+    def test_committed_policy_labels_source_reported(self):
+        self.assertEqual(screen_evidence(REGISTER, SOURCE), ("MEASURED", "SOURCE_REPORTED"))
 
 
 class ReportBindingTests(unittest.TestCase):
