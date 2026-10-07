@@ -24,6 +24,12 @@ def normalized_text(path: Path) -> str:
     return path.read_text(encoding="utf-8").replace("\r\n", "\n").replace("\r", "\n")
 
 
+def cited_key(name: str) -> str:
+    """Flat local_evidence key for a cited repo path, e.g. docs/a-b.md -> cited_docs_a_b_md_sha256.
+    Every non-alphanumeric run maps to one underscore, so keys stay *_sha256 as the leak scan allows."""
+    return "cited_" + re.sub(r"[^0-9A-Za-z]+", "_", name).strip("_").lower() + "_sha256"
+
+
 def sha256_file(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
@@ -185,11 +191,14 @@ def failure_report(register: Path, root: Path) -> tuple[dict[str, Any], bool]:
     if len(statements) != len(set(statements)):
         failures["no_duplicates"] += 1
 
+    # Digests of the public register and cited files sit under local_evidence (CFD-13 precedent).
     report = {
-        "cited_file_sha256": {name: sha256_file(path) for name, path in sorted(cited.items())},
         "entry_counts_by_kind": dict(sorted(counts.items())),
         "failure_counts_by_rule": dict(sorted(failures.items())),
-        "register_sha256": sha256_file(register),
+        "local_evidence": {
+            **{cited_key(name): sha256_file(path) for name, path in sorted(cited.items())},
+            "register_sha256": sha256_file(register),
+        },
         "status": "FAIL" if failures else "PASS",
     }
     return report, bool(failures)

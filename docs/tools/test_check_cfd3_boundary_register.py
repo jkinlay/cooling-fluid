@@ -54,6 +54,23 @@ class BoundaryRegisterCheckerTests(unittest.TestCase):
     def test_pass(self) -> None:
         self.assertEqual(self.result(self.register())["status"], "PASS")
 
+    def test_hashes_only_under_local_evidence(self) -> None:
+        import hashlib
+        register = self.register()
+        report = self.result(register)
+        self.assertNotIn("cited_file_sha256", report)
+        self.assertNotIn("register_sha256", report)
+        evidence = report["local_evidence"]
+        self.assertEqual(evidence["register_sha256"], hashlib.sha256(register.read_bytes()).hexdigest())
+        cited = {k: v for k, v in evidence.items() if k.startswith("cited_")}
+        self.assertTrue(cited)
+        for key, digest in evidence.items():
+            self.assertTrue(key.endswith("_sha256"))
+            self.assertRegex(digest, "^[0-9a-f]{64}$")
+
+    def test_cited_key_is_flat(self) -> None:
+        self.assertEqual(checker.cited_key("docs/feasibility/README.md"), "cited_docs_feasibility_readme_md_sha256")
+
     def test_paraphrased_quote_fails(self) -> None:
         register = self.register({"entry_id": "SB-001", "kind": "SEARCH_BOUNDARY", "statement": "paraphrased", "source": {"path": "docs/source.md", "locator": "section: Title"}})
         report, failed = checker.failure_report(register, self.root)
