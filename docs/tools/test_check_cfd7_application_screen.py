@@ -12,7 +12,7 @@ def constraint(adopted=True):
     return {"hard_rule_adopted": adopted, "candidate_screening_rule": adopted}
 
 
-def register(ready=True, state="APPROVED_FOR_CANDIDATE_JUDGEMENT", adopted=True):
+def register(ready=True, state="RESEARCH_FROZEN", adopted=True):
     return {"candidate_judgement_ready": ready,
             "profiles": [{"profile_state": state, "constraints": [constraint(adopted)]}]}
 
@@ -66,6 +66,13 @@ def screen(ready, identity, *results):
     return screen_candidate(ready, identity, keys, dict(zip(keys, results)))
 
 
+class SpecStateTests(unittest.TestCase):
+    def test_each_spec_state_past_draft_is_ready(self):
+        for state in ("RESEARCH_FROZEN", "CAMPAIGN_READY", "QUALIFICATION_READY"):
+            reg = register(state=state)
+            self.assertEqual(profile_ready(reg, reg["profiles"][0]), (True, ""))
+
+
 class ScreenTests(unittest.TestCase):
     def test_not_ready_never_survives(self):
         self.assertEqual(screen(False, True, res("MEASURED", "INSIDE"))[0], "SCREEN_NOT_READY")
@@ -97,6 +104,9 @@ class ScreenTests(unittest.TestCase):
     def test_result_for_unadopted_constraint_rejected(self):
         with self.assertRaises(ValueError):
             screen_candidate(True, True, ["a"], {"a": res("MEASURED", "INSIDE"), "z": res("MEASURED", "INSIDE")})
+
+    def test_identity_gate_before_label_validation(self):
+        self.assertEqual(screen(True, False, res("ESTIMATED", "INSIDE")), ("UNKNOWN", "identity_gate"))
 
     def test_bad_label_rejected(self):
         with self.assertRaises(ValueError):

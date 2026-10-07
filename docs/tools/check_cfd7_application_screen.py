@@ -32,7 +32,8 @@ EXPECTED = (
 ORDER = tuple(rule for rule, _, _ in EXPECTED)
 EVIDENCE = {"MEASURED", "PREDICTED", "MISSING"}
 OUTCOMES = {"INSIDE", "OUTSIDE", "OVERLAP", "CONFLICT"}
-APPROVED_STATE = "APPROVED_FOR_CANDIDATE_JUDGEMENT"
+# Specification v1.1 profile states; RESEARCH_DRAFT is never screened.
+SCREENABLE_STATES = {"RESEARCH_FROZEN", "CAMPAIGN_READY", "QUALIFICATION_READY"}
 NUMERIC_KEYS = {"min", "max", "value", "limit", "threshold"}
 
 
@@ -73,7 +74,7 @@ def adopted_constraints(profile: dict[str, Any]) -> list[dict[str, Any]]:
 
 
 def profile_ready(register: dict[str, Any], profile: dict[str, Any]) -> tuple[bool, str]:
-    if register.get("candidate_judgement_ready") is not True or profile.get("profile_state") != APPROVED_STATE:
+    if register.get("candidate_judgement_ready") is not True or profile.get("profile_state") not in SCREENABLE_STATES:
         return False, "profile_gate"
     if not adopted_constraints(profile):
         return False, "adopted_constraints_only"
@@ -98,11 +99,11 @@ def screen_candidate(ready: bool, identity_resolved: bool, adopted_keys: list[st
     if extra:
         raise ValueError("result supplied for a constraint that is not adopted")
     covered = [results.get(key, {"evidence": "MISSING", "outcome": None}) for key in adopted_keys]
+    if not identity_resolved:
+        return "UNKNOWN", "identity_gate"
     for r in covered:
         if r.get("evidence") not in EVIDENCE or r.get("outcome") not in OUTCOMES | {None}:
             raise ValueError("constraint result has an unknown evidence or outcome label")
-    if not identity_resolved:
-        return "UNKNOWN", "identity_gate"
     if any(r["evidence"] == "MEASURED" and r.get("outcome") == "OUTSIDE" for r in covered):
         return "EXCLUDED_MEASURED_HARD_FAIL", "measured_hard_fail"
     if any(r["evidence"] == "PREDICTED" and r.get("outcome") == "OUTSIDE" for r in covered):

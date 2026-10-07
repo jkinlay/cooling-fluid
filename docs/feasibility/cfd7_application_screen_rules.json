@@ -14,7 +14,7 @@
   "allowed_constraint_evidence": ["MEASURED", "PREDICTED", "MISSING"],
   "allowed_constraint_outcomes": ["INSIDE", "OUTSIDE", "OVERLAP", "CONFLICT"],
   "evaluation_order": [
-    {"step": 1, "rule": "profile_gate", "criterion": "The register reports candidate_judgement_ready true and the profile_state is APPROVED_FOR_CANDIDATE_JUDGEMENT.", "on_fail": "SCREEN_NOT_READY"},
+    {"step": 1, "rule": "profile_gate", "criterion": "The register reports candidate_judgement_ready true and the profile_state is RESEARCH_FROZEN, CAMPAIGN_READY or QUALIFICATION_READY (specification v1.1 profile states). RESEARCH_DRAFT is never screened.", "on_fail": "SCREEN_NOT_READY"},
     {"step": 2, "rule": "adopted_constraints_only", "criterion": "Only constraints with hard_rule_adopted true and candidate_screening_rule true are evaluated. PROPOSED or UNKNOWN constraints never screen a candidate. A profile with no adopted constraint is not ready.", "on_fail": "SCREEN_NOT_READY"},
     {"step": 3, "rule": "identity_gate", "criterion": "Compound identity and isomer are resolved before any constraint is evaluated.", "on_fail": "UNKNOWN"},
     {"step": 4, "rule": "measured_hard_fail", "criterion": "Any adopted constraint with MEASURED evidence and outcome OUTSIDE.", "on_match": "EXCLUDED_MEASURED_HARD_FAIL"},
