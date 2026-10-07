@@ -1,6 +1,14 @@
 {
   "agrees_with_published_status": 13,
   "dataset_sha256": "517bcee853ab0e0c2eb1018068f816409899ce12e52c1b0600013fae4d1f3ea1",
+  "local_evidence": {
+    "note": "Digests only. Binds this summary to the locally retained lookup evidence and per-record output, which are not published.",
+    "per_record_results_sha256": "8f94a5851f86482d6332cc4dc239f2d2abadd4d326c1bc2b8574d3d2acd6d41d",
+    "raw_documents_count": 13,
+    "raw_documents_manifest_sha256": "b5db29a3b4cacc51fe45b81d4c77f035f4077c05104a9b400ee2da26bc009a0b",
+    "resolver_script_sha256": "6bc4aa1492df315d42985a2379ea1473c525b8c90d2c446ec47dcf93710d6a24",
+    "selection_rule_sha256": "a728a1d241e9d09812ff9924225b2605e5f7ae782379512ec311cf2b1c29f340"
+  },
   "outcomes": {
     "RESOLVED_FAIL": 1,
     "RESOLVED_PASS": 1,
