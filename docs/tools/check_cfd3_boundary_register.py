@@ -191,6 +191,10 @@ def failure_report(register: Path, root: Path) -> tuple[dict[str, Any], bool]:
     if len(statements) != len(set(statements)):
         failures["no_duplicates"] += 1
 
+    # Distinct cited paths must keep distinct evidence keys; otherwise one digest would be lost.
+    if len({cited_key(name) for name in cited}) != len(cited):
+        failures["cited_key_collision"] += 1
+
     # Digests of the public register and cited files sit under local_evidence (CFD-13 precedent).
     report = {
         "entry_counts_by_kind": dict(sorted(counts.items())),

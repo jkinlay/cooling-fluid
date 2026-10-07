@@ -71,6 +71,27 @@ class BoundaryRegisterCheckerTests(unittest.TestCase):
     def test_cited_key_is_flat(self) -> None:
         self.assertEqual(checker.cited_key("docs/feasibility/README.md"), "cited_docs_feasibility_readme_md_sha256")
 
+    def test_cited_key_collision_fails(self) -> None:
+        text = (self.root / "docs/source.md").read_text(encoding="utf-8")
+        for name in ("docs/a-b.md", "docs/a_b.md"):
+            (self.root / name).write_text(text, encoding="utf-8", newline="\n")
+        self.assertEqual(checker.cited_key("docs/a-b.md"), checker.cited_key("docs/a_b.md"))
+        entries = [
+            {"entry_id": f"SB-00{i}", "kind": "SEARCH_BOUNDARY", "statement": statement,
+             "source": {"path": name, "locator": locator}}
+            for i, (name, statement, locator) in enumerate(
+                (("docs/a-b.md", "quoted statement", "section: Title"),
+                 ("docs/a_b.md", "other statement", "section: Other")), start=1)
+        ]
+        register = self.root / "register.json"
+        register.write_text(
+            json.dumps({"schema_version": "1.0", "register_id": "test", "policy": "test", "entries": entries}),
+            encoding="utf-8", newline="\n")
+        output = self.root / "result.json"
+        self.assertEqual(checker.main(["--register", str(register), "--root", str(self.root), "--output", str(output)]), 1)
+        report = json.loads(output.read_text(encoding="utf-8"))
+        self.assertEqual(report["failure_counts_by_rule"], {"cited_key_collision": 1})
+
     def test_paraphrased_quote_fails(self) -> None:
         register = self.register({"entry_id": "SB-001", "kind": "SEARCH_BOUNDARY", "statement": "paraphrased", "source": {"path": "docs/source.md", "locator": "section: Title"}})
         report, failed = checker.failure_report(register, self.root)
