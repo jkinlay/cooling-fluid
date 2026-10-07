@@ -48,22 +48,28 @@ def _is_number(val: Any) -> bool:
     return isinstance(val, str) and _NUMBER_TEXT.fullmatch(val) is not None
 
 
-def _has_numeric_limit(node: Any, step_entry: bool = False) -> bool:
-    """True if any value is a number (or numeric text) under any field name.
-
-    The only exemptions are the integer step number of an evaluation_order entry and the
-    top-level rules version when it is a string label.
-    """
+def _has_numeric_limit(node: Any) -> bool:
+    """True if any value is a number (or numeric text) under any field name, at any depth."""
     if isinstance(node, dict):
-        for key, val in node.items():
-            if step_entry and key == "step" and isinstance(val, int) and not isinstance(val, bool):
-                continue
-            if _is_number(val) or _has_numeric_limit(val, step_entry=(key == "evaluation_order")):
-                return True
-        return False
+        return any(_is_number(val) or _has_numeric_limit(val) for val in node.values())
     if isinstance(node, list):
-        return any(_is_number(item) or _has_numeric_limit(item, step_entry=step_entry) for item in node)
+        return any(_is_number(item) or _has_numeric_limit(item) for item in node)
     return False
+
+
+def _without_exempt_labels(rules: dict[str, Any]) -> dict[str, Any]:
+    """Drop only the exempt labels: a top-level string version and the integer step of each
+    top-level evaluation_order entry. Everything else, including nested copies, is scanned."""
+    scanned = {key: val for key, val in rules.items() if not (key == "version" and isinstance(val, str))}
+    order = scanned.get("evaluation_order")
+    if isinstance(order, list):
+        scanned["evaluation_order"] = [
+            {k: v for k, v in entry.items()
+             if not (k == "step" and isinstance(v, int) and not isinstance(v, bool))}
+            if isinstance(entry, dict) else entry
+            for entry in order
+        ]
+    return scanned
 
 
 def check_rules(rules: dict[str, Any]) -> list[str]:
@@ -85,8 +91,7 @@ def check_rules(rules: dict[str, Any]) -> list[str]:
                 problems.append(f"outcome:{rule}")
     if not isinstance(rules.get("version"), str):
         problems.append("version")
-    if _has_numeric_limit({key: val for key, val in rules.items()
-                           if not (key == "version" and isinstance(val, str))}):
+    if _has_numeric_limit(_without_exempt_labels(rules)):
         problems.append("numeric_limit")
     return problems
 
