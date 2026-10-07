@@ -9,7 +9,7 @@ internal static class Program
     private static readonly Regex Pr = new(@"^repos/jkinlay/cooling-fluid/pulls/[1-9][0-9]*$", RegexOptions.CultureInvariant);
     private static readonly Regex PrFiles = new(@"^repos/jkinlay/cooling-fluid/pulls/[1-9][0-9]*/files\?per_page=100&page=[1-5]$", RegexOptions.CultureInvariant);
     private static readonly Regex AllowedEndpoint = new(
-        @"^repos/jkinlay/cooling-fluid(?:$|/branches/main$|/commits/[0-9a-f]{40}/pulls\?per_page=100$|/pulls/[1-9][0-9]*(?:/files\?per_page=100&page=[1-5])?$|/contents/\.agentic/installed-manifest\.json\?ref=[0-9a-f]{40}$|/git/commits/[0-9a-f]{40}$|/git/trees/[0-9a-f]{40}(?:\?recursive=1)?$)",
+        @"^repos/jkinlay/cooling-fluid(?:$|/branches/main$|/commits/[0-9a-f]{40}/pulls\?per_page=100$|/pulls/[1-9][0-9]*(?:/files\?per_page=100&page=[1-5])?$|/contents/\.agentic/installed-manifest\.json\?ref=[0-9a-f]{40}$|/git/commits/[0-9a-f]{40}$|/git/trees/[0-9a-f]{40}(?:\?recursive=1)?$|/rules/branches/main\?per_page=100&page=[1-5]$|/rulesets/[1-9][0-9]*\?includes_parents=true$)",
         RegexOptions.CultureInvariant);
 
     private static async Task<byte[]> ReadBoundedAsync(Stream source, int limit, CancellationToken cancellation)
@@ -27,7 +27,7 @@ internal static class Program
 
     private static async Task<int> Main(string[] args)
     {
-        // Accept only the exact, read-only call shape emitted by AWF 1.9.1.
+        // Accept only the exact, read-only call shape emitted by AWF 1.9.1/1.9.2 (1.9.2 adds the rules GETs).
         if (args.Length != 10 || args[0] != "api" || args[1] != "--hostname" || args[2] != "github.com" ||
             args[3] != "--method" || args[4] != "GET" || args[5] != "-H" ||
             args[6] != "Accept: application/vnd.github+json" || args[7] != "-H" ||
