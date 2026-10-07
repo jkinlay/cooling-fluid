@@ -3,7 +3,7 @@ import json
 from pathlib import Path
 import unittest
 
-from run_cfd9_screen import constraint_result, identity_resolved, run, window_outcome
+from run_cfd9_screen import constraint_result, identity_resolved, run, safe_path, window_outcome
 
 FEAS = Path(__file__).resolve().parents[1] / "feasibility"
 RULES = json.loads((FEAS / "cfd7_application_screen_rules.json").read_text(encoding="utf-8"))
@@ -85,6 +85,17 @@ class RunTests(unittest.TestCase):
         data["candidates"][0]["normal_boiling_point"]["observation_ids"] = ["X1-0"]
         with self.assertRaises(ValueError):
             run(RULES, register(), data)
+
+    def test_inverted_cited_bounds_rejected_even_when_hidden(self):
+        data = dataset([(19, 11), (14, 15)])
+        with self.assertRaises(ValueError):
+            run(RULES, register(), data)
+
+    def test_summary_paths_are_repo_relative_or_basename(self):
+        repo = Path(__file__).resolve().parents[2]
+        self.assertEqual(safe_path(FEAS / "feasibility_table.json", repo), "docs/feasibility/feasibility_table.json")
+        outside = repo.parent / "elsewhere" / "input.json"
+        self.assertEqual(safe_path(outside, repo), "input.json")
 
     def test_unsupported_domain_rejected(self):
         reg = register()

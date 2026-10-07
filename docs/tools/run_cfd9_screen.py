@@ -71,6 +71,8 @@ def constraint_result(register: dict[str, Any], candidate: dict[str, Any], const
     highs = [_num(r.get("temperature_high_c")) for r in cited]
     if None in lows or None in highs:
         return {"evidence": "MISSING", "outcome": None}
+    if any(lo > hi for lo, hi in zip(lows, highs)):
+        raise ValueError("cited observation has inverted bounds")
     types = {r.get("evidence_type") for r in cited}
     if len(types) != 1:
         raise ValueError("cited observations mix evidence types")
@@ -141,6 +143,14 @@ def _inside_repo(path: Path, repo: Path) -> bool:
         return False
 
 
+def safe_path(path: Path, repo: Path) -> str:
+    """Repository-relative POSIX path for an in-repo input, else only the file name."""
+    try:
+        return path.resolve().relative_to(repo.resolve()).as_posix()
+    except ValueError:
+        return path.name
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--rules", type=Path, required=True)
@@ -157,15 +167,15 @@ def main() -> int:
     local = (json.dumps(records, indent=2, sort_keys=True) + "\n").encode("utf-8")
     args.local_output.parent.mkdir(parents=True, exist_ok=True)
     args.local_output.write_bytes(local)
-    summary["dataset_path"] = args.dataset.as_posix()
+    summary["dataset_path"] = safe_path(args.dataset, repo)
     summary["dataset_sha256"] = hashlib.sha256(raw_dataset).hexdigest()
     summary["local_evidence"] = {
         "per_candidate_records_sha256": hashlib.sha256(local).hexdigest(),
         "register_sha256": hashlib.sha256(raw_register).hexdigest(),
         "rules_sha256": hashlib.sha256(raw_rules).hexdigest(),
     }
-    summary["register_path"] = args.register.as_posix()
-    summary["rules_path"] = args.rules.as_posix()
+    summary["register_path"] = safe_path(args.register, repo)
+    summary["rules_path"] = safe_path(args.rules, repo)
     args.summary.write_text(json.dumps(summary, indent=2, sort_keys=True) + "\n", encoding="utf-8", newline="\n")
     return 0
 
