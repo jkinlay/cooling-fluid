@@ -52,7 +52,7 @@ def _has_numeric_limit(node: Any, step_entry: bool = False) -> bool:
     """True if any value is a number (or numeric text) under any field name.
 
     The only exemptions are the integer step number of an evaluation_order entry and the
-    top-level rules version label.
+    top-level rules version when it is a string label.
     """
     if isinstance(node, dict):
         for key, val in node.items():
@@ -83,7 +83,10 @@ def check_rules(rules: dict[str, Any]) -> list[str]:
         for s, (rule, key, status) in zip(steps, EXPECTED):
             if s.get(key) != status or ("on_fail" in s) == ("on_match" in s):
                 problems.append(f"outcome:{rule}")
-    if _has_numeric_limit({key: val for key, val in rules.items() if key != "version"}):
+    if not isinstance(rules.get("version"), str):
+        problems.append("version")
+    if _has_numeric_limit({key: val for key, val in rules.items()
+                           if not (key == "version" and isinstance(val, str))}):
         problems.append("numeric_limit")
     return problems
 

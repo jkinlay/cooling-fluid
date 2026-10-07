@@ -61,6 +61,15 @@ class RulesFileTests(unittest.TestCase):
         rules["evaluation_order"][0]["version"] = "2"
         self.assertIn("numeric_limit", check_rules(rules))
 
+    def test_non_string_version_not_exempt(self):
+        rules = copy.deepcopy(RULES)
+        rules["version"] = {"revision": 2, "limit": 100}
+        problems = check_rules(rules)
+        self.assertIn("version", problems)
+        self.assertIn("numeric_limit", problems)
+        rules["version"] = 2
+        self.assertIn("numeric_limit", check_rules(rules))
+
     def test_step_exemption_only_in_evaluation_order(self):
         rules = copy.deepcopy(RULES)
         rules["extra"] = {"step": 3}
