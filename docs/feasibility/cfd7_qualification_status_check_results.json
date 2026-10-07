@@ -1,0 +1,30 @@
+{
+  "candidates": 32,
+  "context_counts": {
+    "overall_profile_status_FAIL": 8,
+    "overall_profile_status_UNKNOWN": 24,
+    "permittivity_field_absent": 32
+  },
+  "dataset_path": "docs/feasibility/feasibility_table.json",
+  "dataset_sha256": "517bcee853ab0e0c2eb1018068f816409899ce12e52c1b0600013fae4d1f3ea1",
+  "policy": "Report-only. The dataset is not modified; counts only.",
+  "qualification_field_status_counts": {
+    "NOT_ASSESSED": 256
+  },
+  "rule_counts": {
+    "electrical_properties_distinct": {
+      "FAIL": 0,
+      "PASS": 32
+    },
+    "no_qualified_candidate": {
+      "FAIL": 0,
+      "PASS": 32
+    },
+    "unassessed_not_pass": {
+      "FAIL": 0,
+      "PASS": 32
+    }
+  },
+  "status": "PASS",
+  "summary_reports_zero_qualified": true
+}
