@@ -69,7 +69,7 @@
     {
       "entry_id": "SB-008",
       "kind": "NON_CLAIM",
-      "statement": "No Wolfram kernel or candidate-level Wolfram queries were executed for this release.",
+      "statement": "No Wolfram kernel or candidate-level Wolfram queries were executed for the original release.",
       "source": {
         "path": "docs/feasibility/README.md",
         "locator": "section: How much more can be retrieved?"
