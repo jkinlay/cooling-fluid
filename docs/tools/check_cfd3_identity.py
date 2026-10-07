@@ -139,7 +139,9 @@ def evaluate(dataset: dict[str, Any], csv_path: Path) -> dict[str, Any]:
             "source_records": len(sources),
         }
         for key, expected in expected_counts.items():
-            if key in summary and summary[key] != expected:
+            if key not in summary:
+                summary_findings.append(f"summary.{key} is missing, expected {expected}")
+            elif summary[key] != expected:
                 summary_findings.append(f"summary.{key} is {summary[key]!r}, expected {expected}")
     checks["summary_counts"] = _check("PASS" if not summary_findings else "FAIL", summary_findings)
 
