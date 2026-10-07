@@ -1,0 +1,61 @@
+{
+  "adopted_screening_constraints_by_profile": {
+    "SP_IMMERSION": 0,
+    "TP_DIRECT_CHIP": 0,
+    "TP_IMMERSION_F0": 1
+  },
+  "candidates": 32,
+  "dataset_path": "docs/feasibility/feasibility_table.json",
+  "dataset_sha256": "517bcee853ab0e0c2eb1018068f816409899ce12e52c1b0600013fae4d1f3ea1",
+  "deciding_rule_counts_by_profile": {
+    "SP_IMMERSION": {
+      "profile_gate": 32
+    },
+    "TP_DIRECT_CHIP": {
+      "profile_gate": 32
+    },
+    "TP_IMMERSION_F0": {
+      "all_measured_inside": 25,
+      "measured_hard_fail": 1,
+      "unresolved_constraint": 6
+    }
+  },
+  "evidence_label_counts": {
+    "SOURCE_REPORTED": 32
+  },
+  "local_evidence": {
+    "per_candidate_records_sha256": "59fd1225c414b291620c95f37ea69cc04036bdc3a79acd99f212379ad13c9a1c",
+    "register_sha256": "c0fb4e6695c654847c5aa6f858ec78783a19ace86a67970ce53dd7561b28d8e6",
+    "rules_sha256": "f68786a4860b4844e4f73b8855686949c6ea6a0490810ad3040dffae00d0020a"
+  },
+  "pairs": 96,
+  "policy": "Report-only CFD-9 screen. Dataset, register and rules are not modified. Counts only; per-candidate records are kept outside the repository.",
+  "profiles": 3,
+  "register_path": "docs/feasibility/acceptability_register.json",
+  "rules_path": "docs/feasibility/cfd7_application_screen_rules.json",
+  "rules_version": "1",
+  "status": "PASS",
+  "status_counts_by_profile": {
+    "SP_IMMERSION": {
+      "DEFERRED_PREDICTED_FAIL": 0,
+      "EXCLUDED_MEASURED_HARD_FAIL": 0,
+      "SCREEN_NOT_READY": 32,
+      "SURVIVES_SCREEN": 0,
+      "UNKNOWN": 0
+    },
+    "TP_DIRECT_CHIP": {
+      "DEFERRED_PREDICTED_FAIL": 0,
+      "EXCLUDED_MEASURED_HARD_FAIL": 0,
+      "SCREEN_NOT_READY": 32,
+      "SURVIVES_SCREEN": 0,
+      "UNKNOWN": 0
+    },
+    "TP_IMMERSION_F0": {
+      "DEFERRED_PREDICTED_FAIL": 0,
+      "EXCLUDED_MEASURED_HARD_FAIL": 1,
+      "SCREEN_NOT_READY": 0,
+      "SURVIVES_SCREEN": 25,
+      "UNKNOWN": 6
+    }
+  }
+}
