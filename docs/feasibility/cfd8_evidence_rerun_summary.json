@@ -1,0 +1,38 @@
+{
+  "jobs": 13,
+  "local_evidence": {
+    "Cooling_Fluid_Candidate_Table_xlsx_sha256": "888fa3d843d8b05c34f031dd0843b81dbee2f74a9fe991a7c5df828ab9d56fb2",
+    "acceptability_register_json_sha256": "c0fb4e6695c654847c5aa6f858ec78783a19ace86a67970ce53dd7561b28d8e6",
+    "cfd3_boundary_register_check_results_json_sha256": "bb217b0acbea21fdc9e43206414f2b72b85388383b4c92cfed76c5e928c311c4",
+    "cfd3_csv_json_check_results_json_sha256": "d30d705a8f995d43893bfa11a724585be1487b1d63f3498e8c892edc1676b12e",
+    "cfd3_discrepancy_log_json_sha256": "d244dd127224767a2fb950f037c604b59c6ff5248358b0be91bb0b26cdab7428",
+    "cfd3_identity_check_results_json_sha256": "26046aad42e49ce7b1889ad93e8603e37b8a559feddeeb761fd497d8ed789776",
+    "cfd3_observation_check_results_json_sha256": "dd3dce5b8e89e9150f86f59e25823204574c1148460e1cb35498ca13d5517cd0",
+    "cfd3_source_check_results_json_sha256": "56dc4f9bd7f856b7776fd94f18dd29cab25b92e6bd6ec0f89fdcd041154994df",
+    "cfd3_workbook_check_results_json_sha256": "75aecfa4bbd0bce3cab8a58017c68d02a2d2acd599c5985a997bf98e6b0cabb9",
+    "cfd5_boiling_screen_check_results_json_sha256": "da30fcbf74c65e6fadb02133499d0d89b592ea64460f7e95466cef8897cff994",
+    "cfd6_fire_evidence_rules_check_results_json_sha256": "479d147fe5b19e04a4bb5ba17fdc433a6d8bb110c000463a476eaf227f62ba10",
+    "cfd7_application_screen_check_results_json_sha256": "aa9d3b1396aca2577c4a0ab43fc42f5944dbfaca9d427a2dc4f8b4e6cce7dee5",
+    "cfd7_application_screen_rules_json_sha256": "f68786a4860b4844e4f73b8855686949c6ea6a0490810ad3040dffae00d0020a",
+    "cfd7_qualification_status_check_results_json_sha256": "84ede517e630abe1ff5c55b2b92f2f922d310186223c740f7d9900802a53bd1a",
+    "cfd8_decision_traceability_check_results_json_sha256": "9041d93b5bc0e921c86f2336105de33959bc7e138fdb7f6b124a26a6eff45bd9",
+    "feasibility_table_csv_sha256": "afb26c1f0047c5d8b176c70a1e152beadf73ba8d8fbdc8ae5399a62b26da3363",
+    "feasibility_table_json_sha256": "517bcee853ab0e0c2eb1018068f816409899ce12e52c1b0600013fae4d1f3ea1",
+    "search_boundary_register_json_sha256": "5ff841b6860be90aa29fa80d55d4ad2ff4a627d45f214f2bcae5eabc993d29f2",
+    "study_control_case_results_json_sha256": "ed347cbb9e2f591ae67f4ce1520c7b3a8dce08bd730ecd5d940e7423b9140555",
+    "study_control_cases_json_sha256": "4ea880c74d62cf4ae2a4b4c55adf23d9c8bbe112ce70fba777fc74a67a0bb0d1",
+    "study_control_json_sha256": "0f7bf49c9185d6d48f885c7edcf6baf8ad38cc21f91640e51f36d02d68099987"
+  },
+  "policy": "Report-only. Committed inputs and results are not modified; counts and digests only.",
+  "python_version": {
+    "major": 3,
+    "micro": 3,
+    "minor": 11
+  },
+  "result_counts": {
+    "differs": 0,
+    "error": 0,
+    "reproduced": 13
+  },
+  "status": "PASS"
+}
