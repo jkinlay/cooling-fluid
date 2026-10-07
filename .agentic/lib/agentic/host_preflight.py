@@ -4,10 +4,14 @@ Each row is PASS, WARN, SKIP or N_A with a remedy line. Rows are observations
 of this host; they grant nothing and are recorded in the adoption PR.
 """
 from __future__ import annotations
+import configparser
 import os
 from pathlib import Path
 import subprocess
 import tempfile
+import tomllib
+
+from .child_process import child_env
 
 PATH_WARN_LENGTH = 180
 MANAGED_PATHS = ("/.agentic/**", "/AGENTS.md", "/.github/PULL_REQUEST_TEMPLATE.md")
@@ -20,13 +24,13 @@ def row(check, status, detail, remedy=""):
 def run(args, cwd=None):
     """Trusted-host executables only: never a file inside the checkout or a script wrapper."""
     from . import ValidationError
-    from .adoption_status import host_executable
+    from .providers.github_status import host_executable
     try:
         executable = host_executable(args[0], Path(cwd or os.getcwd()))
         env = {key: value for key, value in os.environ.items() if not key.upper().startswith("GIT_")}
         env.update(GIT_TERMINAL_PROMPT="0", GIT_OPTIONAL_LOCKS="0")
         result = subprocess.run([executable, *args[1:]], capture_output=True, text=True, timeout=30, cwd=cwd,
-                                env=env, stdin=subprocess.DEVNULL)
+                                env=child_env(env), stdin=subprocess.DEVNULL)
     except (OSError, subprocess.SubprocessError, ValidationError) as exc:
         return None, f"{type(exc).__name__}: {exc}"
     return result.returncode, (result.stdout or result.stderr).strip()
@@ -64,6 +68,61 @@ def symlink_privilege():
         return "WARN", f"symlink probe failed: {type(exc).__name__}", "Inspect filesystem permissions."
 
 
+def _excludes_agentic(value):
+    if isinstance(value, str):
+        values = [item.strip() for item in value.replace("\n", ",").split(",")]
+    elif isinstance(value, list) and all(isinstance(item, str) for item in value):
+        values = value
+    else:
+        return False
+    for item in values:
+        normalized = item.strip().replace("\\", "/").removeprefix("./").rstrip("/")
+        if normalized == ".agentic" or normalized.startswith(".agentic/"):
+            return True
+    return False
+
+
+def project_lint_scope(root):
+    """Report whether project-owned lint configuration excludes managed files."""
+    root = Path(root)
+    configured = []
+    pyproject = root / "pyproject.toml"
+    if pyproject.is_file():
+        try:
+            tool = tomllib.loads(pyproject.read_text(encoding="utf-8")).get("tool", {})
+            ruff = tool.get("ruff") if isinstance(tool, dict) else None
+            if isinstance(ruff, dict):
+                excluded = _excludes_agentic(ruff.get("exclude")) or _excludes_agentic(ruff.get("extend-exclude"))
+                configured.append(("ruff", excluded, None))
+        except (OSError, UnicodeError, tomllib.TOMLDecodeError) as exc:
+            if "[tool.ruff" in pyproject.read_text(encoding="utf-8", errors="replace"):
+                configured.append(("ruff", False, f"unreadable configuration ({type(exc).__name__})"))
+    for name in ("setup.cfg", ".flake8"):
+        path = root / name
+        if not path.is_file():
+            continue
+        parser = configparser.ConfigParser(interpolation=None)
+        try:
+            parser.read(path, encoding="utf-8")
+            section = next((item for item in parser.sections() if item.lower() == "flake8"), None)
+            if section:
+                excluded = _excludes_agentic(parser.get(section, "exclude", fallback=None)) or _excludes_agentic(parser.get(section, "extend-exclude", fallback=None))
+                configured.append((f"flake8 ({name})", excluded, None))
+        except (OSError, UnicodeError, configparser.Error) as exc:
+            if "[flake8" in path.read_text(encoding="utf-8", errors="replace").lower():
+                configured.append((f"flake8 ({name})", False, f"unreadable configuration ({type(exc).__name__})"))
+    if not configured:
+        return row("project_lint_scope", "N_A", "no root Ruff or flake8 configuration found", "")
+    missing = [name for name, excluded, _ in configured if not excluded]
+    detail = "; ".join(f"{name}: {error or ('excludes .agentic' if excluded else 'does not exclude .agentic')}"
+                       for name, excluded, error in configured)
+    if missing:
+        remedy = ('Add `extend-exclude = [".agentic"]` under `[tool.ruff]` for Ruff, '
+                  'or `extend-exclude = .agentic` under `[flake8]` for flake8.')
+        return row("project_lint_scope", "WARN", detail, remedy)
+    return row("project_lint_scope", "PASS", detail, "")
+
+
 def preflight(root, *, platform=None):
     root = Path(root)
     windows = (platform or os.name) == "nt"
@@ -71,6 +130,7 @@ def preflight(root, *, platform=None):
     depth = len(str(root.resolve()))
     rows.append(row("checkout_path_length", "WARN" if depth > PATH_WARN_LENGTH else "PASS",
                     f"{depth} characters", "Relocate the checkout below a shorter path; nested evidence copies exceeded 260 characters on PR #11." if depth > PATH_WARN_LENGTH else ""))
+    rows.append(project_lint_scope(root))
     if windows:
         longpaths = git_config(root, "core.longpaths")
         rows.append(row("core.longpaths", "PASS" if longpaths == "true" else "WARN", f"core.longpaths={longpaths or 'unset'}",

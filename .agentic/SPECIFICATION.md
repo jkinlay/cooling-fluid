@@ -1,6 +1,6 @@
 # AWF specification
 
-Version 1.9.1. Host/provider controls apply. Agentic Workflow Framework maintainers; Apache-2.0; dependencies retain licences.
+Version 1.9.2. Host/provider controls apply. Agentic Workflow Framework maintainers; Apache-2.0; dependencies retain licences.
 
 ## Authority and modes
 
@@ -18,7 +18,7 @@ Workers evidence every criterion and the closure standard; independent critics i
 
 Closed revision-3 [schemas](schemas/) and the [evaluator](lib/agentic/gates.py) define records/thirteen gates. [Canonicalization](lib/agentic/canonical.py) rejects ambiguity. Complete wrappers and extract records. Follow the [lifecycle table](docs/23-TICKET-LIFECYCLE.md) and [machine definition](workflow.yaml); [state](lib/agentic/store.py) provides CAS, leases, idempotency and audit, not dispatch.
 
-Worker COMPLETE requires scoped branch publication and a draft PR (`branch_pushed`, `pr_exists`) before review handoff. Current validation/requirements and observed `draft_cleared` permit READY_FOR_CRITIC; critics review the observed PR head. READY_FOR_OWNER_AUTHORIZATION requires critic, applicable specialists and final gate. Conditional routine publication needs accepted repository/default/feature-ref identity plus fresh live APPLIED rules evidence; presentation grants no authority and overrides no platform, scope, secret or adapter prerequisite.
+Worker COMPLETE requires scoped branch publication and a draft PR (`branch_pushed`, `pr_exists`) before review handoff. A worker sandbox denied Git-metadata writes may return a validated uncommitted tree through the documented publisher route; the publisher makes no content edits and verifies the committed tree equals the tested tree. Current validation/requirements and observed `draft_cleared` permit READY_FOR_CRITIC; critics review the observed PR head. READY_FOR_OWNER_AUTHORIZATION requires critic, applicable specialists and final gate. Conditional routine publication needs accepted repository/default/feature-ref identity plus fresh live APPLIED rules evidence; presentation grants no authority and overrides no platform, scope, secret or adapter prerequisite.
 
 The controller is the sole Jira writer, mirroring the lifecycle: WORKER_STARTED → `in_progress`, PR_READY → `in_review`, owner changes → `in_progress`, observed merge → `done` with a closing comment naming PR, head and merge commit. BLOCK/PARK never write; owner-closure tickets stay In Review; Epics are never targets. Read before/after each write; on mismatch/unknown retain observed status/actor/time, stop that ticket's writes, report a suspected external automation conflict, never reissue. Disabled Jira permits no writes.
 
@@ -28,7 +28,7 @@ The controller is the sole Jira writer, mirroring the lifecycle: WORKER_STARTED 
 
 ## Budgets and recovery
 
-Use one protected ledger outside workers. Reserve before runs; enforce host bounds; settle observed identity/usage/outcome. Unknown usage is not zero. Preserve floors/pins/allowlists/ceilings. Shadow proposals cannot rewrite policy or prove quality.
+Use one protected ledger outside workers. Reserve before runs; enforce host bounds; settle observed identity/usage/outcome. Token-only hosts may use null reservation/actual cost only when every effective monetary ceiling is null; any integer ceiling retains verified cost requirements. Unknown usage is not zero. Preserve floors/pins/allowlists/ceilings. Shadow proposals cannot rewrite policy or prove quality.
 
 Reconciliation requires human-enabled policy; operator assertions cannot authenticate source or prove termination. Preserve orphan charges, known overruns and append-only audit. Ticket-wide reconciled-incident retries default to two across policy changes; exhaustion blocks admission, not closure. Never reset capacity or blindly retry unknown side effects.
 
@@ -44,6 +44,6 @@ Adoption prepares a draft PR without rule preconditions. Explain the governance-
 
 INSTALLED is receipt-consistent bytes; CONFIGURED adds accepted adoption policy, neither independent release provenance. Bootstrap must execute isolated installed verification/validation: exit 0, integrity_valid=true/status=ACCEPTED, bound digests; host preflight rows never block. Status recomputes checks, not prior child execution. Only `workflow.py status` with independent release trust, observed receipt-changing adoption merge and accepted raw AWF/configuration/receipt/provenance bytes on the fresh default branch establishes ACTIVE; unrelated product edits may coexist. Receipt/branch/status assertions alone cannot; unverified acceptance stays CONFIGURED; ACTIVE activates no adapters.
 
-Live external review, scheduling and secret-repository pushes require observed rules and mode qualification; live execution needs configured CI/trusted owners. Restricted pushes need owner publication or observed rules; local adoption proceeds without invented PRs ([adoption](docs/20-NEW-PROJECT-SETUP.md)). The [external engine](docs/28-EXTERNAL-REVIEW.md) requires project qualification.
+Live Codex review, scheduling and secret-repository pushes require observed rules and qualification; live execution needs configured CI/trusted owners. Restricted pushes need owner publication or rules; local adoption proceeds without invented PRs ([adoption](docs/20-NEW-PROJECT-SETUP.md)). The [Codex review host](docs/28-EXTERNAL-REVIEW.md) requires project qualification.
 
 Continue authorized work; report results/constraints/next actions. Finish on completion, cancellation or no authorized step; name the required event. See [native coordination](docs/24-STREAM-STARTUP.md), [routing](docs/27-MODEL-ROUTING.md) and [scheduled review](docs/22-AUTOMATED-REVIEW-LOOP.md).

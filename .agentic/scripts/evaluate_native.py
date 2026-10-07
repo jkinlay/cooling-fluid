@@ -15,10 +15,12 @@ import tempfile
 import time
 
 sys.dont_write_bytecode = True
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "lib"))
 from benchmark_native import (BenchmarkError, MAX_BYTES, ROOT, ROLES, encoded, grade, parse, pin,
                               read, require, response_contract_errors, sha, validate_packet_contract, write_new,
                               validate_measurement_rubric, measure_routine_response)
 from routine_decisions import routine_input_errors
+from agentic.child_process import child_env
 
 MAX_CASES = 3
 MAX_SECONDS = 600
@@ -26,6 +28,20 @@ MAX_SECONDS = 600
 
 class InvalidResponse(BenchmarkError):
     """Completed invocation with observed usage, but unusable structured decisions."""
+
+
+def external_temp_parent():
+    """Keep model working directories outside the release even when test TMP is local."""
+    configured = Path(tempfile.gettempdir()).resolve()
+    candidates = [configured]
+    if os.name == 'nt' and os.environ.get('LOCALAPPDATA'):
+        candidates.append((Path(os.environ['LOCALAPPDATA']) / 'Temp').resolve())
+    else:
+        candidates.append(Path('/tmp').resolve())
+    for candidate in candidates:
+        if candidate.is_dir() and not candidate.is_relative_to(ROOT.resolve()):
+            return candidate
+    raise BenchmarkError('No temporary directory outside the release is available')
 
 
 def usage_errors(usage):
@@ -127,9 +143,11 @@ def completed_event_accounting(raw):
 def execute_case(executable, case, packet, model, effort, seconds, destination, attempt_state=None, *, retain_unqualified=False):
     # The fresh cwd contains only the response schema. Neither source tree,
     # fixture file paths nor grader/rubric are disclosed to the model.
-    with tempfile.TemporaryDirectory(prefix="awf-model-case-") as temporary:
+    with tempfile.TemporaryDirectory(prefix="awf-model-case-", dir=external_temp_parent()) as temporary:
         cwd = Path(temporary).resolve()
-        require(not cwd.is_relative_to(ROOT.resolve()), "Use a temporary directory outside the release")
+        scratch = (ROOT / '.tmp-tests').resolve()
+        inside_release = cwd.is_relative_to(ROOT.resolve()) and not cwd.is_relative_to(scratch)
+        require(not inside_release, "Use a temporary directory outside the release")
         schema = cwd / "response.schema.json"
         schema.write_bytes(encoded(response_schema(packet)))
         result_file = cwd / "response.json"
@@ -151,7 +169,8 @@ def execute_case(executable, case, packet, model, effort, seconds, destination, 
         environment = {key: value for key, value in os.environ.items() if key.upper() in allowed}
         started = time.monotonic()
         with (destination / "events.jsonl").open("xb") as out, (destination / "stderr.txt").open("xb") as err:
-            process = subprocess.Popen(command, cwd=cwd, env=environment, stdin=subprocess.PIPE, stdout=out, stderr=err)
+            process = subprocess.Popen(command, cwd=cwd, env=child_env(environment), stdin=subprocess.PIPE,
+                                       stdout=out, stderr=err)
             if attempt_state is not None:
                 attempt_state["attempted"] = True
             try:
@@ -223,8 +242,11 @@ def main(argv=None):
     try:
         require(1 <= args.case_timeout <= 180, "Per-case deadline must be 1..180 seconds")
         require(args.output.is_absolute() and not args.output.exists(), "Output must be a new absolute directory")
+        scratch = (ROOT / '.tmp-tests').resolve()
         for path in (args.packet, args.rubric, args.codex, args.output):
-            require(path.is_absolute() and not path.resolve().is_relative_to(ROOT.resolve()), "Evaluation inputs/executable/output must be outside the release tree")
+            resolved = path.resolve()
+            inside_release = resolved.is_relative_to(ROOT.resolve()) and not resolved.is_relative_to(scratch)
+            require(path.is_absolute() and not inside_release, "Evaluation inputs/executable/output must be outside the release tree")
         require(args.codex.suffix.lower() not in (".cmd", ".bat", ".ps1", ".sh") and args.codex.is_file(), "Pin a native Codex executable")
         packet_raw, rubric_raw = read(args.packet), read(args.rubric)
         pin(packet_raw, args.expected_packet_sha256, "packet")
@@ -249,7 +271,9 @@ def main(argv=None):
                 'Measurement rubric and exact pin must be supplied together')
         if args.measurement_rubric:
             require(visibility == 'external_public_routine', 'Routine measurement cannot relabel held-out evaluation')
-            require(args.measurement_rubric.is_absolute() and not args.measurement_rubric.resolve().is_relative_to(ROOT.resolve()),
+            measurement = args.measurement_rubric.resolve()
+            measurement_inside_release = measurement.is_relative_to(ROOT.resolve()) and not measurement.is_relative_to(scratch)
+            require(args.measurement_rubric.is_absolute() and not measurement_inside_release,
                     'Measurement rubric must be external to the release tree')
             measurement_raw = read(args.measurement_rubric)
             pin(measurement_raw, args.expected_measurement_rubric_sha256, 'measurement rubric')

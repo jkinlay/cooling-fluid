@@ -6,3 +6,8 @@
 
 # Local installer lock, never versioned.
 .agentic-install/lock
+# AWF operating recovery files are local; changes/ is versioned audit evidence.
+.agentic-state/**/lock
+.agentic-state/operating/pending.json
+*.awf-operating-*.tmp
+.awf-*.tmp
