@@ -1,0 +1,95 @@
+{
+  "candidates": {
+    "cas_matches_published": 32,
+    "identity_binding_agrees_with_audit": 32,
+    "in_published_dataset": 32,
+    "quarantined_for_identity_bound_comparison": 1,
+    "total": 32
+  },
+  "cells": {
+    "FAIL": 0,
+    "PASS": 288,
+    "UNRESOLVED": 0,
+    "concepts": 9,
+    "total": 288,
+    "unresolved_reasons": {}
+  },
+  "dataset_sha256": "517bcee853ab0e0c2eb1018068f816409899ce12e52c1b0600013fae4d1f3ea1",
+  "policy": "Counts and statuses only. Every cell of the locally captured property-coverage matrix was rebuilt from the captured raw record it cites; no live lookups. Per-record output is retained locally and not published. Coverage states describe query results only; they are not values, provenance, measurements or qualification.",
+  "record_type": "cfd4_coverage_matrix_reproduction_summary",
+  "research_inputs_unchanged": true,
+  "run_date": "2026-10-07",
+  "state_counts": {
+    "FAILED": 0,
+    "MISSING": 104,
+    "RETURNED": 152,
+    "UNEVALUATED": 0,
+    "UNSUPPORTED_PROPERTY_NAME": 32
+  },
+  "state_counts_by_concept": {
+    "BoilingPoint": {
+      "FAILED": 0,
+      "MISSING": 0,
+      "RETURNED": 32,
+      "UNEVALUATED": 0,
+      "UNSUPPORTED_PROPERTY_NAME": 0
+    },
+    "Density": {
+      "FAILED": 0,
+      "MISSING": 0,
+      "RETURNED": 32,
+      "UNEVALUATED": 0,
+      "UNSUPPORTED_PROPERTY_NAME": 0
+    },
+    "DielectricConstant": {
+      "FAILED": 0,
+      "MISSING": 29,
+      "RETURNED": 3,
+      "UNEVALUATED": 0,
+      "UNSUPPORTED_PROPERTY_NAME": 0
+    },
+    "HeatCapacity": {
+      "FAILED": 0,
+      "MISSING": 0,
+      "RETURNED": 0,
+      "UNEVALUATED": 0,
+      "UNSUPPORTED_PROPERTY_NAME": 32
+    },
+    "Resistivity": {
+      "FAILED": 0,
+      "MISSING": 32,
+      "RETURNED": 0,
+      "UNEVALUATED": 0,
+      "UNSUPPORTED_PROPERTY_NAME": 0
+    },
+    "ThermalConductivity": {
+      "FAILED": 0,
+      "MISSING": 22,
+      "RETURNED": 10,
+      "UNEVALUATED": 0,
+      "UNSUPPORTED_PROPERTY_NAME": 0
+    },
+    "VaporPressure": {
+      "FAILED": 0,
+      "MISSING": 3,
+      "RETURNED": 29,
+      "UNEVALUATED": 0,
+      "UNSUPPORTED_PROPERTY_NAME": 0
+    },
+    "VaporizationHeat": {
+      "FAILED": 0,
+      "MISSING": 6,
+      "RETURNED": 26,
+      "UNEVALUATED": 0,
+      "UNSUPPORTED_PROPERTY_NAME": 0
+    },
+    "Viscosity": {
+      "FAILED": 0,
+      "MISSING": 12,
+      "RETURNED": 20,
+      "UNEVALUATED": 0,
+      "UNSUPPORTED_PROPERTY_NAME": 0
+    }
+  },
+  "status": "COMPLETE"
+}
