@@ -1,0 +1,117 @@
+{
+  "boiling_point_family": {
+    "candidates_with_supplier_government_outside_normal_envelope": 0,
+    "note_key": "supplier_government_numeric_values_absent"
+  },
+  "input_path": "docs/feasibility/feasibility_table.json",
+  "input_sha256": "517bcee853ab0e0c2eb1018068f816409899ce12e52c1b0600013fae4d1f3ea1",
+  "per_property": {
+    "fire_description": {
+      "consistent": 0,
+      "groups_total": 3,
+      "non_overlapping": 0,
+      "single_or_none": 3,
+      "spread_buckets": {
+        "1-5C": 0,
+        "5-20C": 0,
+        "<=1C": 0,
+        ">20C": 0
+      },
+      "text_only_rows": 3
+    },
+    "flash_point": {
+      "consistent": 0,
+      "groups_total": 30,
+      "non_overlapping": 3,
+      "single_or_none": 27,
+      "spread_buckets": {
+        "1-5C": 1,
+        "5-20C": 2,
+        "<=1C": 0,
+        ">20C": 0
+      },
+      "text_only_rows": 1
+    },
+    "government_boiling_point": {
+      "consistent": 0,
+      "groups_total": 4,
+      "non_overlapping": 0,
+      "single_or_none": 4,
+      "spread_buckets": {
+        "1-5C": 0,
+        "5-20C": 0,
+        "<=1C": 0,
+        ">20C": 0
+      },
+      "text_only_rows": 4
+    },
+    "hazard_classification": {
+      "consistent": 0,
+      "groups_total": 23,
+      "non_overlapping": 0,
+      "single_or_none": 23,
+      "spread_buckets": {
+        "1-5C": 0,
+        "5-20C": 0,
+        "<=1C": 0,
+        ">20C": 0
+      },
+      "text_only_rows": 23
+    },
+    "hazard_codes": {
+      "consistent": 0,
+      "groups_total": 27,
+      "non_overlapping": 0,
+      "single_or_none": 27,
+      "spread_buckets": {
+        "1-5C": 0,
+        "5-20C": 0,
+        "<=1C": 0,
+        ">20C": 0
+      },
+      "text_only_rows": 27
+    },
+    "normal_boiling_point": {
+      "consistent": 4,
+      "groups_total": 32,
+      "non_overlapping": 3,
+      "single_or_none": 25,
+      "spread_buckets": {
+        "1-5C": 2,
+        "5-20C": 0,
+        "<=1C": 0,
+        ">20C": 1
+      },
+      "text_only_rows": 0
+    },
+    "supplier_boiling_point": {
+      "consistent": 0,
+      "groups_total": 25,
+      "non_overlapping": 0,
+      "single_or_none": 25,
+      "spread_buckets": {
+        "1-5C": 0,
+        "5-20C": 0,
+        "<=1C": 0,
+        ">20C": 0
+      },
+      "text_only_rows": 25
+    }
+  },
+  "policy": "Report-only. Raw observations are not modified, averaged or discarded.",
+  "status": "INFO",
+  "structural_problem_counts": {},
+  "totals": {
+    "consistent": 4,
+    "groups_total": 144,
+    "non_overlapping": 6,
+    "single_or_none": 134,
+    "spread_buckets": {
+      "1-5C": 3,
+      "5-20C": 2,
+      "<=1C": 0,
+      ">20C": 1
+    },
+    "text_only_rows": 83
+  }
+}
