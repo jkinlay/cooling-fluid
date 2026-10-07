@@ -10,8 +10,8 @@ Rules (per candidate result: normal_boiling_point and flash_point):
                                  one cited observation.
   missing_not_value            - a result that cites no observation carries no value (missing stays
                                  UNKNOWN, never a number).
-  missing_not_zero             - no observation numeric field is zero unless its reported text
-                                 contains a zero.
+  missing_not_zero             - no observation numeric field (including reported_plus_minus) is
+                                 zero unless its reported text contains a zero.
 Context (not a failure): results citing more than one observation from the same source, which must
 not be read as independent corroboration; independent sources are counted per distinct source_id.
 Output is aggregate-only: no candidate, source, name, CAS or measurement values.
@@ -31,7 +31,7 @@ POLICY = "Report-only. The dataset is not modified; counts only."
 RULES = ("result_traces_to_observation", "no_isomer_swap", "property_matches_field",
          "celsius_consistent", "missing_not_value", "missing_not_zero")
 FIELDS = ("normal_boiling_point", "flash_point")
-NUMERIC_FIELDS = ("value", "low", "high", "temperature_low_c", "temperature_high_c")
+NUMERIC_FIELDS = ("value", "low", "high", "reported_plus_minus", "temperature_low_c", "temperature_high_c")
 TOLERANCE_C = 0.01
 ZERO_TEXT = re.compile(r"(?<![\d.])[-+]?0+(?:\.0*)?(?![\d.])")
 

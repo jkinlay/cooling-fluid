@@ -75,6 +75,11 @@ class TraceabilityTests(unittest.TestCase):
         data["observations"][2].update({"value": 0, "low": 0, "temperature_low_c": 0, "reported_value": "not stated"})
         self.assertEqual(fails(data, "missing_not_zero"), 1)
 
+    def test_zero_uncertainty_without_text_fails(self):
+        data = dataset()
+        data["observations"][0]["reported_plus_minus"] = 0
+        self.assertEqual(fails(data, "missing_not_zero"), 1)
+
     def test_reported_zero_is_allowed(self):
         data = dataset()
         data["observations"][2].update({"value": 0, "low": 0, "high": 0, "temperature_low_c": 0,
