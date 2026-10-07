@@ -113,6 +113,23 @@ class ScreenTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             screen_candidate(True, True, ["a"], {"a": res("MEASURED", "INSIDE"), "z": res("MEASURED", "INSIDE")})
 
+    def test_readiness_reason_preserved(self):
+        reg = register(adopted=False)
+        readiness = profile_ready(reg, reg["profiles"][0])
+        self.assertEqual(screen_candidate(readiness, True, [], {}), ("SCREEN_NOT_READY", "adopted_constraints_only"))
+        reg = register(ready=False)
+        readiness = profile_ready(reg, reg["profiles"][0])
+        self.assertEqual(screen_candidate(readiness, True, ["a"], {}), ("SCREEN_NOT_READY", "profile_gate"))
+
+    def test_ready_tuple_screens(self):
+        reg = register()
+        readiness = profile_ready(reg, reg["profiles"][0])
+        self.assertEqual(screen_candidate(readiness, True, ["a"], {"a": res("MEASURED", "INSIDE")}), ("SURVIVES_SCREEN", "all_measured_inside"))
+
+    def test_unknown_readiness_reason_rejected(self):
+        with self.assertRaises(ValueError):
+            screen_candidate((False, "identity_gate"), True, ["a"], {})
+
     def test_identity_gate_before_label_validation(self):
         self.assertEqual(screen(True, False, res("ESTIMATED", "INSIDE")), ("UNKNOWN", "identity_gate"))
 

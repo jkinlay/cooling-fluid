@@ -82,16 +82,26 @@ def profile_ready(register: dict[str, Any], profile: dict[str, Any]) -> tuple[bo
     return True, ""
 
 
-def screen_candidate(ready: bool, identity_resolved: bool, adopted_keys: list[str],
+READINESS_RULES = ("profile_gate", "adopted_constraints_only")
+
+
+def screen_candidate(ready: bool | tuple[bool, str], identity_resolved: bool, adopted_keys: list[str],
                      results: dict[str, dict[str, str]]) -> tuple[str, str]:
     """Return (status, deciding rule) for one candidate under one profile.
 
+    ready is a bool or the (ok, rule) tuple from profile_ready(); with the tuple, a not-ready result
+    reports the readiness rule that failed.
     adopted_keys lists every adopted screening constraint of the profile; results maps those keys to
     evidence/outcome labels. An adopted constraint with no result counts as MISSING evidence, and a
     result for a constraint that is not adopted is rejected.
     """
+    reason = "profile_gate"
+    if isinstance(ready, tuple):
+        ready, reason = ready
+        if not ready and reason not in READINESS_RULES:
+            raise ValueError("readiness reason must name a readiness rule")
     if not ready:
-        return "SCREEN_NOT_READY", "profile_gate"
+        return "SCREEN_NOT_READY", reason
     if not adopted_keys:
         return "SCREEN_NOT_READY", "adopted_constraints_only"
     if len(set(adopted_keys)) != len(adopted_keys):
