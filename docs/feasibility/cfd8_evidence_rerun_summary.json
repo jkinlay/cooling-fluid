@@ -3,7 +3,7 @@
   "local_evidence": {
     "Cooling_Fluid_Candidate_Table_xlsx_sha256": "888fa3d843d8b05c34f031dd0843b81dbee2f74a9fe991a7c5df828ab9d56fb2",
     "acceptability_register_json_sha256": "c0fb4e6695c654847c5aa6f858ec78783a19ace86a67970ce53dd7561b28d8e6",
-    "cfd3_boundary_register_check_results_json_sha256": "bb217b0acbea21fdc9e43206414f2b72b85388383b4c92cfed76c5e928c311c4",
+    "cfd3_boundary_register_check_results_json_sha256": "371a767af41aadd2be98bab47be5da134b0ae221f48232b2e0b1162555034e2b",
     "cfd3_csv_json_check_results_json_sha256": "d30d705a8f995d43893bfa11a724585be1487b1d63f3498e8c892edc1676b12e",
     "cfd3_discrepancy_log_json_sha256": "d244dd127224767a2fb950f037c604b59c6ff5248358b0be91bb0b26cdab7428",
     "cfd3_identity_check_results_json_sha256": "26046aad42e49ce7b1889ad93e8603e37b8a559feddeeb761fd497d8ed789776",
