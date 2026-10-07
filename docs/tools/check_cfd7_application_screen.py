@@ -15,6 +15,7 @@ import argparse
 from collections import Counter
 import hashlib
 import json
+import re
 from pathlib import Path
 from typing import Any
 
@@ -34,15 +35,34 @@ EVIDENCE = {"MEASURED", "PREDICTED", "MISSING"}
 OUTCOMES = {"INSIDE", "OUTSIDE", "OVERLAP", "CONFLICT"}
 # Project specification profile states; RESEARCH_DRAFT is never screened.
 SCREENABLE_STATES = {"RESEARCH_FROZEN", "CAMPAIGN_READY", "QUALIFICATION_READY"}
-NUMERIC_KEYS = {"min", "max", "value", "limit", "threshold"}
 
 
-def _has_numeric_limit(node: Any) -> bool:
+_NUMBER_TEXT = re.compile(r"\s*[-+]?(\d+(\.\d*)?|\.\d+)([eE][-+]?\d+)?\s*")
+
+
+def _is_number(val: Any) -> bool:
+    if isinstance(val, bool):
+        return False
+    if isinstance(val, (int, float)):
+        return True
+    return isinstance(val, str) and _NUMBER_TEXT.fullmatch(val) is not None
+
+
+def _has_numeric_limit(node: Any, step_entry: bool = False) -> bool:
+    """True if any value is a number (or numeric text) under any field name.
+
+    The only exemptions are the integer step number of an evaluation_order entry and the
+    top-level rules version label.
+    """
     if isinstance(node, dict):
-        return any((key in NUMERIC_KEYS and isinstance(val, (int, float)) and not isinstance(val, bool))
-                   or _has_numeric_limit(val) for key, val in node.items() if key != "step")
+        for key, val in node.items():
+            if step_entry and key == "step" and isinstance(val, int) and not isinstance(val, bool):
+                continue
+            if _is_number(val) or _has_numeric_limit(val, step_entry=(key == "evaluation_order")):
+                return True
+        return False
     if isinstance(node, list):
-        return any(_has_numeric_limit(item) for item in node)
+        return any(_is_number(item) or _has_numeric_limit(item, step_entry=step_entry) for item in node)
     return False
 
 
@@ -63,7 +83,7 @@ def check_rules(rules: dict[str, Any]) -> list[str]:
         for s, (rule, key, status) in zip(steps, EXPECTED):
             if s.get(key) != status or ("on_fail" in s) == ("on_match" in s):
                 problems.append(f"outcome:{rule}")
-    if _has_numeric_limit(rules):
+    if _has_numeric_limit({key: val for key, val in rules.items() if key != "version"}):
         problems.append("numeric_limit")
     return problems
 
