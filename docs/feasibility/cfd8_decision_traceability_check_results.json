@@ -1,0 +1,38 @@
+{
+  "candidates": 32,
+  "context_counts": {
+    "flash_point_results_citing_no_observation": 3,
+    "normal_boiling_point_results_with_repeated_source": 7
+  },
+  "dataset_path": "docs/feasibility/feasibility_table.json",
+  "dataset_sha256": "517bcee853ab0e0c2eb1018068f816409899ce12e52c1b0600013fae4d1f3ea1",
+  "observations": 164,
+  "policy": "Report-only. The dataset is not modified; counts only.",
+  "rule_counts": {
+    "celsius_consistent": {
+      "FAIL": 0,
+      "PASS": 64
+    },
+    "missing_not_value": {
+      "FAIL": 0,
+      "PASS": 64
+    },
+    "missing_not_zero": {
+      "FAIL": 0,
+      "PASS": 164
+    },
+    "no_isomer_swap": {
+      "FAIL": 0,
+      "PASS": 64
+    },
+    "property_matches_field": {
+      "FAIL": 0,
+      "PASS": 64
+    },
+    "result_traces_to_observation": {
+      "FAIL": 0,
+      "PASS": 64
+    }
+  },
+  "status": "PASS"
+}
