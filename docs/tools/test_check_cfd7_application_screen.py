@@ -7,21 +7,22 @@ import json
 from pathlib import Path
 import unittest
 
-from check_cfd7_application_screen import check_rules, evaluate, evidence_policy, profile_ready, screen_candidate, screen_evidence, screen_record
+from check_cfd7_application_screen import adopted_constraints, check_rules, evaluate, evidence_policy, profile_ready, screen_candidate, screen_evidence, screen_record
 
 RULES = json.loads((Path(__file__).resolve().parents[1] / "feasibility" / "cfd7_application_screen_rules.json").read_text(encoding="utf-8"))
 REGISTER = json.loads((Path(__file__).resolve().parents[1] / "feasibility" / "acceptability_register.json").read_text(encoding="utf-8"))
 SOURCE = "SOURCE_REPORTED_NOT_PROJECT_MEASUREMENT"
-BIND = {"profile_id": "P1", "rules": RULES}
 
 
-def constraint(adopted=True):
-    return {"hard_rule_adopted": adopted, "candidate_screening_rule": adopted, "status": "ADOPTED" if adopted else "PROPOSED"}
+def constraint(adopted=True, constraint_id="a"):
+    return {"id": constraint_id, "hard_rule_adopted": adopted, "candidate_screening_rule": adopted,
+            "status": "ADOPTED" if adopted else "PROPOSED"}
 
 
-def register(ready=True, state="RESEARCH_FROZEN", adopted=True):
+def register(ready=True, state="RESEARCH_FROZEN", adopted=True, profile_id="P1", constraint_id="a"):
     return {"candidate_judgement_ready": ready,
-            "profiles": [{"profile_state": state, "constraints": [constraint(adopted)]}]}
+            "profiles": [{"profile_id": profile_id, "profile_state": state,
+                          "constraints": [constraint(adopted, constraint_id)]}]}
 
 
 def res(evidence, outcome):
@@ -96,6 +97,20 @@ class RulesFileTests(unittest.TestCase):
         rules = copy.deepcopy(RULES)
         rules["evaluation_order"][3]["on_match"] = "SURVIVES_SCREEN"
         self.assertIn("outcome:measured_hard_fail", check_rules(rules))
+
+    def test_malformed_evaluation_order_entry_is_reported(self):
+        reg = register()
+        for bad in (None, "profile_gate", 1, ["step"]):
+            rules = copy.deepcopy(RULES)
+            rules["evaluation_order"] = [bad]
+            with self.subTest(bad=bad):
+                self.assertIn("order", check_rules(rules))
+                self.assertIn("order", evaluate(rules, reg)["rules_problems"])
+                self.assertEqual(evaluate(rules, reg)["status"], "FAIL")
+        rules = copy.deepcopy(RULES)
+        rules["evaluation_order"][0] = None
+        self.assertIn("order", check_rules(rules))
+        self.assertEqual(evaluate(rules, reg)["status"], "FAIL")
 
 
 class ReadinessTests(unittest.TestCase):
@@ -244,48 +259,88 @@ class LabelledRecordTests(unittest.TestCase):
     def test_source_reported_label_kept_on_survivor_and_fail(self):
         reg = policy_register()
         for outcome, status in (("INSIDE", "SURVIVES_SCREEN"), ("OUTSIDE", "EXCLUDED_MEASURED_HARD_FAIL")):
-            record = screen_record(True, True, ["a"], {"a": self.labelled(reg, outcome)}, **BIND)
+            record = screen_record(reg, reg["profiles"][0], True, {"a": self.labelled(reg, outcome)}, rules=RULES)
             self.assertEqual((record["status"], record["evidence_labels"]), (status, ["SOURCE_REPORTED"]))
 
     def test_unlabelled_measurement_has_no_label(self):
-        self.assertEqual(screen_record(True, True, ["a"], {"a": res("MEASURED", "INSIDE")}, **BIND)["evidence_labels"], [])
+        reg = register()
+        record = screen_record(reg, reg["profiles"][0], True, {"a": res("MEASURED", "INSIDE")}, rules=RULES)
+        self.assertEqual(record["evidence_labels"], [])
 
     def test_label_on_non_measured_rejected(self):
+        reg = register()
         for bad in ({"evidence": "PREDICTED", "outcome": "OUTSIDE", "label": "SOURCE_REPORTED"},
                     {"evidence": "MEASURED", "outcome": "INSIDE", "label": ""}):
             with self.assertRaises(ValueError):
-                screen_record(True, True, ["a"], {"a": bad}, **BIND)
+                screen_record(reg, reg["profiles"][0], True, {"a": bad}, rules=RULES)
 
 
 class RecordBindingTests(unittest.TestCase):
     def test_record_carries_profile_rules_version_and_step(self):
-        cases = (((False, "adopted_constraints_only"), True, {}, "adopted_constraints_only", 2),
-                 (True, False, {"a": res("MEASURED", "INSIDE")}, "identity_gate", 3),
-                 (True, True, {"a": res("PREDICTED", "OUTSIDE")}, "predicted_fail", 5),
-                 (True, True, {"a": res("MEASURED", "INSIDE")}, "all_measured_inside", 7))
-        for ready, ident, results, rule, step in cases:
-            record = screen_record(ready, ident, ["a"], results, **BIND)
+        cases = ((True, "RESEARCH_FROZEN", False, True, {}, "adopted_constraints_only", 2),
+                 (True, "RESEARCH_FROZEN", True, False, {"a": res("MEASURED", "INSIDE")}, "identity_gate", 3),
+                 (True, "RESEARCH_FROZEN", True, True, {"a": res("PREDICTED", "OUTSIDE")}, "predicted_fail", 5),
+                 (True, "RESEARCH_FROZEN", True, True, {"a": res("MEASURED", "INSIDE")}, "all_measured_inside", 7))
+        for ready, state, adopted, ident, results, rule, step in cases:
+            reg = register(ready=ready, state=state, adopted=adopted)
+            record = screen_record(reg, reg["profiles"][0], ident, results, rules=RULES)
             self.assertEqual((record["profile_id"], record["rules_version"], record["rule"], record["step"]),
                              ("P1", RULES["version"], rule, step))
 
     def test_rules_version_follows_rules(self):
         rules = json.loads(json.dumps(RULES))
         rules["version"] = "2"
-        record = screen_record(True, True, ["a"], {"a": res("MEASURED", "INSIDE")}, profile_id="P1", rules=rules)
+        reg = register()
+        record = screen_record(reg, reg["profiles"][0], True, {"a": res("MEASURED", "INSIDE")}, rules=rules)
         self.assertEqual(record["rules_version"], "2")
 
     def test_binding_is_required(self):
-        args = (True, True, ["a"], {"a": res("MEASURED", "INSIDE")})
+        reg = register()
+        profile = reg["profiles"][0]
+        results = {"a": res("MEASURED", "INSIDE")}
         with self.assertRaises(TypeError):
-            screen_record(*args)
+            screen_record(reg, profile, True, results)
+        with self.assertRaises(TypeError):
+            screen_record(reg, profile, True, results, profile_id="OTHER", rules=RULES)
         for bad in ("", None, 7):
+            broken_reg = register()
+            broken_reg["profiles"][0]["profile_id"] = bad
             with self.assertRaises(ValueError):
-                screen_record(*args, profile_id=bad, rules=RULES)
+                screen_record(broken_reg, broken_reg["profiles"][0], True, results, rules=RULES)
         broken = json.loads(json.dumps(RULES))
         del broken["version"]
         for rules in (broken, None):
             with self.assertRaises(ValueError):
-                screen_record(*args, profile_id="P1", rules=rules)
+                screen_record(reg, profile, True, results, rules=rules)
+
+    def test_record_is_bound_to_the_screened_profile(self):
+        ready = {"profile_id": "READY", "profile_state": "RESEARCH_FROZEN", "constraints": [constraint(True, "c")]}
+        draft = {"profile_id": "DRAFT", "profile_state": "RESEARCH_DRAFT", "constraints": [constraint(True, "c")]}
+        reg = {"candidate_judgement_ready": True, "profiles": [ready, draft]}
+        results = {"c": res("MEASURED", "INSIDE")}
+        survivor = screen_record(reg, ready, True, results, rules=RULES)
+        self.assertEqual((survivor["profile_id"], survivor["status"]), ("READY", "SURVIVES_SCREEN"))
+        recorded_draft = screen_record(reg, draft, True, results, rules=RULES)
+        self.assertEqual((recorded_draft["profile_id"], recorded_draft["status"], recorded_draft["rule"]),
+                         ("DRAFT", "SCREEN_NOT_READY", "profile_gate"))
+        forged = copy.deepcopy(ready)
+        forged["profile_id"] = "DRAFT"
+        with self.assertRaises(ValueError):
+            screen_record(reg, forged, True, results, rules=RULES)
+        absent = copy.deepcopy(ready)
+        absent["profile_id"] = "OTHER"
+        with self.assertRaises(ValueError):
+            screen_record(reg, absent, True, results, rules=RULES)
+
+    def test_malformed_evaluation_order_raises_value_error(self):
+        reg = register()
+        results = {"a": res("MEASURED", "INSIDE")}
+        for bad in (None, "profile_gate", 1):
+            rules = copy.deepcopy(RULES)
+            rules["evaluation_order"] = [bad]
+            with self.subTest(bad=bad):
+                with self.assertRaises(ValueError):
+                    screen_record(reg, reg["profiles"][0], True, results, rules=rules)
 
 
 class CommittedRegisterTests(unittest.TestCase):
@@ -304,8 +359,20 @@ class CommittedRegisterTests(unittest.TestCase):
         self.assertEqual(report["adopted_screening_constraints"], 1)
         self.assertEqual(report["profile_readiness_counts"], {"READY": 1, "SCREEN_NOT_READY_profile_gate": 2})
 
+    def test_screen_record_names_the_profile_that_was_screened(self):
+        ready = self.profile("TP_IMMERSION_F0")
+        draft = self.profile("SP_IMMERSION")
+        results = {c["id"]: res("MEASURED", "INSIDE") for c in adopted_constraints(ready)}
+        record = screen_record(REGISTER, ready, True, results, rules=RULES)
+        self.assertEqual((record["profile_id"], record["status"]), ("TP_IMMERSION_F0", "SURVIVES_SCREEN"))
+        draft_record = screen_record(REGISTER, draft, True, {}, rules=RULES)
+        self.assertEqual((draft_record["profile_id"], draft_record["status"]), ("SP_IMMERSION", "SCREEN_NOT_READY"))
+        forged = copy.deepcopy(ready)
+        forged["profile_id"] = draft["profile_id"]
+        with self.assertRaises(ValueError):
+            screen_record(REGISTER, forged, True, results, rules=RULES)
+
     def test_adopted_boiling_window(self):
-        from check_cfd7_application_screen import adopted_constraints
         adopted = adopted_constraints(self.profile("TP_IMMERSION_F0"))
         self.assertEqual([c["id"] for c in adopted], ["TPI-BOIL-EXPLORATORY"])
         c = adopted[0]

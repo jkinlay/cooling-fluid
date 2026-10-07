@@ -9,7 +9,8 @@ Rules:
   evidence_policy    - the register's screening_evidence_policy, when present, maps only the named
                        source evidence types to MEASURED and labels them; a malformed policy fails.
 screen_candidate() applies the evaluation order to one candidate's results for every adopted constraint;
-screen_record() binds that decision to its profile_id, rules_version and deciding step.
+screen_record() derives readiness, adopted keys and profile_id from the register profile it screens,
+and binds that decision to the profile, its rules_version and deciding step.
 screen_evidence() maps one observation's evidence type to a screen evidence label under that policy.
 The report binds the exact rules bytes via local_evidence.rules_sha256 and the register via
 dataset_sha256.
@@ -87,7 +88,9 @@ def check_rules(rules: dict[str, Any]) -> list[str]:
     if set(rules.get("allowed_constraint_outcomes") or []) != OUTCOMES:
         problems.append("outcomes")
     steps = rules.get("evaluation_order")
-    if not isinstance(steps, list) or [s.get("rule") for s in steps] != list(ORDER):
+    # A non-object entry is a malformed order, not an attribute to look up. Short-circuit before .get.
+    if (not isinstance(steps, list) or any(not isinstance(s, dict) for s in steps)
+            or [s.get("rule") for s in steps] != list(ORDER)):
         problems.append("order")
     else:
         if [s.get("step") for s in steps] != list(range(1, len(ORDER) + 1)):
@@ -106,6 +109,39 @@ def adopted_constraints(profile: dict[str, Any]) -> list[dict[str, Any]]:
     return [c for c in profile.get("constraints") or []
             if c.get("hard_rule_adopted") is True and c.get("candidate_screening_rule") is True
             and c.get("status") == "ADOPTED"]
+
+
+def adopted_constraint_keys(profile: dict[str, Any]) -> list[str]:
+    """Constraint ids of the profile's adopted screening constraints, in register order."""
+    keys = []
+    for constraint in adopted_constraints(profile):
+        key = constraint.get("id")
+        if not isinstance(key, str) or not key:
+            raise ValueError("adopted constraint must have a non-empty id")
+        keys.append(key)
+    return keys
+
+
+def _bound_profile(register: dict[str, Any], profile: dict[str, Any]) -> dict[str, Any]:
+    """Return the register entry that is the profile being screened.
+
+    The record's profile_id, readiness and adopted keys are read from this entry. A caller cannot
+    name a different profile, or supply readiness and keys from one profile and an id from another.
+    """
+    if not isinstance(register, dict):
+        raise ValueError("register must be a mapping")
+    profiles = register.get("profiles")
+    if not isinstance(profiles, list) or not profiles:
+        raise ValueError("register must contain a non-empty profiles list")
+    if not isinstance(profile, dict):
+        raise ValueError("profile must be a register profile")
+    profile_id = profile.get("profile_id")
+    if not isinstance(profile_id, str) or not profile_id:
+        raise ValueError("profile_id must be a non-empty string")
+    matches = [item for item in profiles if isinstance(item, dict) and item.get("profile_id") == profile_id]
+    if len(matches) != 1 or matches[0] != profile:
+        raise ValueError("profile must be the register profile being screened")
+    return matches[0]
 
 
 def profile_ready(register: dict[str, Any], profile: dict[str, Any]) -> tuple[bool, str]:
@@ -197,26 +233,28 @@ def screen_candidate(ready: bool | tuple[bool, str], identity_resolved: bool, ad
     return "SURVIVES_SCREEN", "all_measured_inside"
 
 
-def screen_record(ready: bool | tuple[bool, str], identity_resolved: bool, adopted_keys: list[str],
-                  results: dict[str, dict[str, str]], *, profile_id: str,
-                  rules: dict[str, Any]) -> dict[str, Any]:
-    """screen_candidate() bound to its profile and rules version, plus the evidence provenance labels.
+def screen_record(register: dict[str, Any], profile: dict[str, Any], identity_resolved: bool,
+                  results: dict[str, dict[str, str]], *, rules: dict[str, Any]) -> dict[str, Any]:
+    """screen_candidate() bound to the register profile that was screened, plus provenance labels.
 
-    The rules invariant requires every screen decision to record the rules version, the profile and the
-    deciding step, so profile_id (a non-empty string) and the well-formed rules mapping are required;
-    the record carries rules_version, profile_id, the deciding rule and its evaluation_order step.
-    Each result may carry the label from screen_evidence() under "label". The record lists every label
-    on the adopted constraints, so a source-reported decision is never indistinguishable from a
-    project measurement.
+    Readiness, adopted constraint keys and profile_id come from that register profile. Passing a
+    different profile, or a profile that is not the matching register entry, is rejected, so a
+    decision cannot be attributed to a profile that was not screened. The rules invariant requires
+    every screen decision to record the rules version, the profile and the deciding step. rules must
+    be a well-formed CFD-7 rules mapping; a malformed evaluation_order entry is a rules problem and
+    raises ValueError here. The record carries rules_version, profile_id, the deciding rule and its
+    evaluation_order step. Each result may carry the label from screen_evidence() under "label".
+    The record lists every label on the adopted constraints, so a source-reported decision is never
+    indistinguishable from a project measurement.
     """
-    if not isinstance(profile_id, str) or not profile_id:
-        raise ValueError("profile_id must be a non-empty string")
     if not isinstance(rules, dict) or check_rules(rules):
         raise ValueError("rules must be a well-formed CFD-7 rules mapping")
-    status, rule = screen_candidate(ready, identity_resolved, adopted_keys, results)
+    bound = _bound_profile(register, profile)
+    adopted_keys = adopted_constraint_keys(bound)
+    status, rule = screen_candidate(profile_ready(register, bound), identity_resolved, adopted_keys, results)
     steps = {e["rule"]: e["step"] for e in rules["evaluation_order"]}
     labels = sorted({results[k]["label"] for k in adopted_keys if k in results and results[k].get("label")})
-    return {"evidence_labels": labels, "profile_id": profile_id, "rule": rule,
+    return {"evidence_labels": labels, "profile_id": bound["profile_id"], "rule": rule,
             "rules_version": rules["version"], "status": status, "step": steps[rule]}
 
 
