@@ -32,7 +32,7 @@ EXPECTED = (
 ORDER = tuple(rule for rule, _, _ in EXPECTED)
 EVIDENCE = {"MEASURED", "PREDICTED", "MISSING"}
 OUTCOMES = {"INSIDE", "OUTSIDE", "OVERLAP", "CONFLICT"}
-# Specification v1.1 profile states; RESEARCH_DRAFT is never screened.
+# Project specification profile states; RESEARCH_DRAFT is never screened.
 SCREENABLE_STATES = {"RESEARCH_FROZEN", "CAMPAIGN_READY", "QUALIFICATION_READY"}
 NUMERIC_KEYS = {"min", "max", "value", "limit", "threshold"}
 
@@ -70,7 +70,8 @@ def check_rules(rules: dict[str, Any]) -> list[str]:
 
 def adopted_constraints(profile: dict[str, Any]) -> list[dict[str, Any]]:
     return [c for c in profile.get("constraints") or []
-            if c.get("hard_rule_adopted") is True and c.get("candidate_screening_rule") is True]
+            if c.get("hard_rule_adopted") is True and c.get("candidate_screening_rule") is True
+            and c.get("status") == "ADOPTED"]
 
 
 def profile_ready(register: dict[str, Any], profile: dict[str, Any]) -> tuple[bool, str]:

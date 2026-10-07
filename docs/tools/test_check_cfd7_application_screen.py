@@ -9,7 +9,7 @@ RULES = json.loads((Path(__file__).resolve().parents[1] / "feasibility" / "cfd7_
 
 
 def constraint(adopted=True):
-    return {"hard_rule_adopted": adopted, "candidate_screening_rule": adopted}
+    return {"hard_rule_adopted": adopted, "candidate_screening_rule": adopted, "status": "ADOPTED" if adopted else "PROPOSED"}
 
 
 def register(ready=True, state="RESEARCH_FROZEN", adopted=True):
@@ -64,6 +64,14 @@ class ReadinessTests(unittest.TestCase):
 def screen(ready, identity, *results):
     keys = [f"c{i}" for i in range(len(results))]
     return screen_candidate(ready, identity, keys, dict(zip(keys, results)))
+
+
+class AdoptedStatusTests(unittest.TestCase):
+    def test_flags_without_adopted_status_do_not_screen(self):
+        for status in ("PROPOSED", "UNKNOWN"):
+            reg = register()
+            reg["profiles"][0]["constraints"][0]["status"] = status
+            self.assertEqual(profile_ready(reg, reg["profiles"][0]), (False, "adopted_constraints_only"))
 
 
 class SpecStateTests(unittest.TestCase):
