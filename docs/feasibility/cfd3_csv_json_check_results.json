@@ -1,0 +1,136 @@
+{
+  "all_checks_pass": true,
+  "checks": {
+    "header_complete": {
+      "extra_column_count": 0,
+      "missing_column_count": 0,
+      "status": "PASS"
+    },
+    "row_alignment": {
+      "csv_row_count": 32,
+      "dataset_candidate_count": 32,
+      "matched_row_count": 32,
+      "status": "PASS"
+    }
+  },
+  "columns": [
+    {
+      "column": "ID",
+      "mismatch_count": 0,
+      "status": "PASS"
+    },
+    {
+      "column": "Compound",
+      "mismatch_count": 0,
+      "status": "PASS"
+    },
+    {
+      "column": "CAS",
+      "mismatch_count": 0,
+      "status": "PASS"
+    },
+    {
+      "column": "Family",
+      "mismatch_count": 0,
+      "status": "PASS"
+    },
+    {
+      "column": "Boiling screen",
+      "mismatch_count": 0,
+      "status": "PASS"
+    },
+    {
+      "column": "NIST low (\u00b0C)",
+      "mismatch_count": 0,
+      "status": "PASS"
+    },
+    {
+      "column": "NIST high (\u00b0C)",
+      "mismatch_count": 0,
+      "status": "PASS"
+    },
+    {
+      "column": "Flash point (\u00b0C)",
+      "mismatch_count": 0,
+      "status": "PASS"
+    },
+    {
+      "column": "FP relation",
+      "mismatch_count": 0,
+      "status": "PASS"
+    },
+    {
+      "column": "Fire evidence",
+      "mismatch_count": 0,
+      "status": "PASS"
+    },
+    {
+      "column": "Overall profile",
+      "mismatch_count": 0,
+      "status": "PASS"
+    },
+    {
+      "column": "Evidence flags",
+      "mismatch_count": 0,
+      "status": "PASS"
+    },
+    {
+      "column": "Next evidence need",
+      "mismatch_count": 0,
+      "status": "PASS"
+    },
+    {
+      "column": "Boiling source ID",
+      "mismatch_count": 0,
+      "status": "PASS"
+    },
+    {
+      "column": "Flash source ID",
+      "mismatch_count": 0,
+      "status": "PASS"
+    },
+    {
+      "column": "Supplier bp report",
+      "mismatch_count": 0,
+      "status": "PASS"
+    },
+    {
+      "column": "Flash-point method",
+      "mismatch_count": 0,
+      "status": "PASS"
+    },
+    {
+      "column": "Formula",
+      "mismatch_count": 0,
+      "status": "PASS"
+    },
+    {
+      "column": "Catalogue purity",
+      "mismatch_count": 0,
+      "status": "PASS"
+    },
+    {
+      "column": "Vapour-pressure lead",
+      "mismatch_count": 0,
+      "status": "PASS"
+    },
+    {
+      "column": "Vaporization heat lead",
+      "mismatch_count": 0,
+      "status": "PASS"
+    }
+  ],
+  "input_sha256": {
+    "csv": "afb26c1f0047c5d8b176c70a1e152beadf73ba8d8fbdc8ae5399a62b26da3363",
+    "dataset": "517bcee853ab0e0c2eb1018068f816409899ce12e52c1b0600013fae4d1f3ea1"
+  },
+  "inputs": {
+    "csv": "docs/feasibility/feasibility_table.csv",
+    "dataset": "docs/feasibility/feasibility_table.json"
+  },
+  "mapping_coverage": {
+    "mapped_column_count": 21,
+    "unmapped_column_count": 0,
+    "unmapped_columns": []
+  }
+}
