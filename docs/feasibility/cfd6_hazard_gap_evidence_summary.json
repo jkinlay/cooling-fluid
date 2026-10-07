@@ -28,9 +28,11 @@
     "resolver_script_sha256": "8727de5dbc962edc58015c64c56022844370e4e509e53ac783b6d7137d1c4270",
     "selection_rule_sha256": "78fd2a0a6e8d982f113548ce38d32a7d88c66cdb171ace9894a3370a16323663"
   },
+  "new_lookup_evidence_used": true,
   "policy": "Counts and statuses only. Live public chemical-database lookups for the sampled records; retrieved data and per-record output are retained locally and not published. Source entries are kept separately; no value is selected, averaged or dropped; no GHS category is inferred from hazard statements; published dataset fields are not modified. Missing flash points stay UNKNOWN unless a source states a value.",
+  "prior_research_files_unchanged": true,
+  "published_dataset_unchanged": true,
   "record_type": "cfd6_flash_point_and_ghs_gap_evidence_summary",
-  "research_inputs_unchanged": true,
   "run_date": "2026-10-07",
   "sample": {
     "identity_confirmed": 9,
