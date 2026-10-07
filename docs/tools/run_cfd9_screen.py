@@ -27,6 +27,9 @@ from check_cfd7_application_screen import (STATUSES, adopted_constraints, check_
 POLICY = ("Report-only CFD-9 screen. Dataset, register and rules are not modified. Counts only; "
           "per-candidate records are kept outside the repository.")
 SUPPORTED_DOMAINS = {"normal_boiling_point"}
+# Observations carry Celsius bounds (temperature_low_c/high_c), so a window is compared only when its
+# units are explicitly Celsius. Any other or missing unit (e.g. K) is rejected, never converted silently.
+CELSIUS_UNITS = {"°C", "\u2103", "degC"}
 
 
 def _num(value: Any) -> float | None:
@@ -35,17 +38,28 @@ def _num(value: Any) -> float | None:
     return None
 
 
+def window_bounds(constraint: dict[str, Any]) -> tuple[float, float]:
+    """(min, max) in Celsius of an adopted inclusive window; ValueError if the window is malformed."""
+    bounds = constraint.get("value") or {}
+    lo, hi = _num(bounds.get("min")), _num(bounds.get("max"))
+    inclusive = constraint.get("inclusive_boundary") or {}
+    if lo is None or hi is None or inclusive.get("lower") is not True or inclusive.get("upper") is not True:
+        raise ValueError("adopted constraint must be an inclusive numeric min/max window")
+    units = constraint.get("units")
+    if not isinstance(units, str) or units not in CELSIUS_UNITS:
+        raise ValueError("adopted constraint units must be Celsius to compare with Celsius observations")
+    if lo > hi:
+        raise ValueError("adopted constraint min exceeds max")
+    return lo, hi
+
+
 def window_outcome(low: float | None, high: float | None, constraint: dict[str, Any]) -> str | None:
     """INSIDE/OUTSIDE/OVERLAP for an envelope against an inclusive min/max window; None if no envelope."""
     if low is None or high is None:
         return None
     if low > high:
         raise ValueError("envelope low exceeds high")
-    bounds = constraint.get("value") or {}
-    lo, hi = _num(bounds.get("min")), _num(bounds.get("max"))
-    inclusive = constraint.get("inclusive_boundary") or {}
-    if lo is None or hi is None or inclusive.get("lower") is not True or inclusive.get("upper") is not True:
-        raise ValueError("adopted constraint must be an inclusive numeric min/max window")
+    lo, hi = window_bounds(constraint)
     if low >= lo and high <= hi:
         return "INSIDE"
     if high < lo or low > hi:
@@ -109,6 +123,11 @@ def run(rules: dict[str, Any], register: dict[str, Any], dataset: dict[str, Any]
         pid = profile.get("profile_id")
         readiness = profile_ready(register, profile)
         adopted = adopted_constraints(profile) if readiness[0] else []
+        # Validate each window before screening, so a malformed window fails the run even when no
+        # candidate has evidence to compare against it.
+        for constraint in adopted:
+            if constraint.get("domain") in SUPPORTED_DOMAINS:
+                window_bounds(constraint)
         keys = [c["id"] for c in adopted]
         counts = per_profile.setdefault(pid, Counter())
         rules_used = per_rule.setdefault(pid, Counter())

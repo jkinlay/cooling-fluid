@@ -9,7 +9,7 @@ FEAS = Path(__file__).resolve().parents[1] / "feasibility"
 RULES = json.loads((FEAS / "cfd7_application_screen_rules.json").read_text(encoding="utf-8"))
 SOURCE = "SOURCE_REPORTED_NOT_PROJECT_MEASUREMENT"
 WINDOW = {"id": "W", "domain": "normal_boiling_point", "status": "ADOPTED", "hard_rule_adopted": True,
-          "candidate_screening_rule": True, "value": {"min": 10, "max": 20},
+          "candidate_screening_rule": True, "value": {"min": 10, "max": 20}, "units": "°C",
           "inclusive_boundary": {"lower": True, "upper": True}}
 
 
@@ -50,6 +50,44 @@ class WindowTests(unittest.TestCase):
         bad = dict(WINDOW, inclusive_boundary={"lower": True, "upper": False})
         with self.assertRaises(ValueError):
             window_outcome(12, 13, bad)
+
+    def test_celsius_unit_spellings_accepted(self):
+        for unit in ("°C", "\u2103", "degC"):
+            with self.subTest(unit=unit):
+                self.assertEqual(window_outcome(12, 13, dict(WINDOW, units=unit)), "INSIDE")
+
+    def test_non_celsius_or_missing_unit_rejected(self):
+        # A Kelvin window around the same temperatures must not be compared with Celsius observations.
+        kelvin = dict(WINDOW, units="K", value={"min": 283.15, "max": 293.15})
+        missing = {k: v for k, v in WINDOW.items() if k != "units"}
+        for bad in (kelvin, dict(WINDOW, units="°F"), dict(WINDOW, units=""), dict(WINDOW, units=None),
+                    dict(WINDOW, units=["°C"]), missing):
+            with self.subTest(units=bad.get("units", "<absent>")):
+                with self.assertRaises(ValueError):
+                    window_outcome(12, 13, bad)
+
+    def test_reversed_bounds_rejected(self):
+        reversed_window = dict(WINDOW, value={"min": 20, "max": 10})
+        for low, high in ((12, 13), (5, 6), (25, 26)):
+            with self.subTest(envelope=(low, high)):
+                with self.assertRaises(ValueError):
+                    window_outcome(low, high, reversed_window)
+        self.assertEqual(window_outcome(15, 15, dict(WINDOW, value={"min": 15, "max": 15})), "INSIDE")
+
+    def test_bad_constraint_aborts_run(self):
+        for change in ({"units": "K"}, {"value": {"min": 20, "max": 10}}):
+            reg = register()
+            reg["profiles"][0]["constraints"][0].update(change)
+            with self.subTest(change=change):
+                with self.assertRaises(ValueError):
+                    run(RULES, reg, dataset([(12, 13)]))
+                # Also when no candidate cites evidence, or the only candidate's identity is unresolved.
+                with self.assertRaises(ValueError):
+                    run(RULES, reg, dataset([]))
+                unresolved = dataset([(12, 13)])
+                unresolved["candidates"][0]["cas"] = ""
+                with self.assertRaises(ValueError):
+                    run(RULES, reg, unresolved)
 
 
 class RunTests(unittest.TestCase):
