@@ -20,6 +20,14 @@
     "candidates_with_correlation_range_covering_window": 5,
     "records_retrieved": 106
   },
+  "local_evidence": {
+    "note": "Digests only. Binds this summary to the locally retained lookup evidence and per-record output, which are not published.",
+    "per_record_results_sha256": "77269117ca7c7d9fed94ea99c3ff2e4f9c579cc57c1d3476e72d3aadfda3db81",
+    "raw_documents_count": 24,
+    "raw_documents_manifest_sha256": "b0ae29a31ccbc132f77558bd8317aec121fa281bc54f6092339fe57bfb59d898",
+    "resolver_script_sha256": "80a78b3f4a713c7514d2d4ced129e72f1798a6cba563ea13c24fd3179f92c929",
+    "selection_rule_sha256": "184f10fe7c5c1930fd82a47ac7ba0e4519fdc3bdfbcb85d29e2e1b1487235420"
+  },
   "operating_window_c": {
     "lower_inclusive": 45,
     "upper_inclusive": 55
