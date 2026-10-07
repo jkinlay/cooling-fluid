@@ -1,0 +1,14 @@
+{
+  "cited_file_sha256": {
+    "docs/feasibility/README.md": "9b11632256338e680af7b5d23cd225971378a1cb44fbf189a65a910f8008ac1c"
+  },
+  "entry_counts_by_kind": {
+    "EXCLUSION": 1,
+    "INCLUSION_RULE": 1,
+    "NON_CLAIM": 3,
+    "SEARCH_BOUNDARY": 3
+  },
+  "failure_counts_by_rule": {},
+  "register_sha256": "ad1018b6650b68e8363f60a05433a27aa6204837e375630a225508f3430042e9",
+  "status": "PASS"
+}
