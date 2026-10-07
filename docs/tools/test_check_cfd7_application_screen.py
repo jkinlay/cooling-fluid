@@ -35,6 +35,51 @@ class RulesFileTests(unittest.TestCase):
         rules["evaluation_order"][3]["max"] = 1
         self.assertIn("numeric_limit", check_rules(rules))
 
+    def test_numeric_limit_under_any_name_fails(self):
+        for key in ("upper_bound", "temperature_c", "anything"):
+            rules = copy.deepcopy(RULES)
+            rules["evaluation_order"][3][key] = 100
+            self.assertIn("numeric_limit", check_rules(rules))
+
+    def test_nested_and_top_level_numbers_fail(self):
+        for mutate in (lambda r: r.update({"window": {"lower": 1}}),
+                       lambda r: r.update({"bounds": [1, 2]}),
+                       lambda r: r.update({"cap": 1.5})):
+            rules = copy.deepcopy(RULES)
+            mutate(rules)
+            self.assertIn("numeric_limit", check_rules(rules))
+
+    def test_numeric_text_fails(self):
+        rules = copy.deepcopy(RULES)
+        rules["evaluation_order"][3]["upper_bound"] = "100"
+        self.assertIn("numeric_limit", check_rules(rules))
+
+    def test_version_label_exempt_only_at_top_level(self):
+        rules = copy.deepcopy(RULES)
+        rules["version"] = "2"
+        self.assertNotIn("numeric_limit", check_rules(rules))
+        rules["evaluation_order"][0]["version"] = "2"
+        self.assertIn("numeric_limit", check_rules(rules))
+
+    def test_non_string_version_not_exempt(self):
+        rules = copy.deepcopy(RULES)
+        rules["version"] = {"revision": 2, "limit": 100}
+        problems = check_rules(rules)
+        self.assertIn("version", problems)
+        self.assertIn("numeric_limit", problems)
+        rules["version"] = 2
+        self.assertIn("numeric_limit", check_rules(rules))
+
+    def test_nested_evaluation_order_step_not_exempt(self):
+        rules = copy.deepcopy(RULES)
+        rules["metadata"] = {"evaluation_order": [{"step": 100, "unit": "C"}]}
+        self.assertIn("numeric_limit", check_rules(rules))
+
+    def test_step_exemption_only_in_evaluation_order(self):
+        rules = copy.deepcopy(RULES)
+        rules["extra"] = {"step": 3}
+        self.assertIn("numeric_limit", check_rules(rules))
+
     def test_unknown_outcome_status_fails(self):
         rules = copy.deepcopy(RULES)
         rules["evaluation_order"][6]["on_match"] = "PASS"
