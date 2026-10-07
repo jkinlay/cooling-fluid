@@ -1,13 +1,14 @@
 {
-  "adopted_screening_constraints": 0,
+  "adopted_screening_constraints": 1,
   "dataset_path": "docs/feasibility/acceptability_register.json",
-  "dataset_sha256": "019ca9de23aac6766643bc7f289b7e8d3282b3e17cd7e7367fa838ec7ea38e44",
+  "dataset_sha256": "c0fb4e6695c654847c5aa6f858ec78783a19ace86a67970ce53dd7561b28d8e6",
   "local_evidence": {
     "rules_sha256": "f68786a4860b4844e4f73b8855686949c6ea6a0490810ad3040dffae00d0020a"
   },
   "policy": "Report-only. The register and dataset are not modified; counts only.",
   "profile_readiness_counts": {
-    "SCREEN_NOT_READY_profile_gate": 3
+    "READY": 1,
+    "SCREEN_NOT_READY_profile_gate": 2
   },
   "profiles": 3,
   "rule_counts": {
@@ -19,5 +20,12 @@
   "rules_path": "docs/feasibility/cfd7_application_screen_rules.json",
   "rules_problems": [],
   "rules_version": "1",
+  "screening_evidence_policy": {
+    "applies_to_evidence_types": [
+      "SOURCE_REPORTED_NOT_PROJECT_MEASUREMENT"
+    ],
+    "counts_as": "MEASURED",
+    "label": "SOURCE_REPORTED"
+  },
   "status": "PASS"
 }

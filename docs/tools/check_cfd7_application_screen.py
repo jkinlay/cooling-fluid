@@ -6,7 +6,10 @@ Rules:
   profile_readiness  - each register profile is SCREEN_NOT_READY unless the register is ready for
                        candidate judgement, the profile is approved and it has an adopted screening
                        constraint.
+  evidence_policy    - the register's screening_evidence_policy, when present, maps only the named
+                       source evidence types to MEASURED and labels them; a malformed policy fails.
 screen_candidate() applies the evaluation order to one candidate's results for every adopted constraint.
+screen_evidence() maps one observation's evidence type to a screen evidence label under that policy.
 The report binds the exact rules bytes via local_evidence.rules_sha256 and the register via
 dataset_sha256.
 Output is aggregate-only: no candidate, source, name, CAS or measurement values.
@@ -113,6 +116,41 @@ def profile_ready(register: dict[str, Any], profile: dict[str, Any]) -> tuple[bo
 
 
 READINESS_RULES = ("profile_gate", "adopted_constraints_only")
+POLICY_KEYS = {"source_reported_counts_as", "applies_to_evidence_types", "label"}
+
+
+def evidence_policy(register: dict[str, Any]) -> dict[str, Any] | None:
+    """Return the register's screening evidence policy, or None when absent. Raises if malformed."""
+    policy = register.get("screening_evidence_policy")
+    if policy is None:
+        return None
+    if not isinstance(policy, dict) or not POLICY_KEYS <= set(policy):
+        raise ValueError("screening_evidence_policy is missing required fields")
+    types = policy["applies_to_evidence_types"]
+    if (policy["source_reported_counts_as"] != "MEASURED" or not isinstance(types, list) or not types
+            or not all(isinstance(t, str) and t for t in types)
+            or not isinstance(policy["label"], str) or not policy["label"]):
+        raise ValueError("screening_evidence_policy is malformed")
+    return policy
+
+
+def screen_evidence(register: dict[str, Any], evidence_type: str | None, predicted: bool = False) -> tuple[str, str | None]:
+    """Return (screen evidence, provenance label) for one observation.
+
+    Without an observation the evidence is MISSING. A prediction is always PREDICTED. A source evidence
+    type counts as MEASURED only if the register policy names it, and then carries the policy label so a
+    source-reported value is never presented as a project measurement.
+    """
+    if evidence_type is None:
+        return "MISSING", None
+    if predicted:
+        return "PREDICTED", None
+    policy = evidence_policy(register)
+    if policy is not None and evidence_type in policy["applies_to_evidence_types"]:
+        return "MEASURED", policy["label"]
+    if evidence_type == "PROJECT_MEASUREMENT":
+        return "MEASURED", None
+    raise ValueError("evidence type is not covered by the screening evidence policy")
 
 
 def screen_candidate(ready: bool | tuple[bool, str], identity_resolved: bool, adopted_keys: list[str],
@@ -159,6 +197,11 @@ def evaluate(rules: dict[str, Any], register: dict[str, Any]) -> dict[str, Any]:
     if not isinstance(profiles, list) or not profiles:
         raise ValueError("register must contain a non-empty profiles list")
     problems = check_rules(rules)
+    try:
+        policy = evidence_policy(register)
+    except ValueError:
+        policy = None
+        problems.append("evidence_policy")
     readiness: Counter[str] = Counter()
     adopted = 0
     for profile in profiles:
@@ -174,6 +217,11 @@ def evaluate(rules: dict[str, Any], register: dict[str, Any]) -> dict[str, Any]:
             "rules_well_formed": {"FAIL": len(problems), "PASS": 0 if problems else 1},
         },
         "rules_problems": problems,
+        "screening_evidence_policy": None if policy is None else {
+            "applies_to_evidence_types": sorted(policy["applies_to_evidence_types"]),
+            "counts_as": policy["source_reported_counts_as"],
+            "label": policy["label"],
+        },
         "rules_version": rules.get("version"),
         "status": "FAIL" if problems else "PASS",
     }
