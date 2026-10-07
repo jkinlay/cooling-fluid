@@ -184,6 +184,9 @@ def screen_candidate(ready: bool | tuple[bool, str], identity_resolved: bool, ad
     for r in covered:
         if r.get("evidence") not in EVIDENCE or r.get("outcome") not in OUTCOMES | {None}:
             raise ValueError("constraint result has an unknown evidence or outcome label")
+        label = r.get("label")
+        if label is not None and (not isinstance(label, str) or not label or r["evidence"] != "MEASURED"):
+            raise ValueError("a provenance label is only allowed on MEASURED evidence")
     if any(r["evidence"] == "MEASURED" and r.get("outcome") == "OUTSIDE" for r in covered):
         return "EXCLUDED_MEASURED_HARD_FAIL", "measured_hard_fail"
     if any(r["evidence"] == "PREDICTED" and r.get("outcome") == "OUTSIDE" for r in covered):
@@ -191,6 +194,19 @@ def screen_candidate(ready: bool | tuple[bool, str], identity_resolved: bool, ad
     if any(r["evidence"] != "MEASURED" or r.get("outcome") != "INSIDE" for r in covered):
         return "UNKNOWN", "unresolved_constraint"
     return "SURVIVES_SCREEN", "all_measured_inside"
+
+
+def screen_record(ready: bool | tuple[bool, str], identity_resolved: bool, adopted_keys: list[str],
+                  results: dict[str, dict[str, str]]) -> dict[str, Any]:
+    """screen_candidate() plus the provenance labels of the evidence it used.
+
+    Each result may carry the label from screen_evidence() under "label". The record lists every label
+    on the adopted constraints, so a source-reported decision is never indistinguishable from a
+    project measurement.
+    """
+    status, rule = screen_candidate(ready, identity_resolved, adopted_keys, results)
+    labels = sorted({results[k]["label"] for k in adopted_keys if k in results and results[k].get("label")})
+    return {"status": status, "rule": rule, "evidence_labels": labels}
 
 
 def evaluate(rules: dict[str, Any], register: dict[str, Any]) -> dict[str, Any]:

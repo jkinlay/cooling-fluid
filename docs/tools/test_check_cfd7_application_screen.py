@@ -7,7 +7,7 @@ import json
 from pathlib import Path
 import unittest
 
-from check_cfd7_application_screen import check_rules, evaluate, evidence_policy, profile_ready, screen_candidate, screen_evidence
+from check_cfd7_application_screen import check_rules, evaluate, evidence_policy, profile_ready, screen_candidate, screen_evidence, screen_record
 
 RULES = json.loads((Path(__file__).resolve().parents[1] / "feasibility" / "cfd7_application_screen_rules.json").read_text(encoding="utf-8"))
 REGISTER = json.loads((Path(__file__).resolve().parents[1] / "feasibility" / "acceptability_register.json").read_text(encoding="utf-8"))
@@ -233,6 +233,27 @@ class EvidencePolicyTests(unittest.TestCase):
         outside = {"a": res(screen_evidence(reg, SOURCE)[0], "OUTSIDE")}
         self.assertEqual(screen_candidate(True, True, ["a"], inside), ("SURVIVES_SCREEN", "all_measured_inside"))
         self.assertEqual(screen_candidate(True, True, ["a"], outside), ("EXCLUDED_MEASURED_HARD_FAIL", "measured_hard_fail"))
+
+
+class LabelledRecordTests(unittest.TestCase):
+    def labelled(self, reg, outcome):
+        evidence, label = screen_evidence(reg, SOURCE)
+        return {"evidence": evidence, "outcome": outcome, "label": label}
+
+    def test_source_reported_label_kept_on_survivor_and_fail(self):
+        reg = policy_register()
+        for outcome, status in (("INSIDE", "SURVIVES_SCREEN"), ("OUTSIDE", "EXCLUDED_MEASURED_HARD_FAIL")):
+            record = screen_record(True, True, ["a"], {"a": self.labelled(reg, outcome)})
+            self.assertEqual((record["status"], record["evidence_labels"]), (status, ["SOURCE_REPORTED"]))
+
+    def test_unlabelled_measurement_has_no_label(self):
+        self.assertEqual(screen_record(True, True, ["a"], {"a": res("MEASURED", "INSIDE")})["evidence_labels"], [])
+
+    def test_label_on_non_measured_rejected(self):
+        for bad in ({"evidence": "PREDICTED", "outcome": "OUTSIDE", "label": "SOURCE_REPORTED"},
+                    {"evidence": "MEASURED", "outcome": "INSIDE", "label": ""}):
+            with self.assertRaises(ValueError):
+                screen_record(True, True, ["a"], {"a": bad})
 
 
 class CommittedRegisterTests(unittest.TestCase):
