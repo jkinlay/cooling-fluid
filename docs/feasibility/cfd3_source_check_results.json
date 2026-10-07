@@ -1,0 +1,41 @@
+{
+  "checks": {
+    "boiling_display_traceability": {
+      "finding_count": 0,
+      "rule_counts": {},
+      "status": "PASS"
+    },
+    "duplicate_urls": {
+      "finding_count": 0,
+      "rule_counts": {},
+      "status": "PASS"
+    },
+    "flash_display_traceability": {
+      "finding_count": 0,
+      "rule_counts": {},
+      "status": "PASS"
+    },
+    "retrieved_date_iso": {
+      "finding_count": 0,
+      "rule_counts": {},
+      "status": "PASS"
+    },
+    "text_hash_format": {
+      "finding_count": 0,
+      "rule_counts": {},
+      "status": "PASS"
+    },
+    "url_well_formed": {
+      "finding_count": 0,
+      "rule_counts": {},
+      "status": "PASS"
+    }
+  },
+  "input_path": "docs/feasibility/feasibility_table.json",
+  "input_sha256": "517bcee853ab0e0c2eb1018068f816409899ce12e52c1b0600013fae4d1f3ea1",
+  "overall_counts": {
+    "FAIL": 0,
+    "INFO": 0,
+    "PASS": 6
+  }
+}
