@@ -1,0 +1,49 @@
+{
+  "cfd4_captured_coverage": {
+    "cells_quarantined_for_identity": 2,
+    "cells_with_conditions_captured": 0,
+    "vaporization_heat_states": {
+      "MISSING": 4,
+      "RETURNED": 20
+    },
+    "vapour_pressure_states": {
+      "MISSING": 1,
+      "RETURNED": 23
+    }
+  },
+  "dataset_sha256": "517bcee853ab0e0c2eb1018068f816409899ce12e52c1b0600013fae4d1f3ea1",
+  "latent_heat": {
+    "NO_RECORD": 1,
+    "NO_TEMPERATURE_STATED": 0,
+    "OPERATING_TEMPERATURE": 14,
+    "REFERENCE_TEMPERATURE_ONLY": 9,
+    "candidates_with_correlation_range_covering_window": 5,
+    "records_retrieved": 106
+  },
+  "operating_window_c": {
+    "lower_inclusive": 45,
+    "upper_inclusive": 55
+  },
+  "policy": "Counts and statuses only. Live public reference-database lookups for the sampled records; retrieved data, coefficients and computed values are retained locally and not published. Vapour-pressure fits are used only inside their stated temperature range (no extrapolation); enthalpies at other temperatures are not relabelled as operating-temperature latent heat. No averaging and no outlier removal.",
+  "record_type": "cfd5_vapour_pressure_latent_heat_validity_summary",
+  "research_inputs_unchanged": true,
+  "run_date": "2026-10-07",
+  "sample": {
+    "basis": "published boiling status PASS or UNKNOWN",
+    "identity_not_confirmed": 0,
+    "total": 24
+  },
+  "status": "COMPLETE",
+  "vapour_pressure": {
+    "FULL_WINDOW": 6,
+    "NO_FIT": 11,
+    "OUT_OF_RANGE": 2,
+    "PARTIAL_WINDOW": 5,
+    "agrees_with_published_full_range_flag": 24,
+    "fits_retrieved": 17,
+    "full_window_candidates_with_disagreeing_fits": 0,
+    "full_window_candidates_with_single_fit": 6,
+    "saturation_points_computed_within_fit_range": 6,
+    "saturation_points_not_computed_outside_fit_range": 7
+  }
+}
