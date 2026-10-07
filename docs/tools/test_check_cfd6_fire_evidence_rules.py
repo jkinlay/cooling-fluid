@@ -1,4 +1,11 @@
 import copy
+import hashlib
+import json
+from pathlib import Path
+import re
+import subprocess
+import sys
+import tempfile
 import unittest
 
 from check_cfd6_fire_evidence_rules import evaluate
@@ -55,6 +62,33 @@ class FireRuleTests(unittest.TestCase):
         text = repr(evaluate(dataset(), REGISTER))
         for token in ("-1.5", "STOT", "H225"):
             self.assertNotIn(token, text)
+
+
+class ReportDigestTests(unittest.TestCase):
+    def run_cli(self):
+        tools = Path(__file__).resolve().parent
+        with tempfile.TemporaryDirectory() as tmp:
+            data_path, reg_path, out = Path(tmp) / "dataset.json", Path(tmp) / "register.json", Path(tmp) / "out.json"
+            data_path.write_text(json.dumps(dataset()), encoding="utf-8")
+            reg_path.write_text(json.dumps(REGISTER), encoding="utf-8")
+            subprocess.run([sys.executable, "-B", str(tools / "check_cfd6_fire_evidence_rules.py"), "--dataset", str(data_path),
+                            "--register", str(reg_path), "--output", str(out)], check=True)
+            return (json.loads(out.read_text(encoding="utf-8")), hashlib.sha256(data_path.read_bytes()).hexdigest(),
+                    hashlib.sha256(reg_path.read_bytes()).hexdigest())
+
+    def test_register_digest_only_under_local_evidence(self):
+        report, data_digest, reg_digest = self.run_cli()
+        self.assertNotIn("register_sha256", report)
+        self.assertEqual(report["local_evidence"], {"register_sha256": reg_digest})
+        self.assertEqual(report["dataset_sha256"], data_digest)
+
+    def test_hashes_outside_local_evidence_are_only_the_dataset_digest(self):
+        report, _, _ = self.run_cli()
+        for key, value in report["local_evidence"].items():
+            self.assertTrue(key.endswith("_sha256"))
+            self.assertRegex(value, r"^[0-9a-f]{64}$")
+        top_level_hashes = {k for k, v in report.items() if isinstance(v, str) and re.fullmatch(r"[0-9a-f]{64}", v)}
+        self.assertEqual(top_level_hashes, {"dataset_sha256"})
 
 
 if __name__ == "__main__":

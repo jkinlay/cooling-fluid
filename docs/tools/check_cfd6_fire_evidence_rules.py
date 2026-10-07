@@ -99,7 +99,8 @@ def main() -> int:
     report["dataset_path"] = args.dataset.as_posix()
     report["dataset_sha256"] = hashlib.sha256(raw_dataset).hexdigest()
     report["register_path"] = args.register.as_posix()
-    report["register_sha256"] = hashlib.sha256(raw_register).hexdigest()
+    # The register digest sits under local_evidence as a flat *_sha256 key (CFD-16 pattern).
+    report["local_evidence"] = {"register_sha256": hashlib.sha256(raw_register).hexdigest()}
     args.output.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8", newline="\n")
     return 1 if report["status"] == "FAIL" else 0
 

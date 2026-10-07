@@ -9,9 +9,11 @@
   },
   "dataset_path": "docs/feasibility/feasibility_table.json",
   "dataset_sha256": "517bcee853ab0e0c2eb1018068f816409899ce12e52c1b0600013fae4d1f3ea1",
+  "local_evidence": {
+    "register_sha256": "c0fb4e6695c654847c5aa6f858ec78783a19ace86a67970ce53dd7561b28d8e6"
+  },
   "policy": "Report-only. The dataset and register are not modified; counts only.",
   "register_path": "docs/feasibility/acceptability_register.json",
-  "register_sha256": "c0fb4e6695c654847c5aa6f858ec78783a19ace86a67970ce53dd7561b28d8e6",
   "rule_counts": {
     "fire_acceptance_needs_adopted_requirement": {
       "FAIL": 0,
