@@ -1,0 +1,49 @@
+{
+  "checks": {
+    "evidence_type": {
+      "finding_count": 0,
+      "rule_counts": {},
+      "status": "PASS"
+    },
+    "missing_states": {
+      "finding_count": 0,
+      "rule_counts": {},
+      "status": "PASS"
+    },
+    "relation_preserved": {
+      "finding_count": 0,
+      "rule_counts": {},
+      "status": "PASS"
+    },
+    "uncertainty_fields": {
+      "finding_count": 0,
+      "rule_counts": {},
+      "status": "PASS"
+    },
+    "unit_conversion": {
+      "finding_count": 0,
+      "rule_counts": {},
+      "status": "PASS"
+    },
+    "unit_vocabulary": {
+      "finding_count": 30,
+      "rule_counts": {
+        "temperature_text_only": 30
+      },
+      "status": "INFO"
+    }
+  },
+  "counts": {
+    "by_check": {
+      "evidence_type": 0,
+      "missing_states": 0,
+      "relation_preserved": 0,
+      "uncertainty_fields": 0,
+      "unit_conversion": 0,
+      "unit_vocabulary": 30
+    },
+    "observations": 164
+  },
+  "dataset_path": "docs/feasibility/feasibility_table.json",
+  "input_sha256": "517bcee853ab0e0c2eb1018068f816409899ce12e52c1b0600013fae4d1f3ea1"
+}
