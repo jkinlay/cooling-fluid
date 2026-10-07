@@ -122,6 +122,31 @@ class SourceCheckerTests(unittest.TestCase):
             self.report(fixture)["checks"]["flash_display_traceability"]["status"], "FAIL"
         )
 
+    def test_published_envelope_without_computable_observation_fails(self) -> None:
+        fixture = passing_fixture()
+        del fixture["observations"][0]["temperature_high_c"]
+        self.assertEqual(
+            self.report(fixture)["checks"]["boiling_display_traceability"]["status"], "FAIL"
+        )
+
+    def test_partially_published_envelope_without_computable_observation_fails(self) -> None:
+        fixture = passing_fixture()
+        fixture["observations"][0]["temperature_low_c"] = "n/a"
+        fixture["candidates"][0]["normal_boiling_point"]["evidence_envelope_high_c"] = None
+        self.assertEqual(
+            self.report(fixture)["checks"]["boiling_display_traceability"]["status"], "FAIL"
+        )
+
+    def test_unpublished_envelope_without_computable_observation_is_info(self) -> None:
+        fixture = passing_fixture()
+        del fixture["observations"][0]["temperature_high_c"]
+        boiling = fixture["candidates"][0]["normal_boiling_point"]
+        boiling["evidence_envelope_low_c"] = None
+        boiling["evidence_envelope_high_c"] = None
+        self.assertEqual(
+            self.report(fixture)["checks"]["boiling_display_traceability"]["status"], "INFO"
+        )
+
     def test_null_flash_requires_null_metadata(self) -> None:
         fixture = passing_fixture()
         flash = fixture["candidates"][0]["flash_point"]

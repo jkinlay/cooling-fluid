@@ -80,6 +80,15 @@ class IdentityCheckTests(unittest.TestCase):
         dataset["summary"]["records"] = 31
         self.assertEqual("FAIL", self.evaluate_fixture(dataset)["checks"]["summary_counts"]["status"])
 
+    def test_missing_summary_counter_fails(self) -> None:
+        for key in ("records", "property_observations", "source_records"):
+            with self.subTest(key=key):
+                dataset = passing_fixture()
+                del dataset["summary"][key]
+                check = self.evaluate_fixture(dataset)["checks"]["summary_counts"]
+                self.assertEqual("FAIL", check["status"])
+                self.assertIn(f"summary.{key} is missing, expected", " ".join(check["findings"]))
+
     def test_csv_identity_failing_fixture(self) -> None:
         dataset = passing_fixture()
         report = self.evaluate_fixture(dataset, lambda row: {**row, "CAS": "11-11-1"} if row["ID"] == "CF001" else row)

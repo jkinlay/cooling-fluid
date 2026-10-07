@@ -187,8 +187,13 @@ def check_boiling_traceability(candidates: list[dict[str, object]], observations
         highs = [as_number(row.get("temperature_high_c")) for row in cited]
         displayed_low = as_number(boiling.get("evidence_envelope_low_c"))
         displayed_high = as_number(boiling.get("evidence_envelope_high_c"))
-        if not cited or None in lows or None in highs or displayed_low is None or displayed_high is None:
-            add(infos, "envelope_not_computable_from_cited_observations")
+        computable = bool(cited) and None not in lows and None not in highs
+        published = displayed_low is not None or displayed_high is not None
+        if not computable or displayed_low is None or displayed_high is None:
+            if published:
+                add(failures, "published_envelope_not_computable_from_cited_observations")
+            else:
+                add(infos, "envelope_not_computable_from_cited_observations")
         elif abs(displayed_low - min(lows)) > TOLERANCE or abs(displayed_high - max(highs)) > TOLERANCE:
             add(failures, "displayed_envelope_does_not_match_cited_observations")
     return result(failures, infos)
