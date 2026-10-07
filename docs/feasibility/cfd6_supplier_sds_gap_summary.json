@@ -26,6 +26,14 @@
     "STATED_SINGLE": 0,
     "categories_imputed": 0
   },
+  "local_evidence": {
+    "note": "Digests only. Binds this summary to the locally retained lookup evidence and per-record output, which are not published.",
+    "per_record_results_sha256": "1ce94efa4db4226dbfcb6a1a59752133a5c4b250719cd1d85eb96bf8ff810309",
+    "raw_documents_count": 1,
+    "raw_documents_manifest_sha256": "48ca0080ef236706e20420d7d9f603e2f6cc6d90950f0a7f0e6c7d02a6ec4a3c",
+    "resolver_script_sha256": "0cdd8475a5c3fbdc01c3b07bc2cd3e2f2f321c47c2ff562303e91ccba8f7362d",
+    "selection_rule_sha256": "39ebee4273f183943345cad9cb26d6ef7a26c9e7a223588ceb22340c5b8438e0"
+  },
   "policy": "Counts and statuses only. Publicly accessible supplier product/SDS pages only, by plain GET; no login, forms, captchas or access-control workarounds. Blocked or content-less responses are UNKNOWN(no_public_access). Retrieved documents stay local. No value is selected, averaged or dropped; a GHS category is recorded only where a document states it; published dataset fields are not modified.",
   "record_type": "cfd6_supplier_sds_gap_evidence_summary",
   "research_inputs_unchanged": true,
