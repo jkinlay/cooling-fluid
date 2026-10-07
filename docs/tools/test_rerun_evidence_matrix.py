@@ -12,6 +12,12 @@ class CompareTests(unittest.TestCase):
     def test_value_change_detected(self):
         self.assertFalse(same_json(b'{"a": 1}', b'{"a": 2}'))
 
+    def test_type_changes_detected(self):
+        self.assertFalse(same_json(b'{"ok": true}', b'{"ok": 1}'))
+        self.assertFalse(same_json(b'{"n": 1}', b'{"n": 1.0}'))
+        self.assertFalse(same_json(b'[false]', b'[0]'))
+        self.assertTrue(same_json(b'{"a": [1, {"b": null}]}', b'{"a":[1,{"b":null}]}'))
+
     def test_invalid_json_is_not_same(self):
         self.assertFalse(same_json(b'{"a": 1}', b'not json'))
 

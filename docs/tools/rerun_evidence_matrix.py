@@ -44,10 +44,21 @@ JOBS: tuple[tuple[str, str, tuple[str, ...]], ...] = (
 )
 
 
+def _strict_equal(a: Any, b: Any) -> bool:
+    """Equality that also requires identical JSON types (so true != 1 and 1 != 1.0)."""
+    if type(a) is not type(b):
+        return False
+    if isinstance(a, dict):
+        return a.keys() == b.keys() and all(_strict_equal(a[k], b[k]) for k in a)
+    if isinstance(a, list):
+        return len(a) == len(b) and all(_strict_equal(x, y) for x, y in zip(a, b))
+    return a == b
+
+
 def same_json(committed: bytes, fresh: bytes) -> bool:
-    """Parsed-JSON equality; line endings and formatting do not matter."""
+    """Type-strict parsed-JSON equality; line endings and formatting do not matter."""
     try:
-        return json.loads(committed.decode("utf-8")) == json.loads(fresh.decode("utf-8"))
+        return _strict_equal(json.loads(committed.decode("utf-8")), json.loads(fresh.decode("utf-8")))
     except (UnicodeDecodeError, json.JSONDecodeError):
         return False
 
